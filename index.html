@@ -152,6 +152,277 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-我的第一篇博客(置顶)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2(%E7%BD%AE%E9%A1%B6)/">我的第一篇博客(置顶)</a>
+    </h1>
+  
+
+        
+        <a href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2(%E7%BD%AE%E9%A1%B6)/" class="archive-article-date">
+  	<time datetime="2023-09-15T07:44:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-15</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">568字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+        
+        <!-- 添加代码 -->
+        
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录自己的第一篇博客，主要内容为Hexo的主要指令、markdown的主要语法和我的博客风格</span></p>
+<hr>
+<h2 id="一-我的博客风格"><a href="#一-我的博客风格" class="headerlink" title="一.我的博客风格"></a>一.我的博客风格</h2><p>%日记类的博客可以不按照任意风格格式</p>
+<h3 id="1-博客框架"><a href="#1-博客框架" class="headerlink" title="1.博客框架"></a>1.博客框架</h3><ul>
+<li>每篇博客使用tags归类</li>
+<li>类内博客标题使用xxx(一)—xxx的格式</li>
+<li>类内博客第一篇标题为xxx(零)，内容为：<br>&emsp;&emsp;该类博客的主要介绍<br>&emsp;&emsp;该类博客的风格</li>
+<li>类内博客简介包含该类的主要介绍</li>
+<li>类内博客最后一篇标题为xxx(END) tags包含”日记”</li>
+</ul>
+<h3 id="1-行文框架"><a href="#1-行文框架" class="headerlink" title="1.行文框架"></a>1.行文框架</h3><ul>
+<li>行文第一块为简介：xxx 字体为灰色</li>
+<li>行文第二块为参考资料</li>
+<li>正文从二级标题开始 %一级标题为文章标题<br>&emsp;&emsp;二级标题使用 一. 二. 三. …<br>&emsp;&emsp;三级标题使用 1. 2. 3. …<br>&emsp;&emsp;四级标题使用 1.1. 1.2. 1.3.<br>&emsp;&emsp;以此类推…</li>
+<li>建议在最小级内容下添加<br>&emsp;&emsp;遇到问题&amp;解决方案 颜色为#3399ff<br>&emsp;&emsp;Tips 颜色为#ff6600</li>
+<li>行文结尾为结语：xxx 颜色为灰色</li>
+</ul>
+<h3 id="2-其它"><a href="#2-其它" class="headerlink" title="2.其它"></a>2.其它</h3><ul>
+<li>正文注释使用% 代码注释依据语言决定</li>
+</ul>
+<h2 id="二-Hexo主要指令"><a href="#二-Hexo主要指令" class="headerlink" title="二.Hexo主要指令"></a>二.Hexo主要指令</h2><ul>
+<li>hexo -n “xxx” %创建一个新文章</li>
+<li>hexo clean %清理</li>
+<li>hexo -g %生成</li>
+<li>hexo -d %部署</li>
+<li>hexo -s %预览</li>
+</ul>
+<p>%<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> #本地访问地址<br>%<a target="_blank" rel="noopener" href="https://arrowonstr.github.io/">https://arrowonstr.github.io/</a> #查看博客</p>
+<h2 id="三-markdown主要语法"><a href="#三-markdown主要语法" class="headerlink" title="三.markdown主要语法"></a>三.markdown主要语法</h2><ul>
+<li>%n级标题 #*n</li>
+<li>%引用 &gt;</li>
+<li>%列表 -</li>
+<li>%代码块 &#96;&#96;&#96;代码语言</li>
+<li>%脚注 [^]</li>
+<li>%横线 —</li>
+<li>%网址 [网站]（地址”注释”)</li>
+<li>%超链接 [标题](#标题）</li>
+<li>%图片 ！[图片](链接”注释”）</li>
+<li>%斜体 **</li>
+<li>%加粗 ** **</li>
+<li>%行内代码&#x2F;使符号不起格式作用 <code>``</code></li>
+<li>%下划线 <code>&lt;u&gt;下划线&lt;/u&gt;</code></li>
+<li>%高亮 &#x3D;&#x3D; &#x3D;&#x3D;</li>
+</ul>
+<hr>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;早祷的钟声突然响了，无数的钟声一下子都惊醒了。天又黎明！黑沉沉的危崖后面，看不见的太阳在金色的天空升起。快要倒下来的克利斯朵夫终于到了彼岸。于是他对孩子说：<br>&emsp;&emsp;“咱们到了！唉，你多重啊！孩子，你究竟是谁呢？”<br>&emsp;&emsp;孩子回答说：<br>&emsp;&emsp;“我是即将来到的日子。”</span></p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2(%E7%BD%AE%E9%A1%B6)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-K210开发板-二-—点亮LED灯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/">K210开发板(二)—点亮LED灯</a>
+    </h1>
+  
+
+        
+        <a href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/" class="archive-article-date">
+  	<time datetime="2023-09-16T05:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-16</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">406字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">1分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+        
+        <!-- 添加代码 -->
+        
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为开发环境的搭建。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案</span></p>
+<hr>
+<blockquote>
+<p>参考资料:<a target="_blank" rel="noopener" href="http://www.yahboom.com/study/K210-Developer-Kit">http://www.yahboom.com/study/K210-Developer-Kit</a><br>提取码：moj1</p>
+</blockquote>
+<h2 id="一-实验准备"><a href="#一-实验准备" class="headerlink" title="一.实验准备"></a>一.实验准备</h2><h3 id="1-GPIO"><a href="#1-GPIO" class="headerlink" title="1.GPIO"></a>1.GPIO</h3><p>&emsp;&emsp;我个人理解是将芯片的的操作封装成函数，使微控制器成为微处理器</p>
+<blockquote>
+<p>好比你告诉家里的保姆说“去吧客厅的灯关上”，他就走过去按动灯的开关，然后灯就灭了。你下的这个指令的动作相当于调用了GPIO操作的函数，保姆去按开关这个动作相当于函数配置寄存器。</p>
+</blockquote>
+<h3 id="2-K210的GPIO—FPIOA"><a href="#2-K210的GPIO—FPIOA" class="headerlink" title="2.K210的GPIO—FPIOA"></a>2.K210的GPIO—FPIOA</h3><p>&emsp;&emsp;FPIOA （现场可编程 IO 阵列）允许用户将 255 个内部功能映射到芯片外围的 48 个自由 IO 上</p>
+<h2 id="二-实验步骤"><a href="#二-实验步骤" class="headerlink" title="二.实验步骤"></a>二.实验步骤</h2><h4 id="1-配置"><a href="#1-配置" class="headerlink" title="1.配置"></a>1.配置</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义硬件引脚(见原理图)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_LED_0 (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_LED_1 (17)</span></span><br><span class="line"><span class="comment">//定义软件GPIO口</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_GPIONUM (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_GPIONUM (1)</span></span><br><span class="line"><span class="comment">//将硬件引脚映射到软件GPIO功能</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_LED0 (FUNC_GPIO0 + LED0_GPIONUM)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_LED1 (FUNC_GPIO0 + LED1_GPIONUM)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hardware_init</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	fpioa_set_function(PIN_LED_0, FUNC_LED0);</span><br><span class="line">	fpioa_set_function(PIN_LED_1, FUNC_LED1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2.初始化"></a>2.初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hardware_init(); <span class="comment">//硬件引脚初始化</span></span><br><span class="line">gpio_init(); <span class="comment">// 使能GPIO的时钟</span></span><br><span class="line"><span class="comment">// 设置LED0和LED1的GPIO模式为输出</span></span><br><span class="line">gpio_set_drive_mode(LED0_GPIONUM, GPIO_DM_OUTPUT);</span><br><span class="line">gpio_set_drive_mode(LED1_GPIONUM, GPIO_DM_OUTPUT);</span><br><span class="line"><span class="comment">// 先关闭LED0和LED1</span></span><br><span class="line"><span class="type">gpio_pin_value_t</span> value = GPIO_PV_HIGH;</span><br><span class="line">gpio_set_pin(LED0_GPIONUM, value);</span><br><span class="line">gpio_set_pin(LED1_GPIONUM, value);</span><br></pre></td></tr></table></figure>
+<h4 id="3-主体"><a href="#3-主体" class="headerlink" title="3.主体"></a>3.主体</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sleep(<span class="number">1</span>); <span class="comment">//延时1s</span></span><br><span class="line">gpio_set_pin(LED0_GPIONUM, value); <span class="comment">//设置引脚值</span></span><br><span class="line">gpio_set_pin(LED1_GPIONUM, value = !value);</span><br></pre></td></tr></table></figure>
+<h2 id="三-实验总结"><a href="#三-实验总结" class="headerlink" title="三.实验总结"></a>三.实验总结</h2><p><span style="color: #3399ff;">遇到问题</span>：未能理解<code>FUNC_GPIO0</code>的作用<br><span style="color: #3399ff;">解决方案</span>：暂未解决</p>
+<hr>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;无</span></p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">K210</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-K210开发板-一-—搭建开发环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -215,7 +486,7 @@
 <li>进入 build 目录，运行命令<br> cmake <code>..</code> -DPROJ&#x3D;name -G “MinGW Makefiles”<br> make</li>
 <li>打开kfalsh把生成的.bin文件(填入路径)烧录到开发板上</li>
 </ol>
-<p><span style="color: #3399ff;">遇到问题</span>：解压参考资料里的toolchain时报错：路径太长无法复制<br><span style="color: #3399ff;">解决方案</span>：进入<a target="_blank" rel="noopener" href="https://www.canaan-creative.com/developer%E4%B8%8B%E8%BD%BD%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%8D%B3%E5%8F%AF">https://www.canaan-creative.com/developer下载压缩包即可</a></p>
+<p><span style="color: #3399ff;">遇到问题</span>：解压参考资料里的toolchain时报错：路径太长无法复制<br><span style="color: #3399ff;">解决方案</span>：进入<a target="_blank" rel="noopener" href="https://www.canaan-creative.com/developer">https://www.canaan-creative.com/developer</a> 下载压缩包即可</p>
 <hr>
 <p><span style="color: gray;">结语：<br>&emsp;&emsp;搭建过程友好，不要气馁</span></p>
 <hr>
@@ -272,20 +543,20 @@
 
 
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-K210开发板-零" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
+      <a class="article-title" href="/2023/09/14/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/">K210开发板(零)</a>
     </h1>
   
 
         
-        <a href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2023-09-15T07:44:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-15</time>
+        <a href="/2023/09/14/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/" class="archive-article-date">
+  	<time datetime="2023-09-14T08:08:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-14</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -295,7 +566,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">436字</span>
+        <span class="post-count">215字</span>
       </span>
     </span>
 
@@ -319,45 +590,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录自己的第一篇博客，主要内容为Hexo的主要指令、markdown的主要语法和我的博客风格</span></p>
-<hr>
-<h2 id="一-Hexo主要指令"><a href="#一-Hexo主要指令" class="headerlink" title="一.Hexo主要指令"></a>一.Hexo主要指令</h2><ul>
-<li>hexo -n “xxx” %创建一个新文章</li>
-<li>hexo clean %清理</li>
-<li>hexo -g %生成</li>
-<li>hexo -d %部署</li>
-<li>hexo -s %预览</li>
+        <h3 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一.介绍"></a>一.介绍</h3><p>&emsp;&emsp;本类博客tags:K210<br>&emsp;&emsp;本类博客用于记录自己的K210开发板学习过程，由于参考资料的教程比较齐全，本类博客会着重于讲述自己遇到的问题和解决方案</p>
+<blockquote>
+<p>参考资料:<a target="_blank" rel="noopener" href="http://www.yahboom.com/study/K210-Developer-Kit">http://www.yahboom.com/study/K210-Developer-Kit</a><br>提取码：moj1</p>
+</blockquote>
+<h3 id="二-本类博客风格"><a href="#二-本类博客风格" class="headerlink" title="二.本类博客风格"></a>二.本类博客风格</h3><ul>
+<li>第一篇为开发环境的搭建，之后为记录程序实践，第一篇不适用于下述风格</li>
+<li>二级标题必选为实验准备、实验步骤、实验总结</li>
+<li>实验步骤中三级标题可选为代码编写、烧录结果</li>
+<li>代码编写中四级标题可选为<br>&emsp;&emsp;配置（main函数前部分）<br>&emsp;&emsp;初始化（main函数至while循环部分<br>&emsp;&emsp;主体（while循环中部分）<br>&emsp;&emsp;其它（while循环后部分）</li>
 </ul>
-<p>%<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> #本地访问地址<br>%<a target="_blank" rel="noopener" href="https://arrowonstr.github.io/">https://arrowonstr.github.io/</a> #查看博客</p>
-<h2 id="二-markdown主要语法"><a href="#二-markdown主要语法" class="headerlink" title="二.markdown主要语法"></a>二.markdown主要语法</h2><ul>
-<li>%n级标题 #*n</li>
-<li>%引用 &gt;</li>
-<li>%列表 -</li>
-<li>%代码块 &#96;&#96;&#96;代码语言</li>
-<li>%脚注 [^]</li>
-<li>%横线 —</li>
-<li>%网址 [网站]（地址”注释”)</li>
-<li>%超链接 [标题](#标题）</li>
-<li>%图片 ！[图片](链接”注释”）</li>
-<li>%斜体 **</li>
-<li>%加粗 ** **</li>
-<li>%下划线 <code>&lt;u&gt;下划线&lt;/u&gt;</code></li>
-<li>%高亮 &#x3D;&#x3D; &#x3D;&#x3D;</li>
-</ul>
-<h2 id="三-我的博客风格"><a href="#三-我的博客风格" class="headerlink" title="三.我的博客风格"></a>三.我的博客风格</h2><h3 id="1-行文框架"><a href="#1-行文框架" class="headerlink" title="1.行文框架"></a>1.行文框架</h3><ul>
-<li>行文第一块为简介：xxx 字体为浅灰色</li>
-<li>行文第二块为参考资料</li>
-<li>正文从二级标题开始 %一级标题为文章标题<br>&emsp;二级标题使用 一. 二. 三. …<br>&emsp;三级标题使用 1. 2. 3. …<br>&emsp;四级标题使用 1.1. 1.2. 1.3.<br>&emsp;以此类推…</li>
-<li>建议在最小级内容下添加<br>&emsp;遇到问题&amp;解决方案 颜色为#3399ff<br>&emsp;Tips 颜色为#ff6600</li>
-<li>行文结尾为结语：xxx 颜色为灰色</li>
-</ul>
-<h3 id="2-其它"><a href="#2-其它" class="headerlink" title="2.其它"></a>2.其它</h3><ul>
-<li>正文注释使用% 代码注释依据语言决定</li>
-</ul>
-<hr>
-<p><span style="color: gray;">结语：<br>&emsp;&emsp;早祷的钟声突然响了，无数的钟声一下子都惊醒了。天又黎明！黑沉沉的危崖后面，看不见的太阳在金色的天空升起。快要倒下来的克利斯朵夫终于到了彼岸。于是他对孩子说：<br>&emsp;&emsp;“咱们到了！唉，你多重啊！孩子，你究竟是谁呢？”<br>&emsp;&emsp;孩子回答说：<br>&emsp;&emsp;“我是即将来到的日子。”</span></p>
-<hr>
 
       
 
@@ -371,7 +613,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">K210</a>
         		</li>
       		
 		</ul>
@@ -381,7 +623,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/09/14/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/">展开全文 >></a>
         </p>
       
 
@@ -568,27 +810,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://gohoy.github.io" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+              <a href="http://gohoy.github.io" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友链Gohoy</a>
             </li>
           
         </ul>
