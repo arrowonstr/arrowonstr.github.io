@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>K210开发板(二)—点亮LED灯 | 弦上的箭</title>
+  <title>K210开发板(零) | 弦上的箭</title>
   <meta name="keywords" content=" K210 ">
-  <meta name="description" content="K210开发板(二)—点亮LED灯 | 弦上的箭">
+  <meta name="description" content="K210开发板(零) | 弦上的箭">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="简介：&amp;emsp;&amp;emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为开发环境的搭建。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案   参考资料:http:&#x2F;&#x2F;www.yahboom.com&#x2F;study&#x2F;K210-Developer-Kit提取码：moj1  一.安装串口驱动&amp;emsp;&amp;emsp;使用参考资料中的程序安装即可 遇到问题：设备管理器中找不">
 <meta property="og:type" content="article">
@@ -239,9 +239,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-K210开发板-二-—点亮LED灯" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-K210开发板-零" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">K210开发板(二)—点亮LED灯</h1>
+        <h1 class="article-title">K210开发板(零)</h1>
     
     <div class="article-meta">
         
@@ -258,12 +258,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-09-16 16:35:00'>2023-09-16 13:40</time>
+            Created At : <time class="date" title='Updated At: 2023-09-16 17:17:33'>2023-09-15 18:44</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:406</span>
+        <span>Count:215</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -282,7 +282,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%AE%9E%E9%AA%8C%E5%87%86%E5%A4%87"><span class="toc-text">一.实验准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-GPIO"><span class="toc-text">1.GPIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-K210%E7%9A%84GPIO%E2%80%94FPIOA"><span class="toc-text">2.K210的GPIO—FPIOA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-text">二.实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE"><span class="toc-text">1.配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">2.初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%BB%E4%BD%93"><span class="toc-text">3.主体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">三.实验总结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E4%BB%8B%E7%BB%8D"><span class="toc-text">一.介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E6%9C%AC%E7%B1%BB%E5%8D%9A%E5%AE%A2%E9%A3%8E%E6%A0%BC"><span class="toc-text">二.本类博客风格</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -298,24 +298,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为开发环境的搭建。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案</span></p>
-<hr>
+        <h3 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一.介绍"></a>一.介绍</h3><p>&emsp;&emsp;本类博客tags:K210<br>&emsp;&emsp;本类博客用于记录自己的K210开发板学习过程，由于参考资料的教程比较齐全，本类博客会着重于讲述自己遇到的问题和解决方案</p>
 <blockquote>
 <p>参考资料:<a target="_blank" rel="noopener" href="http://www.yahboom.com/study/K210-Developer-Kit">http://www.yahboom.com/study/K210-Developer-Kit</a><br>提取码：moj1</p>
 </blockquote>
-<h2 id="一-实验准备"><a href="#一-实验准备" class="headerlink" title="一.实验准备"></a>一.实验准备</h2><h3 id="1-GPIO"><a href="#1-GPIO" class="headerlink" title="1.GPIO"></a>1.GPIO</h3><p>&emsp;&emsp;我个人理解是将芯片的的操作封装成函数，使微控制器成为微处理器</p>
-<blockquote>
-<p>好比你告诉家里的保姆说“去吧客厅的灯关上”，他就走过去按动灯的开关，然后灯就灭了。你下的这个指令的动作相当于调用了GPIO操作的函数，保姆去按开关这个动作相当于函数配置寄存器。</p>
-</blockquote>
-<h3 id="2-K210的GPIO—FPIOA"><a href="#2-K210的GPIO—FPIOA" class="headerlink" title="2.K210的GPIO—FPIOA"></a>2.K210的GPIO—FPIOA</h3><p>&emsp;&emsp;FPIOA （现场可编程 IO 阵列）允许用户将 255 个内部功能映射到芯片外围的 48 个自由 IO 上</p>
-<h2 id="二-实验步骤"><a href="#二-实验步骤" class="headerlink" title="二.实验步骤"></a>二.实验步骤</h2><h4 id="1-配置"><a href="#1-配置" class="headerlink" title="1.配置"></a>1.配置</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义硬件引脚(见原理图)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_LED_0 (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_LED_1 (17)</span></span><br><span class="line"><span class="comment">//定义软件GPIO口</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_GPIONUM (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_GPIONUM (1)</span></span><br><span class="line"><span class="comment">//将硬件引脚映射到软件GPIO功能</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_LED0 (FUNC_GPIO0 + LED0_GPIONUM)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_LED1 (FUNC_GPIO0 + LED1_GPIONUM)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hardware_init</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	fpioa_set_function(PIN_LED_0, FUNC_LED0);</span><br><span class="line">	fpioa_set_function(PIN_LED_1, FUNC_LED1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2.初始化"></a>2.初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hardware_init(); <span class="comment">//硬件引脚初始化</span></span><br><span class="line">gpio_init(); <span class="comment">// 使能GPIO的时钟</span></span><br><span class="line"><span class="comment">// 设置LED0和LED1的GPIO模式为输出</span></span><br><span class="line">gpio_set_drive_mode(LED0_GPIONUM, GPIO_DM_OUTPUT);</span><br><span class="line">gpio_set_drive_mode(LED1_GPIONUM, GPIO_DM_OUTPUT);</span><br><span class="line"><span class="comment">// 先关闭LED0和LED1</span></span><br><span class="line"><span class="type">gpio_pin_value_t</span> value = GPIO_PV_HIGH;</span><br><span class="line">gpio_set_pin(LED0_GPIONUM, value);</span><br><span class="line">gpio_set_pin(LED1_GPIONUM, value);</span><br></pre></td></tr></table></figure>
-<h4 id="3-主体"><a href="#3-主体" class="headerlink" title="3.主体"></a>3.主体</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sleep(<span class="number">1</span>); <span class="comment">//延时1s</span></span><br><span class="line">gpio_set_pin(LED0_GPIONUM, value); <span class="comment">//设置引脚值</span></span><br><span class="line">gpio_set_pin(LED1_GPIONUM, value = !value);</span><br></pre></td></tr></table></figure>
-<h2 id="三-实验总结"><a href="#三-实验总结" class="headerlink" title="三.实验总结"></a>三.实验总结</h2><p><span style="color: #3399ff;">遇到问题</span>：未能理解<code>FUNC_GPIO0</code>的作用<br><span style="color: #3399ff;">解决方案</span>：暂未解决</p>
-<hr>
-<p><span style="color: gray;">结语：<br>&emsp;&emsp;无</span></p>
-<hr>
+<h3 id="二-本类博客风格"><a href="#二-本类博客风格" class="headerlink" title="二.本类博客风格"></a>二.本类博客风格</h3><ul>
+<li>第一篇为开发环境的搭建，之后为记录程序实践，第一篇不适用于下述风格</li>
+<li>二级标题必选为实验准备、实验步骤、实验总结</li>
+<li>实验步骤中三级标题可选为代码编写、烧录结果</li>
+<li>代码编写中四级标题可选为<br>&emsp;&emsp;配置（main函数前部分）<br>&emsp;&emsp;初始化（main函数至while循环部分<br>&emsp;&emsp;主体（while循环中部分）<br>&emsp;&emsp;其它（while循环后部分）</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
