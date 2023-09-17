@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>K210开发板(一)—搭建开发环境 | 弦上的箭</title>
+  <title>K210开发板(四)—按键独立中断 | 弦上的箭</title>
   <meta name="keywords" content=" K210 ">
-  <meta name="description" content="K210开发板(一)—搭建开发环境 | 弦上的箭">
+  <meta name="description" content="K210开发板(四)—按键独立中断 | 弦上的箭">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="简介：&amp;emsp;&amp;emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为按键独立中断，按键未按下时播放音乐，按键按下时暂停播放。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案   参考资料:http:&#x2F;&#x2F;www.yahboom.com&#x2F;study&#x2F;K210-Developer-Kit提取码：moj1  一.实验准备1.外部中断&amp;emsp;&amp;emsp;普通的按">
 <meta property="og:type" content="article">
@@ -317,9 +317,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-K210开发板-一-—搭建开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-K210开发板-四-—按键独立中断" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">K210开发板(一)—搭建开发环境</h1>
+        <h1 class="article-title">K210开发板(四)—按键独立中断</h1>
     
     <div class="article-meta">
         
@@ -346,12 +346,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-09-16 21:27:42'>2023-09-15 21:53</time>
+            Created At : <time class="date" title='Updated At: 2023-09-17 19:51:00'>2023-09-17 18:20</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:312</span>
+        <span>Count:899</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -370,7 +370,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%AE%89%E8%A3%85%E4%B8%B2%E5%8F%A3%E9%A9%B1%E5%8A%A8"><span class="toc-text">一.安装串口驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E9%85%8D%E7%BD%AEVSCode%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">二.配置VSCode开发环境</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%AE%9E%E9%AA%8C%E5%87%86%E5%A4%87"><span class="toc-text">一.实验准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="toc-text">1.外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8C%89%E9%94%AE%E5%8E%9F%E7%90%86"><span class="toc-text">2.按键原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.函数介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-gpiohs-set-pin-edge"><span class="toc-text">4.1 gpiohs_set_pin_edge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-gpiohs-irq-register"><span class="toc-text">4.2 gpiohs_irq_register</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-text">二.实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE"><span class="toc-text">1.配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%BC%95%E8%84%9A"><span class="toc-text">1.1 引脚</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%87%BD%E6%95%B0"><span class="toc-text">1.2 函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">2.初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%BB%E4%BD%93"><span class="toc-text">3.主体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-text">三.实验总结</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -387,24 +387,70 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为开发环境的搭建。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案</span></p>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于记录K210的学习和自己遇到的问题，主要内容为按键独立中断，按键未按下时播放音乐，按键按下时暂停播放。由于参考资料的教程比较齐全，本文会着重于讲述自己遇到的问题和解决方案</span></p>
 <hr>
 <blockquote>
 <p>参考资料:<a target="_blank" rel="noopener" href="http://www.yahboom.com/study/K210-Developer-Kit">http://www.yahboom.com/study/K210-Developer-Kit</a><br>提取码：moj1</p>
 </blockquote>
-<h2 id="一-安装串口驱动"><a href="#一-安装串口驱动" class="headerlink" title="一.安装串口驱动"></a>一.安装串口驱动</h2><p>&emsp;&emsp;使用参考资料中的程序安装即可</p>
-<p><span style="color: #3399ff;">遇到问题</span>：设备管理器中找不到端口选项<br><span style="color: #3399ff;">解决方案</span>：点击 查看-&gt;显示隐藏的设备即可</p>
-<p><span style="color: #ff6600;">Tips</span>:连接开发板需要用数据线，连接仅能充电的线电脑是没有反应的</p>
-<h2 id="二-配置VSCode开发环境"><a href="#二-配置VSCode开发环境" class="headerlink" title="二.配置VSCode开发环境"></a>二.配置VSCode开发环境</h2><p>&emsp;&emsp;按照参考资料中的教程即可</p>
-<p>创建新项目</p>
-<ol>
-<li>把项目文件(包含main.c)复制到 SDK 中的src目录下</li>
-<li>进入 build 目录，运行命令<br> cmake <code>..</code> -DPROJ&#x3D;name -G “MinGW Makefiles”<br> make</li>
-<li>打开kfalsh把生成的.bin文件(填入路径)烧录到开发板上</li>
-</ol>
-<p><span style="color: #3399ff;">遇到问题</span>：解压参考资料里的toolchain时报错：路径太长无法复制<br><span style="color: #3399ff;">解决方案</span>：进入<a target="_blank" rel="noopener" href="https://www.canaan-creative.com/developer">https://www.canaan-creative.com/developer</a> 下载压缩包即可</p>
+<h2 id="一-实验准备"><a href="#一-实验准备" class="headerlink" title="一.实验准备"></a>一.实验准备</h2><h3 id="1-外部中断"><a href="#1-外部中断" class="headerlink" title="1.外部中断"></a>1.外部中断</h3><p>&emsp;&emsp;普通的按键的实验，虽然能实现 IO 口输入输出功能，但代码是一直在检测 IO 输入口的变化，因此效率不高，特别是在一些特定的场合，比如某个按键，可能 1 天才按下一次去执行相关功能，这样我们就浪费大量时间来实时检测按键的情况。为了解决这样的问题，我们引入外部中断概念，顾名思义，就是当按键被按下(产生中断)时，我们才去执行相关功能。这大大节省了 CPU 的资源，因此中断的在实际项目的应用非常普遍。</p>
+<h3 id="2-按键原理"><a href="#2-按键原理" class="headerlink" title="2.按键原理"></a>2.按键原理</h3><p>&emsp;&emsp;BOOT 按键按下的时候会把电平拉低，松开的时候会把电平拉高，只需要检测 BOOT 按键的 IO 口的电平，如果是按下则会产生下降沿，松开会产生上升沿，以 此的方式来检测并触发系统的中断</p>
+<h3 id="3-函数介绍"><a href="#3-函数介绍" class="headerlink" title="3.函数介绍"></a>3.函数介绍</h3><h4 id="4-1-gpiohs-set-pin-edge"><a href="#4-1-gpiohs-set-pin-edge" class="headerlink" title="4.1 gpiohs_set_pin_edge"></a>4.1 gpiohs_set_pin_edge</h4><p>&emsp;&emsp;设置GPIO中断触发模式</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数成员</th>
+<th align="center">描述</th>
+<th align="center">输入输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pin</td>
+<td align="center">GPIO管脚</td>
+<td align="center">输入</td>
+</tr>
+<tr>
+<td align="center">edge</td>
+<td align="center">中断触发方式</td>
+<td align="center">输入</td>
+</tr>
+</tbody></table>
+<h4 id="4-2-gpiohs-irq-register"><a href="#4-2-gpiohs-irq-register" class="headerlink" title="4.2 gpiohs_irq_register"></a>4.2 gpiohs_irq_register</h4><p>&emsp;&emsp;设置GPIO中断回调函数</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数成员</th>
+<th align="center">描述</th>
+<th align="center">输入输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pin</td>
+<td align="center">GPIO管脚</td>
+<td align="center">输入</td>
+</tr>
+<tr>
+<td align="center">priority</td>
+<td align="center">中断优先级</td>
+<td align="center">输入</td>
+</tr>
+<tr>
+<td align="center">plic_irq_callback_t</td>
+<td align="center">中断回调函数</td>
+<td align="center">输入</td>
+</tr>
+<tr>
+<td align="center">*ctx</td>
+<td align="center">回调函数的形参</td>
+<td align="center">输入</td>
+</tr>
+</tbody></table>
+<h2 id="二-实验步骤"><a href="#二-实验步骤" class="headerlink" title="二.实验步骤"></a>二.实验步骤</h2><h3 id="1-配置"><a href="#1-配置" class="headerlink" title="1.配置"></a>1.配置</h3><h4 id="1-1-引脚"><a href="#1-1-引脚" class="headerlink" title="1.1 引脚"></a>1.1 引脚</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义硬件引脚(见原理图)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_SPK_WS             (30)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_SPK_DATA           (31)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_SPK_BCK            (32)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIN_KEY               (16)</span></span><br><span class="line"><span class="comment">//定义软件GPIO口</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY_GPIONUM (3)</span></span><br><span class="line"><span class="comment">//将硬件引脚映射到软件GPIO功能</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_SPK_WS            FUNC_I2S2_WS</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_SPK_DATA          FUNC_I2S2_OUT_D0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_SPK_BCK           FUNC_I2S2_SCLK</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FUNC_KEY               (FUNC_GPIOHS0 + KEY_GPIONUM)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hardware_init</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    fpioa_set_function(PIN_SPK_WS, FUNC_SPK_WS);</span><br><span class="line">    fpioa_set_function(PIN_SPK_DATA, FUNC_SPK_DATA);</span><br><span class="line">    fpioa_set_function(PIN_SPK_BCK, FUNC_SPK_BCK);</span><br><span class="line"></span><br><span class="line">    fpioa_set_function(PIN_KEY, FUNC_KEY);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-函数"><a href="#1-2-函数" class="headerlink" title="1.2 函数"></a>1.2 函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">key_irq_cb</span><span class="params">(<span class="type">void</span>* ctx)</span>&#123;</span><br><span class="line">    <span class="type">gpio_pin_value_t</span> key_state = gpiohs_get_pin(KEY_GPIONUM);</span><br><span class="line">    <span class="comment">//这里只是为了测试才在中断回调打印数据，正常情况下是不建议这么做的</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;IRQ The PIN is %d\n&quot;</span>, key_state);</span><br><span class="line">    <span class="type">uint32_t</span> *tmp = (<span class="type">uint32_t</span> *)(ctx);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;count is %d\n&quot;</span>, (*tmp)++);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2.初始化"></a>2.初始化</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 硬件引脚初始化</span></span><br><span class="line">hardware_init();</span><br><span class="line"><span class="comment">//外部中断初始化</span></span><br><span class="line">plic_init();</span><br><span class="line"><span class="comment">///使能全局中断</span></span><br><span class="line">sysctl_enable_irq();</span><br><span class="line"><span class="comment">//设置系统时钟</span></span><br><span class="line">sysctl_pll_set_freq(SYSCTL_PLL0, <span class="number">320000000UL</span>);</span><br><span class="line">sysctl_pll_set_freq(SYSCTL_PLL1, <span class="number">160000000UL</span>);</span><br><span class="line">sysctl_pll_set_freq(SYSCTL_PLL2, <span class="number">45158400UL</span>);</span><br><span class="line">uarths_init();</span><br><span class="line"><span class="comment">//初始化I2S</span></span><br><span class="line">i2s_init(I2S_DEVICE_2, I2S_TRANSMITTER, <span class="number">0x03</span>);</span><br><span class="line">i2s_tx_channel_config(</span><br><span class="line">		I2S_DEVICE_2, <span class="comment">// I2S设备号</span></span><br><span class="line">		I2S_CHANNEL_0, <span class="comment">// I2S通道 </span></span><br><span class="line">		RESOLUTION_16_BIT, <span class="comment">// 接收数据位数 </span></span><br><span class="line">		SCLK_CYCLES_32, <span class="comment">// 单个数据时钟数 </span></span><br><span class="line">		TRIGGER_LEVEL_4, <span class="comment">// DMA触发时FIFO深度 </span></span><br><span class="line">		RIGHT_JUSTIFYING_MODE); <span class="comment">// 工作模式</span></span><br><span class="line"><span class="comment">// 初始化按键key</span></span><br><span class="line"><span class="comment">//设置按键的GPIO模式为上拉输入</span></span><br><span class="line">gpiohs_set_drive_mode(KEY_GPIONUM,GPIO_DM_INPUT_PULL_UP);</span><br><span class="line"><span class="comment">//设置按键的GPIO电平触发模式为下降沿触发</span></span><br><span class="line">gpiohs_set_pin_edge(KEY_GPIONUM,GPIO_PE_RISING);</span><br><span class="line"><span class="comment">//设置按键GPIO口的中断回调</span></span><br><span class="line">gpiohs_irq_register(KEY_GPIONUM,<span class="number">1</span>,key_irq_cb,&amp;g_count);</span><br></pre></td></tr></table></figure>
+<h3 id="3-主体"><a href="#3-主体" class="headerlink" title="3.主体"></a>3.主体</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">gpio_pin_value_t</span> key_state = gpiohs_get_pin(KEY_GPIONUM);</span><br><span class="line"><span class="comment">//检测按键是否未被按下</span></span><br><span class="line"><span class="keyword">if</span>(key_state==<span class="number">1</span>)&#123;</span><br><span class="line">    i2s_play(</span><br><span class="line">        I2S_DEVICE_2, <span class="comment">// I2S设备号 </span></span><br><span class="line">        DMAC_CHANNEL0, <span class="comment">// DMA通道号  </span></span><br><span class="line">        (<span class="type">uint8_t</span> *)test_pcm, <span class="comment">// 播放的PCM数据 </span></span><br><span class="line">        <span class="keyword">sizeof</span>(test_pcm), <span class="comment">// PCM数据的长度 </span></span><br><span class="line">        <span class="number">1024</span>, <span class="comment">// 单次发送数量 </span></span><br><span class="line">        <span class="number">16</span>, <span class="comment">// 单次采样位宽 </span></span><br><span class="line">        <span class="number">2</span>); <span class="comment">// 声道数 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三-实验总结"><a href="#三-实验总结" class="headerlink" title="三.实验总结"></a>三.实验总结</h2><p><span style="color: #3399ff;">遇到问题</span>：音乐暂停没有实现真正意义上的暂停，松开按键只会重新播放<br><span style="color: #3399ff;">解决方案</span>：未解决，需要了解如何暂停I2S的传输然后恢复</p>
 <hr>
-<p><span style="color: gray;">结语：<br>&emsp;&emsp;搭建过程友好，不要气馁</span></p>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;无</span></p>
 <hr>
 
       
