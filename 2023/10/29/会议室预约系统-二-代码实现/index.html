@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>我是即将到来的日子 | 弦上的箭</title>
-  <meta name="keywords" content=" 日记 ">
-  <meta name="description" content="我是即将到来的日子 | 弦上的箭">
+  <title>会议室预约系统(一)-代码实现 | 弦上的箭</title>
+  <meta name="keywords" content=" qt , sql ">
+  <meta name="description" content="会议室预约系统(一)-代码实现 | 弦上的箭">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="简介：&amp;emsp;&amp;emsp;本篇博客用于记录QT软件结合数据库开发的学习过程  参考资料：  最新QT从入门到实战完整版|传智教育_哔哩哔哩_bilibili Qt零基础系列10：使用Qt如何操作数据库 - 知乎 (zhihu.com)  一.QT1.控件1.1 窗体12345678910myWidget w;	&#x2F;&#x2F;创建窗体&#x2F;&#x2F;set类setWindowTitle(&quot;窗口名称&amp;quo">
 <meta property="og:type" content="article">
@@ -396,13 +396,11 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-我是即将到来的日子" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-会议室预约系统-二-代码实现" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">我是即将到来的日子</h1>
+        <h1 class="article-title">会议室预约系统(一)-代码实现</h1>
     
     <div class="article-meta">
-        
-        <span class="top"><a>置顶</a></span>
         
         
         
@@ -410,7 +408,9 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="日记">日记</a>
+            <a  data-rel="程序设计">程序设计</a> > 
+            
+            <a  data-rel="程序设计&lt;---&gt;会议室系统">会议室系统</a>
             
         </span>
         
@@ -418,19 +418,21 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color3">日记</a>
+            <a class="color3">qt</a>
+            
+            <a class="color4">sql</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-09-17 23:54:30'>2023-09-15 15:00</time>
+            Created At : <time class="date" title='Updated At: 2023-10-29 23:54:27'>2023-10-29 22:53</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:380</span>
+        <span>Count:594</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -449,7 +451,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%A3%8E%E6%A0%BC"><span class="toc-text">我的博客风格</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6"><span class="toc-text">1.博客框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A1%8C%E6%96%87%E6%A1%86%E6%9E%B6"><span class="toc-text">2.行文框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B6%E5%AE%83"><span class="toc-text">3.其它</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%8E%AF%E5%A2%83"><span class="toc-text">一.环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">二.系统流程图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="toc-text">三.数据库配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">1.数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A1%A8"><span class="toc-text">2.表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-conference-users"><span class="toc-text">2.1 conference_users</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-conference-rooms"><span class="toc-text">2.2 conference_rooms</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-conference-reserves"><span class="toc-text">2.3 conference_reserves</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -465,31 +467,248 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="我的博客风格"><a href="#我的博客风格" class="headerlink" title="我的博客风格"></a>我的博客风格</h2><p>%日记类的博客可以不按照任意风格格式</p>
-<h3 id="1-博客框架"><a href="#1-博客框架" class="headerlink" title="1.博客框架"></a>1.博客框架</h3><ul>
-<li>每篇博客使用tags归类</li>
-<li>类内博客标题使用xxx(一)—xxx的格式</li>
-<li>类内博客第一篇标题为xxx(零)，内容为：<br>&emsp;&emsp;该类博客的主要介绍<br>&emsp;&emsp;该类博客的风格</li>
-<li>类内博客简介包含该类的主要介绍</li>
-<li>类内博客最后一篇标题为xxx(END) tags包含”日记”</li>
-</ul>
-<h3 id="2-行文框架"><a href="#2-行文框架" class="headerlink" title="2.行文框架"></a>2.行文框架</h3><ul>
-<li>行文第一块为简介：xxx 字体为灰色</li>
-<li>行文第二块为参考资料</li>
-<li>正文从二级标题开始 %一级标题为文章标题<br>&emsp;&emsp;二级标题使用 一. 二. 三. …<br>&emsp;&emsp;三级标题使用 1. 2. 3. …<br>&emsp;&emsp;四级标题使用 1.1. 1.2. 1.3.<br>&emsp;&emsp;以此类推…</li>
-<li>建议在内容下添加<br>&emsp;&emsp;遇到问题&amp;解决方案 颜色为#3399ff<br>&emsp;&emsp;Tips 颜色为#ff6600</li>
-<li>行文结尾为结语：xxx 颜色为灰色</li>
-</ul>
-<h3 id="3-其它"><a href="#3-其它" class="headerlink" title="3.其它"></a>3.其它</h3><ul>
-<li>正文注释使用% 代码注释依据语言决定</li>
-</ul>
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;本篇博客用于介绍使用QT软件、Mysql开发会议室预约系统的代码，代码已经发布到<a target="_blank" rel="noopener" href="https://github.com/arrowonstr/conferenceRoomReservationSystem">https://github.com/arrowonstr/conferenceRoomReservationSystem</a></span></p>
 <hr>
-<span style="color: gray;">
-<p>&emsp;&emsp;早祷的钟声突然响了，无数的钟声一下子都惊醒了。天又黎明！黑沉沉的危崖后面，看不见的太阳在金色的天空升起。快要倒下来的克利斯朵夫终于到了彼岸。于是他对孩子说：
-<p>&emsp;&emsp;“咱们到了！唉，你多重啊！孩子，你究竟是谁呢？”
-<p>&emsp;&emsp;孩子回答说：
-<p>&emsp;&emsp;“我是即将来到的日子。”</span>
-***
+<h2 id="一-环境"><a href="#一-环境" class="headerlink" title="一.环境"></a>一.环境</h2><p>该系统使用C++ QT开发，使用方法：</p>
+<ol>
+<li>下载代码</li>
+<li>将所有head、source中文件取出和其他文件放在同一目录下</li>
+<li>使用QT软件打开项目打开.pro文件</li>
+<li>配置对应数据库，具体数据库内容见本文 二. ，或修改代码符合自己的数据库</li>
+<li>运行</li>
+</ol>
+<h2 id="二-系统流程图"><a href="#二-系统流程图" class="headerlink" title="二.系统流程图"></a>二.系统流程图</h2><p><img src="https://github.com/arrowonstr/conferenceRoomReservationSystem/blob/master/imgs/conference.png" alt="流程图"><br>其中：</p>
+<ol>
+<li>大矩形框代表界面</li>
+<li>正方形框代表按钮</li>
+<li>小矩形框代表下拉式选项</li>
+<li>实线箭头代表按钮按下后打开&#x2F;更新某一界面</li>
+<li>虚线箭头代表按钮按下后向调用数据库</li>
+</ol>
+<p>流程图仅表示大致流程，许多细节是被隐藏的，具体可以看代码</p>
+<h2 id="三-数据库配置"><a href="#三-数据库配置" class="headerlink" title="三.数据库配置"></a>三.数据库配置</h2><p>数据库需要配置为下面对应配置，或者修改mycfsql.cpp文件中的<code>createConnectionByName</code>函数，以及signwindow.cpp构造函数中<code>cf.createConnectionByName(&quot;conference&quot;)</code>数据库名<br>表需要完全相同配置</p>
+<h3 id="1-数据库"><a href="#1-数据库" class="headerlink" title="1.数据库"></a>1.数据库</h3><p>服务器：本地<br>数据库名：conference<br>用户名：root<br>密码：1234<br>端口号：3306</p>
+<h3 id="2-表"><a href="#2-表" class="headerlink" title="2.表"></a>2.表</h3><h4 id="2-1-conference-users"><a href="#2-1-conference-users" class="headerlink" title="2.1 conference_users"></a>2.1 conference_users</h4><table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">数据类型</th>
+<th align="center">是否为可空</th>
+<th align="center">默认值</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">users_id</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">id</td>
+</tr>
+<tr>
+<td align="center">users_name</td>
+<td align="center">varchar(20)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">用户名</td>
+</tr>
+<tr>
+<td align="center">users_password</td>
+<td align="center">varchar(20)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">密码</td>
+</tr>
+<tr>
+<td align="center">users_author</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">权限</td>
+</tr>
+<tr>
+<td align="center">其中：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">users_id为主键</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">权限 0为用户 1为管理员</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="2-2-conference-rooms"><a href="#2-2-conference-rooms" class="headerlink" title="2.2 conference_rooms"></a>2.2 conference_rooms</h4><table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">数据类型</th>
+<th align="center">是否为可空</th>
+<th align="center">默认值</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">rooms_id</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">id</td>
+</tr>
+<tr>
+<td align="center">rooms_name</td>
+<td align="center">varchar(20)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">名称</td>
+</tr>
+<tr>
+<td align="center">rooms_number</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">房号</td>
+</tr>
+<tr>
+<td align="center">rooms_capacity</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">最大人数</td>
+</tr>
+<tr>
+<td align="center">rooms_square</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">面积</td>
+</tr>
+<tr>
+<td align="center">rooms_describe</td>
+<td align="center">varchar(50)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">描述</td>
+</tr>
+<tr>
+<td align="center">rooms_reserve</td>
+<td align="center">varchar(12)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">其中：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">rooms_id为主键</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">rooms_reserve为废弃的字段 但是不想改代码了 所以保留在这里 其没有含义和作用</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="2-3-conference-reserves"><a href="#2-3-conference-reserves" class="headerlink" title="2.3 conference_reserves"></a>2.3 conference_reserves</h4><table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">数据类型</th>
+<th align="center">是否为可空</th>
+<th align="center">默认值</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">reserves_id</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">id</td>
+</tr>
+<tr>
+<td align="center">reserves_user</td>
+<td align="center">varchar(20)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">预约用户</td>
+</tr>
+<tr>
+<td align="center">reserves_number</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">预约房号</td>
+</tr>
+<tr>
+<td align="center">reserves_stime</td>
+<td align="center">datetime</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">开始时间</td>
+</tr>
+<tr>
+<td align="center">reserves_etime</td>
+<td align="center">datetime</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">结束时间</td>
+</tr>
+<tr>
+<td align="center">reserves_subject</td>
+<td align="center">varchar(20)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">主题</td>
+</tr>
+<tr>
+<td align="center">reserves_capacity</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">人数</td>
+</tr>
+<tr>
+<td align="center">reserves_state</td>
+<td align="center">int</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">状态</td>
+</tr>
+<tr>
+<td align="center">reserves_describe</td>
+<td align="center">varchar(50)</td>
+<td align="center">NO</td>
+<td align="center">NULL</td>
+<td align="center">描述</td>
+</tr>
+</tbody></table>
+<p>其中：<br>reserves_id为主键<br>状态 0未审批 1未审批 2为驳回 3为取消</p>
+<hr>
+<p><span style="color: gray;">结语：无<br>&emsp;&emsp;</span></p>
+<hr>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
     </div>

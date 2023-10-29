@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>K210开发板(六)-yolo目标检测 | 弦上的箭</title>
+  <meta name="keywords" content=" K210 ">
+  <meta name="description" content="K210开发板(六)-yolo目标检测 | 弦上的箭">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;本篇博客用于记录QT软件结合数据库开发的学习过程  参考资料：  最新QT从入门到实战完整版|传智教育_哔哩哔哩_bilibili Qt零基础系列10：使用Qt如何操作数据库 - 知乎 (zhihu.com)  一.QT1.控件1.1 窗体12345678910myWidget w;	&#x2F;&#x2F;创建窗体&#x2F;&#x2F;set类setWindowTitle(&quot;窗口名称&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="会议室预约系统(一)-QT开发数据库学习">
+<meta property="og:url" content="http://example.com/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="弦上的箭">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;本篇博客用于记录QT软件结合数据库开发的学习过程  参考资料：  最新QT从入门到实战完整版|传智教育_哔哩哔哩_bilibili Qt零基础系列10：使用Qt如何操作数据库 - 知乎 (zhihu.com)  一.QT1.控件1.1 窗体12345678910myWidget w;	&#x2F;&#x2F;创建窗体&#x2F;&#x2F;set类setWindowTitle(&quot;窗口名称&amp;quo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-29T15:16:04.000Z">
+<meta property="article:modified_time" content="2023-10-29T15:54:13.449Z">
+<meta property="article:author" content="弦上的箭">
+<meta property="article:tag" content="qt">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>弦上的箭</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/arrowonstr"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:21009200039@stu.xidian.edu.cn"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(11)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="日记">
+            
+            日记
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="嵌入式">
+            <i class="fold iconfont icon-right"></i>
+            嵌入式
+            <small>(7)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="嵌入式&lt;---&gt;K210">
+            
+            K210
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="程序设计">
+            <i class="fold iconfont icon-right"></i>
+            程序设计
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="程序设计&lt;---&gt;会议室系统">
+            
+            会议室系统
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        <a 
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="11">
+<input type="hidden" id="yelog_site_word_count" value="8.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://gohoy.github.io/blog">GOHOY</a></li>
+            
+            <li><a target="_blank" href="https://blog.dx39061.top">DX3906</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>K210</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>qt</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E6%98%AF%E5%8D%B3%E5%B0%86%E5%88%B0%E6%9D%A5%E7%9A%84%E6%97%A5%E5%AD%90/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我是即将到来的日子">我是即将到来的日子</span>
+            <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)-QT开发数据库学习">会议室预约系统(一)-QT开发数据库学习</span>
+            <span class="post-date" title="2023-10-29 23:16:04">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%BA%8C-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)-代码实现">会议室预约系统(一)-代码实现</span>
+            <span class="post-date" title="2023-10-29 22:53:54">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/23/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%85%AD-yolo%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(六)-yolo目标检测">K210开发板(六)-yolo目标检测</span>
+            <span class="post-date" title="2023-09-23 16:28:11">2023/09/23</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/19/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%94-%E2%80%94%E6%8B%8D%E6%91%84%E5%92%8CKEYPAD%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(五)—拍摄和KEYPAD照片查看">K210开发板(五)—拍摄和KEYPAD照片查看</span>
+            <span class="post-date" title="2023-09-19 00:16:58">2023/09/19</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/17/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%9B%9B-%E2%80%94%E6%8C%89%E9%94%AE%E7%8B%AC%E7%AB%8B%E4%B8%AD%E6%96%AD/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(四)—按键独立中断">K210开发板(四)—按键独立中断</span>
+            <span class="post-date" title="2023-09-17 18:20:11">2023/09/17</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%89-%E2%80%94%E6%89%AC%E5%A3%B0%E5%99%A8%E6%92%AD%E6%94%BE/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(三)—扬声器播放">K210开发板(三)—扬声器播放</span>
+            <span class="post-date" title="2023-09-16 22:59:34">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(二)—点亮LED灯">K210开发板(二)—点亮LED灯</span>
+            <span class="post-date" title="2023-09-16 13:40:42">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%80-%E2%80%94%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(一)—搭建开发环境">K210开发板(一)—搭建开发环境</span>
+            <span class="post-date" title="2023-09-15 21:53:59">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(零)">K210开发板(零)</span>
+            <span class="post-date" title="2023-09-15 18:44:02">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我的第一篇博客">我的第一篇博客</span>
+            <span class="post-date" title="2023-09-15 15:44:02">2023/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-K210开发板-六-yolo目标检测" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">K210开发板(六)-yolo目标检测</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="嵌入式">嵌入式</a> > 
+            
+            <a  data-rel="嵌入式&lt;---&gt;K210">K210</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">K210</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-09-25 23:30:09'>2023-09-23 16:28</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:1.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E5%87%86%E5%A4%87"><span class="toc-text">一、实验准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Pytorch"><span class="toc-text">1.Pytorch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Pytorch%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-text">1.1 Pytorch的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-1-Anaconda%E5%AE%89%E8%A3%85"><span class="toc-text">1.1.1 Anaconda安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-2-pytorch%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%AE%89%E8%A3%85"><span class="toc-text">1.1.2 pytorch的环境配置及安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-python%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-text">1.2 python的编辑器及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-1-PyCharm"><span class="toc-text">1.2.1 PyCharm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-Jupyter-Notebook"><span class="toc-text">1.2.2 Jupyter Notebook</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E4%B8%80%E4%BA%9B%E5%BA%93"><span class="toc-text">1.3 一些库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-1-opencv"><span class="toc-text">1.3.1 opencv</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-2-os"><span class="toc-text">1.3.2 os</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-3-torch"><span class="toc-text">1.3.3 torch</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-3-1-torch-utils-data-Dataset"><span class="toc-text">1.3.3.1 torch.utils.data.Dataset</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-3-2-torch-utils-data-DataLoader"><span class="toc-text">1.3.3.2 torch.utils.data. DataLoader</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-3-3-torch-nn"><span class="toc-text">1.3.3.3 torch.nn</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-3-4-torch-optim"><span class="toc-text">1.3.3.4 torch.optim</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-4-torchvision"><span class="toc-text">1.3.4 torchvision</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-4-1-torchvision-transforms"><span class="toc-text">1.3.4.1 torchvision.transforms</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E5%88%A9%E7%94%A8GPU%E5%8A%A0%E9%80%9F"><span class="toc-text">1.4 利用GPU加速</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;</span></p>
+<hr>
+<h2 id="一、实验准备"><a href="#一、实验准备" class="headerlink" title="一、实验准备"></a>一、实验准备</h2><h3 id="1-Pytorch"><a href="#1-Pytorch" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h3><p>&emsp;&emsp;Pytorch是torch的python版本，是由Facebook开源的神经网络框架，专门针对 GPU 加速的深度神经网络（DNN）编程。Torch 是一个经典的对多维矩阵数据进行操作的张量（tensor ）库，在机器学习和其他数学密集型应用有广泛应用。与Tensorflow的静态计算图不同，pytorch的计算图是动态的，可以根据计算需要实时改变计算图。但由于Torch语言采用 Lua，导致在国内一直很小众，并逐渐被支持 Python 的 Tensorflow 抢走用户。作为经典机器学习库 Torch 的端口，PyTorch 为 Python 语言使用者提供了舒适的写代码选择。</p>
+<h4 id="1-1-Pytorch的安装"><a href="#1-1-Pytorch的安装" class="headerlink" title="1.1 Pytorch的安装"></a>1.1 Pytorch的安装</h4><h5 id="1-1-1-Anaconda安装"><a href="#1-1-1-Anaconda安装" class="headerlink" title="1.1.1 Anaconda安装"></a>1.1.1 Anaconda安装</h5><p>&emsp;&emsp;此处我选用的是Anaconda3-5.2.0-Windows-x86_64.exe版本</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45344586/article/details/124028689">超详细Anaconda安装教程_极小白的博客-CSDN博客</a></p>
+</blockquote>
+<h5 id="1-1-2-pytorch的环境配置及安装"><a href="#1-1-2-pytorch的环境配置及安装" class="headerlink" title="1.1.2 pytorch的环境配置及安装"></a>1.1.2 pytorch的环境配置及安装</h5><p>&emsp;&emsp;打开Anaconda Prompt 输入<br>&emsp;&emsp;<code>conda create -n pytorch python=3.6</code><br>&emsp;&emsp;创建了一个新环境，然后使用如下命令进入环境<br>&emsp;&emsp;<code>conda activate pytorch</code><br>&emsp;&emsp;之后需要安装gpu版本的pytorch，按照视频教程去pytorch.org使用官方命令安装pytorch怎么样安装的都是cpu版本，找了很多教程，都没有用，最直接的解决方案是自己下载离线文件，此处按照下面这个教程安装</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/612181449">pytorch gpu版安装（普适稳妥，亲测有效） - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<p>&emsp;&emsp;在环境里安装torchvision时报错ReadTimeout，可能是安装依赖的问题，解决方法：设置pip全局设置镜像源</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 config --global <span class="built_in">set</span> global.index-url https:<span class="comment">//mirrors.aliyun.com/pypi/simple/</span></span><br><span class="line">pip3 config --global <span class="built_in">set</span> install.trusted-host </span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;检验是否安装成功，依次输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import torch</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;返回<code>True</code>代表成功<br>&emsp;&emsp;配置和安装pytorch遇到了很多报错，终于是成功了，如果觉得有问题，可以把环境文件夹删了重来一遍（我的文件夹路径为C:\Users\Frelar\Anaconda3\envs\）</p>
+<h4 id="1-2-python的编辑器及配置"><a href="#1-2-python的编辑器及配置" class="headerlink" title="1.2 python的编辑器及配置"></a>1.2 python的编辑器及配置</h4><h5 id="1-2-1-PyCharm"><a href="#1-2-1-PyCharm" class="headerlink" title="1.2.1 PyCharm"></a>1.2.1 PyCharm</h5><p>&emsp;&emsp;下载2023版使用<code>import torch</code>报错了 下回2019版成功</p>
+<h5 id="1-2-2-Jupyter-Notebook"><a href="#1-2-2-Jupyter-Notebook" class="headerlink" title="1.2.2 Jupyter Notebook"></a>1.2.2 Jupyter Notebook</h5><p>&emsp;&emsp;按照教程下载报错，改为在Anaconda Promot（pytorch环境）里输入<code>conda install jupyter notebook</code>，下载后new选项里没有当前环境，依次输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda install ipykernel</span><br><span class="line">python -m ipykernel install --user --name pytorch --display-name <span class="string">&quot;Python (pytorch)&quot;</span></span><br></pre></td></tr></table></figure>
+<p>成功解决</p>
+<h4 id="1-3-一些库"><a href="#1-3-一些库" class="headerlink" title="1.3 一些库"></a>1.3 一些库</h4><h5 id="1-3-1-opencv"><a href="#1-3-1-opencv" class="headerlink" title="1.3.1 opencv"></a>1.3.1 opencv</h5><p>&emsp;&emsp;这里使用<code>pip install opencv-python</code>安装报错<code>Failed building wheel for opencv-python</code>，然后尝试用conda安装，报错找不到库，所以还是采用离线下载方式，进入网址<a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#opencv">Archived: Python Extension Packages for Windows - Christoph Gohlke (uci.edu)</a>找到你对应的python版本（cp36代表python3.6），使用迅雷下载会快很多，然后在环境下使用<code>pip install your_path\opencv_python-4.4.0-cp36-cp36m-win_amd64.whl</code>安装成功</p>
+<p>&emsp;&emsp;<code>import cv2</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imread()	<span class="comment">#读取图片，返回ndarray类型图片及信息</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-2-os"><a href="#1-3-2-os" class="headerlink" title="1.3.2 os"></a>1.3.2 os</h5><p>&emsp;&emsp;<code>import os</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">os.listdir(dir_path)	<span class="comment">#读取获取目录下所有文件名称</span></span><br><span class="line">os.path.join(path1,path2)	<span class="comment">#拼接路径</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-3-torch"><a href="#1-3-3-torch" class="headerlink" title="1.3.3 torch"></a>1.3.3 torch</h5><h5 id="1-3-3-1-torch-utils-data-Dataset"><a href="#1-3-3-1-torch-utils-data-Dataset" class="headerlink" title="1.3.3.1 torch.utils.data.Dataset"></a>1.3.3.1 torch.utils.data.Dataset</h5><p>&emsp;&emsp;<code>from torch.utils.data import Dataset</code><br>&emsp;&emsp;包含自定义数据集方法的类，用户可以通过继承该类来自定义自己的数据集类，在继承时要求用户重载__len__()和__getitem__()这两个魔法方法</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset  </span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image  </span><br><span class="line"><span class="keyword">import</span> os  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyData</span>(<span class="title class_ inherited__">Dataset</span>):  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,root_dir,label_dir</span>):  </span><br><span class="line">        self.root_dir=root_dir  <span class="comment">#根目录</span></span><br><span class="line">        self.label_dir=label_dir  <span class="comment">#标签</span></span><br><span class="line">        self.path=os.path.join(root_dir,label_dir)  <span class="comment">#图片目录</span></span><br><span class="line">        self.image_path=os.listdir(self.path)  <span class="comment">#所有图片名称</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):  </span><br><span class="line">        img_name=self.image_path[idx]  </span><br><span class="line">        img_idx_path=os.path.join(self.path,img_name)  </span><br><span class="line">        img=Image.<span class="built_in">open</span>(img_idx_path)  </span><br><span class="line">        label=self.label_dir  </span><br><span class="line">        <span class="keyword">return</span> img,label  <span class="comment">#图片信息，标签</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):  </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.image_path)  <span class="comment">#图片个数</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">root_dir=<span class="string">&quot;dataSet/train&quot;</span>  </span><br><span class="line">cat_label_dir=<span class="string">&quot;cat&quot;</span>  </span><br><span class="line">cat_dataSet=MyData(root_dir,cat_label_dir)	<span class="comment">#实例</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-3-2-torch-utils-data-DataLoader"><a href="#1-3-3-2-torch-utils-data-DataLoader" class="headerlink" title="1.3.3.2 torch.utils.data. DataLoader"></a>1.3.3.2 torch.utils.data. DataLoader</h5><p>&emsp;&emsp;<code>from torch.utils.data import DatLoader</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_loader=DataLoader(dataset=train_data,batch_size=<span class="number">64</span>,shuffle=<span class="literal">True</span>,num_workers=<span class="number">0</span>,drop_last=<span class="literal">True</span>)</span><br><span class="line"><span class="comment">#数据集，每次打包的图片数，是否打乱，线程数，是否丢弃不够一组打包的图片</span></span><br><span class="line"><span class="comment">#for data in train_loader</span></span><br><span class="line"><span class="comment">#	imgs,target=data	#读取图片信息</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-3-3-torch-nn"><a href="#1-3-3-3-torch-nn" class="headerlink" title="1.3.3.3 torch.nn"></a>1.3.3.3 torch.nn</h5><p>&emsp;&emsp;<code>from torch import nn</code><br>&emsp;&emsp;一个用于创建神经网络模型的类,可以作为参数、容器、子模块和函数</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#神经网络骨架</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Name</span>(nn.moudle):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="built_in">super</span>(Name,self).__init__()</span><br><span class="line">		self.layer=layerFunc()	<span class="comment">#激活层</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,<span class="built_in">input</span></span>)	<span class="comment">#前向传播</span></span><br><span class="line">		output=self.layer(<span class="built_in">input</span>)</span><br><span class="line">		<span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">name=Name()</span><br><span class="line">output=name(<span class="built_in">input</span>)</span><br><span class="line">name.train()	<span class="comment">#训练模式</span></span><br><span class="line">name.<span class="built_in">eval</span>()	<span class="comment">#验证模式</span></span><br><span class="line"><span class="comment">#卷积</span></span><br><span class="line">nn.Conv2d(in_channels=<span class="number">3</span>,out_channels=<span class="number">6</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">1</span>,padding=<span class="number">0</span>)	<span class="comment">#二维卷积（输入通道数，输出通道数，卷积核层数...）</span></span><br><span class="line"><span class="comment">#池化</span></span><br><span class="line">nn.MaxPool2d(kernel_size=<span class="number">3</span>,ceil_mode=<span class="literal">True</span>)	<span class="comment">#最大池化（核大小，步长（默认为核大小），是否填充是否舍弃不足核大小的图片部分）</span></span><br><span class="line"><span class="comment">#非线性激活</span></span><br><span class="line">nn.sigmoid(inplace=<span class="literal">False</span>)	<span class="comment">#sigmoid激活（是否原地操作）</span></span><br><span class="line"><span class="comment">#线性激活</span></span><br><span class="line">nn.Liner(input_features,output_features,bias=<span class="literal">False</span>)	<span class="comment">#线性激活（输入特征数，输出特征数，偏置）</span></span><br><span class="line"><span class="comment">#序列</span></span><br><span class="line">nn.Sequential(fun1,fun2...,funN)	<span class="comment">#包装操作为序列，可读性更强</span></span><br><span class="line"><span class="comment">#损失函数、反向传播</span></span><br><span class="line">loss=nn.CrossEntropyLoss()</span><br><span class="line">result_loss=loss(outputs,targets)</span><br><span class="line">result_loss.backword()	<span class="comment">#反向传播 将梯度记录在每层信息的weight里</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-3-4-torch-optim"><a href="#1-3-3-4-torch-optim" class="headerlink" title="1.3.3.4 torch.optim"></a>1.3.3.4 torch.optim</h5><p>&emsp;&emsp;<code>import torch</code><br>&emsp;&emsp;用于参数优化的库（可以说是花式梯度下降）</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">optim=torch.optim.SGD(yourClass.parameters(),lr=<span class="number">0.01</span>)	<span class="comment">#优化器（参数集，学习速率）</span></span><br><span class="line"><span class="comment">#result.loss=loss(outputs,targets)</span></span><br><span class="line"><span class="comment">#optim.zero_grad()	#初始化梯度</span></span><br><span class="line"><span class="comment">#result_loss.backword()</span></span><br><span class="line"><span class="comment">#optim.step()</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-4-torchvision"><a href="#1-3-4-torchvision" class="headerlink" title="1.3.4 torchvision"></a>1.3.4 torchvision</h5><p>&emsp;&emsp;<code>import torchvision</code><br>&emsp;&emsp;处理图像的工具集</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取数据集</span></span><br><span class="line">train_set=torchvision.datasets.dataname(root=<span class="string">&quot;./dataset&quot;</span>,train=<span class="literal">True</span>,transforms=mytransform,download=<span class="literal">True</span>)</span><br><span class="line"><span class="comment">#train_set.classes 数据集的各种类名（猫、狗...）</span></span><br><span class="line"><span class="comment">#img,target=train_set[0] 图片信息，图片类名编号</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-3-4-1-torchvision-transforms"><a href="#1-3-4-1-torchvision-transforms" class="headerlink" title="1.3.4.1 torchvision.transforms"></a>1.3.4.1 torchvision.transforms</h5><p>&emsp;&emsp;<code>from torchvision import transforms</code><br>&emsp;&emsp;对图片进行操作<br>&emsp;&emsp;使用方法：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mytool=transforms.tool(arguments1)	<span class="comment">#实例化</span></span><br><span class="line">mytool(arguments2)	<span class="comment">#使用</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;tool:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">myToTensor=transforms.ToTensor()</span><br><span class="line">myImg=myToTensor(img)	<span class="comment">#将PIL或numpy.ndarry类型图片转为tensor类型并返回</span></span><br><span class="line"><span class="comment">#tensor类型：包装了神经网络的一些参数</span></span><br><span class="line"></span><br><span class="line">myCompose=transforms.Compose(n)</span><br><span class="line">myImg=myCompose(img)	<span class="comment">#中心裁剪</span></span><br><span class="line"></span><br><span class="line">myNorm=transforms.Normalize([mean1...meanN],[std1...stdN])	<span class="comment">#每个通道的均值和方差</span></span><br><span class="line">myImg=myNorm(img)	<span class="comment">#归一化</span></span><br><span class="line"></span><br><span class="line">myResize=transforms.Resize((h,w))</span><br><span class="line">myImg=myResize(img)	<span class="comment">#缩放</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-4-利用GPU加速"><a href="#1-4-利用GPU加速" class="headerlink" title="1.4 利用GPU加速"></a>1.4 利用GPU加速</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#方法一</span></span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available():	<span class="comment">#判断GPU加速是否可用</span></span><br><span class="line">	item=item.cuda()	<span class="comment">#目标加速（可用于：imgs/targets/yourMoudle/loss）</span></span><br><span class="line"><span class="comment">#方法二</span></span><br><span class="line">device=torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>) </span><br><span class="line">item=item.to(device)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><span style="color: #3399ff;">遇到问题</span>：<br><span style="color: #3399ff;">解决方案</span>：</p>
+<p><span style="color: #ff6600;">Tips</span>:</p>
+<hr>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;</span></p>
+<hr>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 弦上的箭
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=230 height=75 src="//music.163.com/outchain/player?type=2&id=2059532170&auto=0&height=66"></iframe>
+</div>
+
+<script>
+    var $DOC = $(document)
+    $('#musicMouseDrag').on('mousedown', function (e) {
+      // 阻止文本选中
+      $DOC.bind("selectstart", function () {
+        return false;
+      });
+      $('#musicDragArea').css('height', '100%');
+      var $moveTarget = $('#musicMouseDrag');
+      $moveTarget.css('border', '1px dashed grey')
+      var div_x = e.pageX - $moveTarget.offset().left;
+      var div_y = e.pageY - $moveTarget.offset().top;
+      $DOC.on('mousemove', function (e) {
+        var targetX = e.pageX - div_x;
+        var targetY = e.pageY - div_y;
+        targetX = targetX < 0 ? 0 : (targetX + $moveTarget.outerWidth() >= window.innerWidth) ? window.innerWidth - $moveTarget.outerWidth() : targetX;
+        targetY = targetY < 0 ? 0 : (targetY + $moveTarget.outerHeight() >= window.innerHeight) ? window.innerHeight - $moveTarget.outerHeight() : targetY;
+        $moveTarget.css({'left': targetX + 'px', 'top': targetY + 'px', 'bottom': 'inherit', 'right': 'inherit'})
+      }).on('mouseup', function () {
+        $DOC.unbind("selectstart");
+        $DOC.off('mousemove')
+        $DOC.off('mouseup')
+        $moveTarget.css('border', 'none')
+        $('#musicDragArea').css('height', '10px');
+      })
+    })
+</script>
+</html>
