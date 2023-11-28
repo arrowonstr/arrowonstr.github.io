@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>编译原理笔记 | 弦上的箭</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="编译原理笔记 | 弦上的箭">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;  一. 编译器概述1. 计算机语言面向机器语言：机器指令、汇编面向人类语言：通用程序设计语言、数据查询语言… 2. 语言之间的翻译2.1 翻译模式正向工作：  汇编语言-&gt;机器指令：汇编&#x2F;交叉汇编 高级语言-&gt;汇编语言&#x2F;机器指令：编译&#x2F;交叉编译 高级语言-&gt;高级语言：转换&#x2F;预编译&#x2F;预处理（如#in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理笔记">
+<meta property="og:url" content="http://example.com/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="弦上的箭">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;  一. 编译器概述1. 计算机语言面向机器语言：机器指令、汇编面向人类语言：通用程序设计语言、数据查询语言… 2. 语言之间的翻译2.1 翻译模式正向工作：  汇编语言-&gt;机器指令：汇编&#x2F;交叉汇编 高级语言-&gt;汇编语言&#x2F;机器指令：编译&#x2F;交叉编译 高级语言-&gt;高级语言：转换&#x2F;预编译&#x2F;预处理（如#in">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/$BBIRTAU%5BTJ~DV%7D4T33K6MT.png">
+<meta property="og:image" content="http://example.com/imgs/NQDWYTP3F1V6LC4LX_%7BH1.png">
+<meta property="og:image" content="http://example.com/imgs/%7DB8Y_OJ0SKC7UR0NOIAJES4.png">
+<meta property="og:image" content="http://example.com/imgs/WD7AQX1HJEF24%5B%7DS0.png">
+<meta property="og:image" content="http://example.com/imgs/1WAR%7D8KS_B5S_NPTB%5DDCAC.png">
+<meta property="og:image" content="http://example.com/imgs/0G2MXL_37XONV%25M%5B_$22NC.png">
+<meta property="og:image" content="http://example.com/imgs/JBCLYRXBF90%7D1LFGF8WABCX.jpg">
+<meta property="og:image" content="http://example.com/imgs/G3D%256Q5DYCR~1DLGH1U4C8V.png">
+<meta property="og:image" content="http://example.com/imgs/JMFS8WXAAK%7B5T_V7~2FV.png">
+<meta property="og:image" content="http://example.com/imgs/BMN1OKPDYU5IIWN36M5.png">
+<meta property="og:image" content="http://example.com/imgs/NIGO%7D0DK8QJ3M5UQ.png">
+<meta property="og:image" content="http://example.com/imgs/U5K2O03UJAQ~QBSEOP7KL3B.png">
+<meta property="og:image" content="http://example.com/imgs/4%7BKHONV3B82NX%25E%5B0J%7BU3.png">
+<meta property="og:image" content="http://example.com/imgs/VA42IVU11Z6W3%25KES4%7B5I.png">
+<meta property="og:image" content="http://example.com/imgs/SPQEYW1WNJE3B61H73.png">
+<meta property="og:image" content="http://example.com/imgs/J3CGKW_AW1XFWN61QV.png">
+<meta property="og:image" content="http://example.com/imgs/N9W3XM7VZDGYPMCDF.png">
+<meta property="og:image" content="http://example.com/imgs/7MSIWLFH4CHU64WZN7.png">
+<meta property="article:published_time" content="2023-11-24T07:26:00.000Z">
+<meta property="article:modified_time" content="2023-11-28T09:08:49.011Z">
+<meta property="article:author" content="弦上的箭">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/$BBIRTAU%5BTJ~DV%7D4T33K6MT.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>弦上的箭</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/arrowonstr"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:21009200039@stu.xidian.edu.cn"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(14)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="项目">
+            <i class="fold iconfont icon-right"></i>
+            项目
+            <small>(9)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计">
+            <i class="fold iconfont icon-right"></i>
+            程序设计
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计&lt;---&gt;会议室系统">
+            
+            会议室系统
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式">
+            <i class="fold iconfont icon-right"></i>
+            嵌入式
+            <small>(7)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式&lt;---&gt;K210">
+            
+            K210
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="笔记">
+            <i class="fold iconfont icon-right"></i>
+            笔记
+            <small>(3)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;编译原理">
+            
+            编译原理
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能">
+            <i class="fold iconfont icon-right"></i>
+            人工智能
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能&lt;---&gt;yolo">
+            
+            yolo
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="日记">
+            
+            日记
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        <a 
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="14">
+<input type="hidden" id="yelog_site_word_count" value="16.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://gohoy.github.io/blog">GOHOY</a></li>
+            
+            <li><a target="_blank" href="https://blog.dx39061.top">DX3906</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>目标检测</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>K210</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>qt</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E6%98%AF%E5%8D%B3%E5%B0%86%E5%88%B0%E6%9D%A5%E7%9A%84%E6%97%A5%E5%AD%90/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我是即将到来的日子">我是即将到来的日子</span>
+            <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 笔记 编译原理 "
+           href="/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="编译原理笔记">编译原理笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%BA%8C-%E2%80%94YoloV1V2%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(二)—YoloV1V2原理及源码使用">目标检测算法Yolo(二)—YoloV1V2原理及源码使用</span>
+            <span class="post-date" title="2023-10-30 11:46:34">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%B8%80-%E2%80%94%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEPytorch/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(一)—环境配置Pytorch">目标检测算法Yolo(一)—环境配置Pytorch</span>
+            <span class="post-date" title="2023-10-30 11:25:33">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E2%80%94QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)—QT开发数据库学习">会议室预约系统(一)—QT开发数据库学习</span>
+            <span class="post-date" title="2023-10-29 23:16:04">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%BA%8C-%E2%80%94%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(二)—代码实现">会议室预约系统(二)—代码实现</span>
+            <span class="post-date" title="2023-10-29 22:53:54">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/23/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%85%AD-yolo%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(六)-yolo目标检测">K210开发板(六)-yolo目标检测</span>
+            <span class="post-date" title="2023-09-23 16:28:11">2023/09/23</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/19/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%94-%E2%80%94%E6%8B%8D%E6%91%84%E5%92%8CKEYPAD%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(五)—拍摄和KEYPAD照片查看">K210开发板(五)—拍摄和KEYPAD照片查看</span>
+            <span class="post-date" title="2023-09-19 00:16:58">2023/09/19</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/17/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%9B%9B-%E2%80%94%E6%8C%89%E9%94%AE%E7%8B%AC%E7%AB%8B%E4%B8%AD%E6%96%AD/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(四)—按键独立中断">K210开发板(四)—按键独立中断</span>
+            <span class="post-date" title="2023-09-17 18:20:11">2023/09/17</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%89-%E2%80%94%E6%89%AC%E5%A3%B0%E5%99%A8%E6%92%AD%E6%94%BE/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(三)—扬声器播放">K210开发板(三)—扬声器播放</span>
+            <span class="post-date" title="2023-09-16 22:59:34">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(二)—点亮LED灯">K210开发板(二)—点亮LED灯</span>
+            <span class="post-date" title="2023-09-16 13:40:42">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%80-%E2%80%94%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(一)—搭建开发环境">K210开发板(一)—搭建开发环境</span>
+            <span class="post-date" title="2023-09-15 21:53:59">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(零)">K210开发板(零)</span>
+            <span class="post-date" title="2023-09-15 18:44:02">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我的第一篇博客">我的第一篇博客</span>
+            <span class="post-date" title="2023-09-15 15:44:02">2023/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-编译原理笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">编译原理笔记</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="笔记">笔记</a> > 
+            
+            <a  data-rel="笔记&lt;---&gt;编译原理">编译原理</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-11-28 17:08:49'>2023-11-24 15:26</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:4.1k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%BC%96%E8%AF%91%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="toc-text">一. 编译器概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%AD%E8%A8%80"><span class="toc-text">1. 计算机语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%AD%E8%A8%80%E4%B9%8B%E9%97%B4%E7%9A%84%E7%BF%BB%E8%AF%91"><span class="toc-text">2. 语言之间的翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E7%BF%BB%E8%AF%91%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.1 翻译模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E7%BF%BB%E8%AF%91%E5%BD%A2%E6%80%81"><span class="toc-text">2.2 翻译形态</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-%E7%BC%96%E8%AF%91%E5%99%A8%EF%BC%9A%E5%85%88%E7%BF%BB%E8%AF%91%E5%90%8E%E6%89%A7%E8%A1%8C"><span class="toc-text">2.2.1 编译器：先翻译后执行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-%E8%A7%A3%E9%87%8A%E5%99%A8%EF%BC%9A%E4%BE%BF%E7%BF%BB%E8%AF%91%E8%BE%B9%E6%89%A7%E8%A1%8C"><span class="toc-text">2.2.2 解释器：便翻译边执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E6%9E%84%E6%88%90%E4%B8%8E%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">3. 编译器的构成与工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%BB%E8%A6%81%E6%88%90%E5%88%86"><span class="toc-text">3.1 通用程序设计语言的主要成分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E9%98%B6%E6%AE%B5"><span class="toc-text">3.2 编译器的工作阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-text">3. 编译器的构造方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">二. 词法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%AD%A3%E8%A7%84%E5%BC%8F"><span class="toc-text">2. 正规式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.1 语言与字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%AD%A3%E8%A7%84%E5%BC%8F%E4%B8%8E%E6%AD%A3%E8%A7%84%E9%9B%86"><span class="toc-text">2.2 正规式与正规集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E7%AD%89%E4%BB%B7%E6%AD%A3%E8%A7%84%E5%BC%8F"><span class="toc-text">2.3 等价正规式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E7%AE%80%E5%8C%96%E6%AD%A3%E8%A7%84%E5%BC%8F"><span class="toc-text">2.3 简化正规式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E6%AD%A3%E8%A7%84%E5%BC%8F%E8%AF%B4%E6%98%8E%E8%AE%B0%E5%8F%B7"><span class="toc-text">2.4 正规式说明记号</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%8D%E7%A1%AE%E5%AE%9A%E7%9A%84%E6%9C%89%E9%99%90%E8%87%AA%E5%8A%A8%E6%9C%BA%EF%BC%88NFA%EF%BC%89"><span class="toc-text">3. 不确定的	有限自动机（NFA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E5%AE%9A%E4%B9%89"><span class="toc-text">3.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-text">3.2 表示方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E8%AF%86%E5%88%AB%E6%96%B9%E6%B3%95"><span class="toc-text">3.3 识别方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E7%AD%89%E4%BB%B7%E6%9C%89%E9%99%90%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-text">3.4 等价有限自动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-%E6%9E%84%E9%80%A0NFA"><span class="toc-text">3.5 构造NFA</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%A1%AE%E5%AE%9A%E7%9A%84%E6%9C%89%E9%99%90%E8%87%AA%E5%8A%A8%E6%9C%BA%EF%BC%88DFA%EF%BC%89"><span class="toc-text">4. 确定的有限自动机（DFA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E5%AE%9A%E4%B9%89"><span class="toc-text">4.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E6%9E%84%E9%80%A0DFA%EF%BC%88%E7%A1%AE%E5%AE%9A%E5%8C%96NFA%EF%BC%89"><span class="toc-text">4.2 构造DFA（确定化NFA）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%90%E9%9B%86%E6%B3%95%E6%9E%84%E9%80%A0DFA"><span class="toc-text">子集法构造DFA</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E6%9C%80%E5%B0%8F%E5%8C%96DFA"><span class="toc-text">4.2 最小化DFA</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">最小化算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9E%84%E9%80%A0%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%88%E5%9F%BA%E4%BA%8EDFA%EF%BC%89"><span class="toc-text">5. 构造词法分析器（基于DFA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%9E%8B%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E5%99%A8"><span class="toc-text">5.1 表驱动型词法分析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E7%9B%B4%E6%8E%A5%E7%BC%96%E7%A0%81%E5%9E%8B%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E5%99%A8"><span class="toc-text">5.2 直接编码型词法分析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-%E5%AF%B9%E6%AF%94"><span class="toc-text">5.3 对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">三. 语法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="toc-text">1. 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8A%E4%B8%8B%E6%96%87%E6%97%A0%E5%85%B3%E6%B3%95%EF%BC%88CFG%EF%BC%89"><span class="toc-text">2. 上下文无关法（CFG）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-text">2.2 表示方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E6%97%A0%E5%85%B3%E8%AF%AD%E8%A8%80%EF%BC%88%E7%94%B1CFG%E5%AE%9A%E4%B9%89%E7%9A%84%E8%AF%AD%E8%A8%80%EF%BC%89"><span class="toc-text">2.3 上下文无关语言（由CFG定义的语言）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A8%E5%AF%BC"><span class="toc-text">推导</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80"><span class="toc-text">语言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">3. 自上而下语法分析</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-4 i,
+    .toc-level-4 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;</span></p>
+<hr>
+<h2 id="一-编译器概述"><a href="#一-编译器概述" class="headerlink" title="一. 编译器概述"></a>一. 编译器概述</h2><h3 id="1-计算机语言"><a href="#1-计算机语言" class="headerlink" title="1. 计算机语言"></a>1. 计算机语言</h3><p>面向机器语言：机器指令、汇编<br>面向人类语言：通用程序设计语言、数据查询语言…</p>
+<h3 id="2-语言之间的翻译"><a href="#2-语言之间的翻译" class="headerlink" title="2. 语言之间的翻译"></a>2. 语言之间的翻译</h3><h4 id="2-1-翻译模式"><a href="#2-1-翻译模式" class="headerlink" title="2.1 翻译模式"></a>2.1 翻译模式</h4><p><img src="/imgs/$BBIRTAU%5BTJ~DV%7D4T33K6MT.png" alt="图片"><br>正向工作：</p>
+<ol>
+<li>汇编语言-&gt;机器指令：汇编&#x2F;交叉汇编</li>
+<li>高级语言-&gt;汇编语言&#x2F;机器指令：编译&#x2F;交叉编译</li>
+<li>高级语言-&gt;高级语言：转换&#x2F;预编译&#x2F;预处理<br>（如<code>#include</code>)</li>
+</ol>
+<p>逆向工作：<br> 反汇编&#x2F;反编译</p>
+<h4 id="2-2-翻译形态"><a href="#2-2-翻译形态" class="headerlink" title="2.2 翻译形态"></a>2.2 翻译形态</h4><p><img src="/imgs/NQDWYTP3F1V6LC4LX_%7BH1.png" alt="图片"></p>
+<h5 id="2-2-1-编译器：先翻译后执行"><a href="#2-2-1-编译器：先翻译后执行" class="headerlink" title="2.2.1 编译器：先翻译后执行"></a>2.2.1 编译器：先翻译后执行</h5><p>特点：工作效率高（时间快、空间省）、交互性与动态特性差、可移植性差<br>功能：完成翻译</p>
+<h5 id="2-2-2-解释器：便翻译边执行"><a href="#2-2-2-解释器：便翻译边执行" class="headerlink" title="2.2.2 解释器：便翻译边执行"></a>2.2.2 解释器：便翻译边执行</h5><p>特点：工作效率低（时间慢、空间费）、交互性与动态特性好、可移植性好<br>功能：完成翻译</p>
+<h3 id="3-编译器的构成与工作原理"><a href="#3-编译器的构成与工作原理" class="headerlink" title="3. 编译器的构成与工作原理"></a>3. 编译器的构成与工作原理</h3><h4 id="3-1-通用程序设计语言的主要成分"><a href="#3-1-通用程序设计语言的主要成分" class="headerlink" title="3.1 通用程序设计语言的主要成分"></a>3.1 通用程序设计语言的主要成分</h4><p>基本抽象：过程（函数）、抽象数据类型、类<br>定义方式：声明+操作<br>组成部分：头+体（如函数头+函数体）<br>（ 其中：<br>体包括：</p>
+<ol>
+<li>声明性语句<br> 编译器生成相应环境（存储空间）</li>
+<li>操作性语句<br> 编译器生成可执行代码序列<br>）</li>
+</ol>
+<h4 id="3-2-编译器的工作阶段"><a href="#3-2-编译器的工作阶段" class="headerlink" title="3.2 编译器的工作阶段"></a>3.2 编译器的工作阶段</h4><ol>
+<li>词法分析：识别记号（关键字（保留字）、标识符、字面量、特殊符号）</li>
+<li>语法分析：识别语言结构，并以树的形式表示</li>
+<li>语义分析：语义计算和处理。如考察结构正确的句子是否语义合法、修改树结构、查填符号表</li>
+<li>中间代码生成（可选）：生成一种既接近目标语言，又与具体机器无关的表示，便于代码优化</li>
+<li>中间代码优化（可选）：优化实际上是等价变换，变换前后功能完全相同，但空间时间上都更好</li>
+<li>目标代码生成：不同形式的目标代码，如：汇编、可重定位的二进制代码、内存形式（Load and Go）</li>
+<li>符号表管理：合理组织符号，便于各阶段查找、填写等</li>
+<li>出错处理：词法错、语法错、静态语义错（x&#x2F;0)、动态语义错(x&#x2F;y，y在运行中可能为0)<br><img src="/imgs/%7DB8Y_OJ0SKC7UR0NOIAJES4.png" alt="图片"></li>
+</ol>
+<h3 id="3-编译器的构造方法"><a href="#3-编译器的构造方法" class="headerlink" title="3. 编译器的构造方法"></a>3. 编译器的构造方法</h3><p>架构：<br>分析（前端）-&gt;中间代码-&gt;综合（后端）<br>构造方法：</p>
+<ol>
+<li>直接使用汇编语言&#x2F;通用程序设计语言</li>
+<li>利用编译器编写工具</li>
+<li>基于编译器基础架构的编译器构造系统（开放式编译器，如GCC&#x2F;LLCM&#x2F;SUIF&#x2F;COINS）</li>
+</ol>
+<h2 id="二-词法分析"><a href="#二-词法分析" class="headerlink" title="二. 词法分析"></a>二. 词法分析</h2><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><ol>
+<li>单词：被识别出的元素自身的值，也叫词值。<br>类别：<br>关键字：kw，如if while<br>标识符：id，如变量名<br>字面量：literal，如60<br>特殊符号：ks，如&#x3D; +</li>
+<li>模式：产生和识别单词（元素）的规则</li>
+<li>记号：按照某个模式识别出的元素<br>记号&#x3D;记号类别+记号属性<br><img src="/imgs/WD7AQX1HJEF24%5B%7DS0.png" alt="图片"></li>
+</ol>
+<p>词法分析器：<br>特征：唯一接触源程序的部分<br>任务：</p>
+<ol>
+<li>（根据模式）识别记号，并交给语法分析器</li>
+<li>过滤源程序无用成分，如注释、空格、回车</li>
+<li>处理与具体平台有关的输入（如回车）</li>
+<li>调用符号管理器或出错处理器</li>
+</ol>
+<p>工作方式：</p>
+<ol>
+<li>单独扫描一遍</li>
+<li>作为语法分析器的子程序（需要时调用词法分析器）</li>
+<li>并行（词法分析器生成记号流同时语法分析器处理）</li>
+</ol>
+<h3 id="2-正规式"><a href="#2-正规式" class="headerlink" title="2. 正规式"></a>2. 正规式</h3><h4 id="2-1-语言与字符串"><a href="#2-1-语言与字符串" class="headerlink" title="2.1 语言与字符串"></a>2.1 语言与字符串</h4><p>在词法分析的角度，语言L是有限字母表上有限长度字符串的集合（语言是由记号组成的集合）<br>字符串运算：<br><img src="/imgs/1WAR%7D8KS_B5S_NPTB%5DDCAC.png" alt="图片"><br>集合运算：<br><img src="/imgs/0G2MXL_37XONV%25M%5B_$22NC.png" alt="图片"></p>
+<h4 id="2-2-正规式与正规集"><a href="#2-2-正规式与正规集" class="headerlink" title="2.2 正规式与正规集"></a>2.2 正规式与正规集</h4><p><img src="/imgs/JBCLYRXBF90%7D1LFGF8WABCX.jpg" alt="图片"><br>其中：<br>正规式运算优先级从高到低为：闭包运算、连接运算、或运算</p>
+<h4 id="2-3-等价正规式"><a href="#2-3-等价正规式" class="headerlink" title="2.3 等价正规式"></a>2.3 等价正规式</h4><p>若正规式P，Q表示同一正规集，则P和Q等价，记作P&#x3D;Q<br>证明方法：</p>
+<ol>
+<li>证明不同正规式表示的集合相同</li>
+<li>根据正规式代数性质运算<br> <img src="/imgs/G3D%256Q5DYCR~1DLGH1U4C8V.png" alt="图片"></li>
+</ol>
+<h4 id="2-3-简化正规式"><a href="#2-3-简化正规式" class="headerlink" title="2.3 简化正规式"></a>2.3 简化正规式</h4><p>若r是表示L（r）的正规式，则</p>
+<ol>
+<li>正闭包：<code>r⁺=rr*=r*r,r*=r|ε</code><br> 其中：*和⁺运算优先级相同</li>
+<li>可缺省：<code>r?=r|ε</code><br> 其中：*和?运算优先级相同</li>
+<li>串：<code>&quot;r&quot;=r,ε=&quot;&quot;</code><br> 可用于字符转义，如：“|”表示字符|而非或运算</li>
+<li>字符组：<code>r=[r&#39;]</code><br> 其中：r是由若干字符进行或运算构成的正规式，<br> r’有两种书写形式：<ol>
+<li>枚举：a|b|c|d&#x3D;[abcd]</li>
+<li>分段：a|b|c|d&#x3D;[a-d]</li>
+</ol>
+</li>
+<li>非字符组：<code>[^r]是表示∑-[r]的正规式</code></li>
+<li>辅助定义：名字&#x3D;正规式<br> 名字仅供正规式内部使用（类似于C语言中define）</li>
+</ol>
+<h4 id="2-4-正规式说明记号"><a href="#2-4-正规式说明记号" class="headerlink" title="2.4 正规式说明记号"></a>2.4 正规式说明记号</h4><p>记号&#x3D;正规式<br>如：relation &#x3D; &lt;|&gt;|&lt;&#x3D;|&gt;&#x3D;|&#x3D;</p>
+<h3 id="3-不确定的有限自动机（NFA）"><a href="#3-不确定的有限自动机（NFA）" class="headerlink" title="3. 不确定的	有限自动机（NFA）"></a>3. 不确定的	有限自动机（NFA）</h3><p>模式的识别&#x2F;正规集的描述：正规式<br>记号的识别&#x2F;正规集的识别：有限自动机<br>最大的特点：不确定性（即某一状态对于一个字符可能有多个状态转移）</p>
+<h4 id="3-1-定义"><a href="#3-1-定义" class="headerlink" title="3.1 定义"></a>3.1 定义</h4><p>NFA是一个五元组：M&#x3D;(S,∑,move,s0,F)<br>其中：</p>
+<ol>
+<li>S：有限个状态的集合</li>
+<li>∑：有限个输入字符的集合</li>
+<li>move：状态转移函数。<br> move(si,ch)&#x3D;sj表示当前状态si遇到输入字符ch转移到状态sj</li>
+<li>s0：唯一的初态（开始状态）</li>
+<li>F：终态集（接收状态集），它是S的子集，包含所有终态</li>
+</ol>
+<h4 id="3-2-表示方法"><a href="#3-2-表示方法" class="headerlink" title="3.2 表示方法"></a>3.2 表示方法</h4><ul>
+<li><p>状态转换图：<br>节点：代表NFA中每个状态<br>边：代表NFA中的状态转移函数。连接两个状态，边上标记输入的字符</p>
+</li>
+<li><p>状态转移矩阵：<br>行标：∑中的字符<br>列标：S中的状态<br>矩阵值：对应状态接受对应字符后转移到的状态集合<br><img src="/imgs/JMFS8WXAAK%7B5T_V7~2FV.png" alt="图片"></p>
+</li>
+</ul>
+<h4 id="3-3-识别方法"><a href="#3-3-识别方法" class="headerlink" title="3.3 识别方法"></a>3.3 识别方法</h4><p>对于一个输入序列：</p>
+<ol>
+<li>从NFA初态开始</li>
+<li>对于输入的每个字符，寻找其下一个状态转移，直到到达一个终态，或没有下一个状态转移（根据最长匹配原则，要求所有字符都被输入）<ol>
+<li>如果此时处于终态，则NFA接受该序列</li>
+<li>否则，回溯+试探：沿原路返回，对于每个状态寻找另一种可能的状态转移，若能到达终态，则NFA接受该序列，否则（一直返回到初态都不能到达终态）不接受<br><img src="/imgs/BMN1OKPDYU5IIWN36M5.png" alt="图片"></li>
+</ol>
+</li>
+</ol>
+<h4 id="3-4-等价有限自动机"><a href="#3-4-等价有限自动机" class="headerlink" title="3.4 等价有限自动机"></a>3.4 等价有限自动机</h4><p>若有限自动机M和M’识别同一正规集，则M和M’等价，记作M&#x3D;M’</p>
+<h4 id="3-5-构造NFA"><a href="#3-5-构造NFA" class="headerlink" title="3.5 构造NFA"></a>3.5 构造NFA</h4><p>使用Thompson算法，先将正规式分解，然后使用以下规则构造NFA：<br><img src="/imgs/NIGO%7D0DK8QJ3M5UQ.png" alt="图片"></p>
+<h3 id="4-确定的有限自动机（DFA）"><a href="#4-确定的有限自动机（DFA）" class="headerlink" title="4. 确定的有限自动机（DFA）"></a>4. 确定的有限自动机（DFA）</h3><p>由于DFA识别记号时需要尝试所有路径才能确定一个序列不被接受，且识别时要进行大量回溯，算法较为复杂，时间复杂度高，所以提出构建一种有限自动机，其在任一状态下遇到同一字符最多有一个状态转移</p>
+<h4 id="4-1-定义"><a href="#4-1-定义" class="headerlink" title="4.1 定义"></a>4.1 定义</h4><p>DFA是NFA的一个特例，其中</p>
+<ol>
+<li>没有状态具有ε状态转移（即状态中没有标记ε的边）</li>
+<li>对于每个状态和每个字符，最多有一个下一状态</li>
+</ol>
+<h4 id="4-2-构造DFA（确定化NFA）"><a href="#4-2-构造DFA（确定化NFA）" class="headerlink" title="4.2 构造DFA（确定化NFA）"></a>4.2 构造DFA（确定化NFA）</h4><p>ε-闭包(T)：状态集T上的ε-闭包(T)代表从状态集T出发，经过ε（即不经过任何字符）可到达的状态全体，其构造方法为：</p>
+<ol>
+<li>（初始化）T中所有状态属于ε-闭包(T)</li>
+<li>（更新）将smove(ε-闭包(T),ε)中的状态添加进ε-闭包(T)</li>
+<li>循环2，直到不能转移到任一其它状态</li>
+</ol>
+<p>其中：smove(S,ch)代表对于S中的每个元素接受字符ch后能够到达的状态（move(item_in_S,ch)）的合集</p>
+<h5 id="子集法构造DFA"><a href="#子集法构造DFA" class="headerlink" title="子集法构造DFA"></a>子集法构造DFA</h5><p>输入：NFA，M&#x3D;(S,∑,move,s0,F)<br>输出：DFA，DM&#x3D;(DS,D∑,Dmove,Ds0,DF)</p>
+<ol>
+<li>（初始化）初态Ds0为ε-闭包(s0)；令DS∪&#x3D;Ds0</li>
+<li>对于DS中每个元素ds，∑中每个字符ch，计算得smove(ds,ch)&#x3D;new_ds；令DS∪&#x3D;ε-闭包(new_ds)，move+&#x3D;(move(ds,ch)&#x3D;ε-闭包(new_ds))</li>
+<li>循环2，直到DS中所有元素都被计算过</li>
+</ol>
+<p>其中：D∑&#x3D;∑，终态DF为DS中包含终态F中元素的元素集合</p>
+<p>例：<br><img src="/imgs/U5K2O03UJAQ~QBSEOP7KL3B.png" alt="图片"></p>
+<ol>
+<li>初态：求0的ε的闭包：经过任意条ε所能到达的状态，集合为{0,1,3,4,5,6,7,9}，将其填入表格第一行第一列</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">a</th>
+<th align="center">b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">{0,1,3,4,5,6,7,9}</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>{0,1,3,4,5,6,7,9}中：1接受a到达2，4接受a到达4，其余没有接受a到达某个状态，所以集合为{2,4}，其的ε-闭包为{2,4,6,7,9}，将其填入第一行第二列</li>
+<li>{0,1,3,4,5,6,7,9}中：同2，接受b，最后得到集合{5,6,7,8,9}，将其填入第一行第第三列</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">a</th>
+<th align="center">b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">{0,1,3,4,5,6,7,9}</td>
+<td align="center">{2,4,6,7,9}</td>
+<td align="center">{5,6,7,8,9}</td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li>观察{2,4,6,7,9}和{5,6,7,8,9}未在第一列出现，将他们填入第一列</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">a</th>
+<th align="center">b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">{0,1,3,4,5,6,7,9}</td>
+<td align="center">{2,4,6,7,9}</td>
+<td align="center">{5,6,7,8,9}</td>
+</tr>
+<tr>
+<td align="center">{2,4,6,7,9}</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">{5,6,7,8,9}</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li>同2，3对{2,4,6,7,9}和{5,6,7,8,9}计算，然后同4添加元素，再重复计算，最终得到表格，并对新的状态集重新编号：<br><img src="/imgs/4%7BKHONV3B82NX%25E%5B0J%7BU3.png" alt="图片"></li>
+<li>根据状态表绘制状态图：<br><img src="/imgs/VA42IVU11Z6W3%25KES4%7B5I.png" alt="图片"></li>
+</ol>
+<h4 id="4-2-最小化DFA"><a href="#4-2-最小化DFA" class="headerlink" title="4.2 最小化DFA"></a>4.2 最小化DFA</h4><ul>
+<li><p>可区分：对于状态s和t，若其中一个状态接受字符串w而另一个状态不接受，或者存在字符串w使得s和t接受后到达不同的状态，则s和t是可区分的</p>
+</li>
+<li><p>（不可区分：对于状态s和t，接受任意字符串到达的状态都是一样的，则s和t不可区分）</p>
+</li>
+<li><p>死状态：接受任意字符都转向其自身，且不是终态</p>
+</li>
+<li><p>不可达状态：从初态不可到达的状态</p>
+</li>
+</ul>
+<h5 id="最小化算法"><a href="#最小化算法" class="headerlink" title="最小化算法"></a>最小化算法</h5><p>对于DFA：D&#x3D;(S,∑,move,s0,F)</p>
+<ol>
+<li>初始化分∏&#x3D;{S-F,F}</li>
+<li>开始新一轮划分，对于两个状态s，t，若它们接受任意字符后到达的状态同属于∏中的某一个状态集合，则将它们划分至一个状态，否则它们就是不同的状态。<br> 遍历每个状态（不包括∏中不可再划分的状态集合中的元素），应用上述规则，产生新的∏</li>
+<li>循环2，直到∏中的每个状态集合都不可以再划分</li>
+<li>得到最终的∏，包含s0的状态集合为新的初始状态，包含F的状态集合构成新的终态集，然后对于其中的每个状态集合，用状态集合中的某一个元素代替该集合，并继承所有对该集合的状态转移函数</li>
+<li>删除死状态和不可达状态</li>
+</ol>
+<p>例：<br><img src="/imgs/SPQEYW1WNJE3B61H73.png" alt="图片"><br><img src="/imgs/J3CGKW_AW1XFWN61QV.png" alt="图片"></p>
+<ol>
+<li>初始划分∏&#x3D;{ABCD,E}</li>
+<li>∏[2]不可再划分，所以只遍历ABCD，ABCD接受a都到达B，B属于∏[1]，ABC接受b分别到达CDC，CDC都属于∏[1]所以ABC不可区分，划分为同一组，而D接受b到达E，E属于∏[2]，所以D划分为另一组，于是∏更新为{ABC,D,E}</li>
+<li>同理对ABC遍历，∏更新为{AC,B,D,E}</li>
+<li>对AC遍历，AC不可再划分，此时所有组都已经不可被划分，所以最终∏&#x3D;{AC,B,D,E}</li>
+<li>选代表，用A代替组AC，更新状态转移表，删除死状态和不可达状态（此例没有）得到DFA如图<br><img src="/imgs/N9W3XM7VZDGYPMCDF.png" alt="图片"></li>
+</ol>
+<h3 id="5-构造词法分析器（基于DFA）"><a href="#5-构造词法分析器（基于DFA）" class="headerlink" title="5. 构造词法分析器（基于DFA）"></a>5. 构造词法分析器（基于DFA）</h3><h4 id="5-1-表驱动型词法分析器"><a href="#5-1-表驱动型词法分析器" class="headerlink" title="5.1 表驱动型词法分析器"></a>5.1 表驱动型词法分析器</h4><p><img src="/imgs/7MSIWLFH4CHU64WZN7.png" alt="图片"><br>使用时，驱动器调用DFA查表</p>
+<h4 id="5-2-直接编码型词法分析器"><a href="#5-2-直接编码型词法分析器" class="headerlink" title="5.2 直接编码型词法分析器"></a>5.2 直接编码型词法分析器</h4><p>将驱动器和DFA操作合并，直接模拟DFA输入</p>
+<h4 id="5-3-对比"><a href="#5-3-对比" class="headerlink" title="5.3 对比"></a>5.3 对比</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">表驱动</th>
+<th align="center">直接编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">分析器速度</td>
+<td align="center">慢</td>
+<td align="center">快</td>
+</tr>
+<tr>
+<td align="center">程序与模式关系</td>
+<td align="center">无关</td>
+<td align="center">有关</td>
+</tr>
+<tr>
+<td align="center">适合的编写方式</td>
+<td align="center">工具生成</td>
+<td align="center">手工编程</td>
+</tr>
+<tr>
+<td align="center">分析器的规模</td>
+<td align="center">较大</td>
+<td align="center">较小</td>
+</tr>
+</tbody></table>
+<h2 id="三-语法分析"><a href="#三-语法分析" class="headerlink" title="三. 语法分析"></a>三. 语法分析</h2><p>词法分析：字母是元素，组成字符串，记号的集合，线性结构<br>语法分析：记号是元素，组成句子，句子的集合，树结构<br>语法的含义：</p>
+<ol>
+<li>语法规则：上下文无关法</li>
+<li>语法分析：下推自动机，自上而下和自下而上分析</li>
+</ol>
+<h3 id="1-基本概念-1"><a href="#1-基本概念-1" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><p>语法分析器作用：</p>
+<ol>
+<li>根据词法分析器提供的记号流，构造语法树</li>
+<li>检查输入中的语法（可能包括词法）错误，并调用出错处理器进行处理。</li>
+</ol>
+<p>源程序中出现的错误：</p>
+<ol>
+<li>词法错误：如非法字符、拼写错误（20id，intege）</li>
+<li>语法错误：语法结构出错，如缺少分号、begin&#x2F;end不匹配</li>
+<li>静态语义错误：如类型不一致、参数不匹配</li>
+<li>动态语义错误（逻辑错误）：如死循环、除数为0</li>
+</ol>
+<p>错误的恢复策略</p>
+<ol>
+<li>紧急方式恢复：抛弃若干输入，直到接受合法输入</li>
+<li>短语级恢复：采用串替换方式（抛弃+插入）方式对剩余输入局部纠正</li>
+<li>出错产生式：用出错产生式捕捉错误，用预制的短语级恢复</li>
+<li>全局纠正：寻找相近输入序列</li>
+</ol>
+<h3 id="2-上下文无关法（CFG）"><a href="#2-上下文无关法（CFG）" class="headerlink" title="2. 上下文无关法（CFG）"></a>2. 上下文无关法（CFG）</h3><h4 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1 定义"></a>2.1 定义</h4><p>CFG是一个四元组：G&#x3D;(N,T,P,S)<br>其中：</p>
+<ol>
+<li>N是非终结符的有限集合</li>
+<li>T是终结符的有限集合，且N∩T&#x3D;ф</li>
+<li>P是产生式的有限集合（产生式A-&gt;a，其中A∈N（左部），a∈(N∪T)*（右部），若a&#x3D;ε，则称A-&gt;ε为空产生式，也记为A-&gt;）</li>
+<li>S是非终结符，称为文法的开始符号</li>
+</ol>
+<h4 id="2-2-表示方法"><a href="#2-2-表示方法" class="headerlink" title="2.2 表示方法"></a>2.2 表示方法</h4><p>由产生式集表示CFG<br>约定：</p>
+<ol>
+<li>第一个产生式左部是文法开始符号S</li>
+<li>大写英文字母表示非终结符，小写英文字母表示终结符<br>分析树</li>
+<li>当若干个产生式左部相同时，可以将它们合并为一个产生式，所有右部用或运算连接</li>
+</ol>
+<p>例：简单的算术表达式可以表示为<br>N&#x3D;{E} T&#x3D;{+,*,(,),-,id} S&#x3D;E<br>p:<br>E-&gt;E + E<br>E-&gt;E * E<br>E-&gt;(E)<br>E-&gt;-E<br>E-&gt;id<br>或者表示为<br>E-&gt;E + E|E * E|(E)|-E|id</p>
+<h4 id="2-3-上下文无关语言（由CFG定义的语言）"><a href="#2-3-上下文无关语言（由CFG定义的语言）" class="headerlink" title="2.3 上下文无关语言（由CFG定义的语言）"></a>2.3 上下文无关语言（由CFG定义的语言）</h4><h5 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h5><p>推导是产生语言的方法</p>
+<ol>
+<li>直接推导：对于产生式A-&gt;$\gamma$，令$\alpha A\beta$替换为$\alpha\gamma\beta$的过程叫做直接推导，记作$\alpha A\beta\Rightarrow\alpha\gamma\beta$</li>
+<li>零步或多步推导：$\alpha1\Rightarrow\alpha2\Rightarrow…\Rightarrow\alpha n$，记作$\alpha1\Rightarrow^*\alpha n$，其中$\alpha1&#x3D;\alpha2$的情况为零步推导</li>
+<li>至少一步推导：对于零步或多步推导，若$\alpha1\not&#x3D;\alpha n$则为至少一步推导，记作$\alpha1\Rightarrow^+\alpha n$</li>
+</ol>
+<p>若每次推导均替换句型中最左边非终结符，则称为最左推导，由最左推导产生的句型为左句型，另外最右推导也被称为规范推导</p>
+<h5 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h5><p>由上可知：<br>由CFG G产生的语言L(G)被定义为：<br>L(G)&#x3D;{$\omega$|$S\Rightarrow^+\omega$ and $\omega\in T^*$ }<br>L(G)称为上下文无关语言，$\omega$称为句子<br>（句型：若 $S\Rightarrow^<em>\alpha,\alpha\in(N\cap T)^</em>$，则$\alpha$为G的一个句型）</p>
+<p>例：<br>N&#x3D;{E} T&#x3D;{+,*,(,),-,id} S&#x3D;E<br>可有以下推导：<br>$E\Rightarrow-E\Rightarrow-(E)\Rightarrow-(E+E)\Rightarrow-(id+E)\Rightarrow-(id+id)$</p>
+<p>（了解什么是二义性，和消除二义性的方法，不要求具体实现）<br>二义性：若文法 G 对 同 一句子产生不止一棵分析树，则称G是二义的<br>造成文法二义性的原因：文法对文法符号优先级缺少规定<br>消除二义性：<br>4. 改写二义文法为非二义文法<br>5. 规定二义文法中符号的优先级和结合性<br>（3. 修改语言的语法）</p>
+<p>上下文有关语言<br>如变量引用与声明必须一致<br>过程调用时实参与形参的个数、类型必须一致等</p>
+<h3 id="3-自上而下语法分析"><a href="#3-自上而下语法分析" class="headerlink" title="3. 自上而下语法分析"></a>3. 自上而下语法分析</h3><p>对于任意一个输入序列（记号流），从S开始进行最左推导，直到得到一个合法的句子或发现一个非法结构</p>
+<hr>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;</span></p>
+<hr>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 弦上的箭
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=230 height=75 src="//music.163.com/outchain/player?type=2&id=2059532170&auto=0&height=66"></iframe>
+</div>
+
+<script>
+    var $DOC = $(document)
+    $('#musicMouseDrag').on('mousedown', function (e) {
+      // 阻止文本选中
+      $DOC.bind("selectstart", function () {
+        return false;
+      });
+      $('#musicDragArea').css('height', '100%');
+      var $moveTarget = $('#musicMouseDrag');
+      $moveTarget.css('border', '1px dashed grey')
+      var div_x = e.pageX - $moveTarget.offset().left;
+      var div_y = e.pageY - $moveTarget.offset().top;
+      $DOC.on('mousemove', function (e) {
+        var targetX = e.pageX - div_x;
+        var targetY = e.pageY - div_y;
+        targetX = targetX < 0 ? 0 : (targetX + $moveTarget.outerWidth() >= window.innerWidth) ? window.innerWidth - $moveTarget.outerWidth() : targetX;
+        targetY = targetY < 0 ? 0 : (targetY + $moveTarget.outerHeight() >= window.innerHeight) ? window.innerHeight - $moveTarget.outerHeight() : targetY;
+        $moveTarget.css({'left': targetX + 'px', 'top': targetY + 'px', 'bottom': 'inherit', 'right': 'inherit'})
+      }).on('mouseup', function () {
+        $DOC.unbind("selectstart");
+        $DOC.off('mousemove')
+        $DOC.off('mouseup')
+        $moveTarget.css('border', 'none')
+        $('#musicDragArea').css('height', '10px');
+      })
+    })
+</script>
+</html>
