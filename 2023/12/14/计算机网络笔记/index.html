@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>计算机网络笔记 | 弦上的箭</title>
+  <meta name="keywords" content=" 计网 ">
+  <meta name="description" content="计算机网络笔记 | 弦上的箭">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理实践—python构建编译器">
+<meta property="og:url" content="http://example.com/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/index.html">
+<meta property="og:site_name" content="弦上的箭">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407011813.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407079046.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407127151.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407220618.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407388728.jpg">
+<meta property="og:image" content="http://example.com/imgs/123124.png">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703432926195.jpg">
+<meta property="article:published_time" content="2024-01-03T15:54:24.000Z">
+<meta property="article:modified_time" content="2024-01-03T15:56:42.556Z">
+<meta property="article:author" content="弦上的箭">
+<meta property="article:tag" content="编译原理">
+<meta property="article:tag" content="编译器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>弦上的箭</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/arrowonstr"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:21009200039@stu.xidian.edu.cn"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(16)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="项目">
+            <i class="fold iconfont icon-right"></i>
+            项目
+            <small>(10)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计">
+            <i class="fold iconfont icon-right"></i>
+            程序设计
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计&lt;---&gt;会议室系统">
+            
+            会议室系统
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式">
+            <i class="fold iconfont icon-right"></i>
+            嵌入式
+            <small>(7)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式&lt;---&gt;K210">
+            
+            K210
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="笔记">
+            <i class="fold iconfont icon-right"></i>
+            笔记
+            <small>(4)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;课程">
+            
+            课程
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能">
+            <i class="fold iconfont icon-right"></i>
+            人工智能
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能&lt;---&gt;yolo">
+            
+            yolo
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="日记">
+            
+            日记
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        <a 
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="16">
+<input type="hidden" id="yelog_site_word_count" value="28.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://gohoy.github.io/blog">GOHOY</a></li>
+            
+            <li><a target="_blank" href="https://blog.dx39061.top">DX3906</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译器</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计网</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>目标检测</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>K210</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>qt</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E6%98%AF%E5%8D%B3%E5%B0%86%E5%88%B0%E6%9D%A5%E7%9A%84%E6%97%A5%E5%AD%90/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我是即将到来的日子">我是即将到来的日子</span>
+            <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 "
+           href="/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/"
+           data-tag="编译原理,编译器"
+           data-author="" >
+            <span class="post-title" title="编译原理实践—python构建编译器">编译原理实践—python构建编译器</span>
+            <span class="post-date" title="2024-01-03 23:54:24">2024/01/03</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/"
+           data-tag="计网"
+           data-author="" >
+            <span class="post-title" title="计算机网络笔记">计算机网络笔记</span>
+            <span class="post-date" title="2023-12-14 21:58:14">2023/12/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"
+           data-tag="编译原理"
+           data-author="" >
+            <span class="post-title" title="编译原理笔记">编译原理笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%BA%8C-%E2%80%94YoloV1V2%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(二)—YoloV1V2原理及源码使用">目标检测算法Yolo(二)—YoloV1V2原理及源码使用</span>
+            <span class="post-date" title="2023-10-30 11:46:34">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%B8%80-%E2%80%94%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEPytorch/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(一)—环境配置Pytorch">目标检测算法Yolo(一)—环境配置Pytorch</span>
+            <span class="post-date" title="2023-10-30 11:25:33">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E2%80%94QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)—QT开发数据库学习">会议室预约系统(一)—QT开发数据库学习</span>
+            <span class="post-date" title="2023-10-29 23:16:04">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%BA%8C-%E2%80%94%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(二)—代码实现">会议室预约系统(二)—代码实现</span>
+            <span class="post-date" title="2023-10-29 22:53:54">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/23/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%85%AD-yolo%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(六)-yolo目标检测">K210开发板(六)-yolo目标检测</span>
+            <span class="post-date" title="2023-09-23 16:28:11">2023/09/23</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/19/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%94-%E2%80%94%E6%8B%8D%E6%91%84%E5%92%8CKEYPAD%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(五)—拍摄和KEYPAD照片查看">K210开发板(五)—拍摄和KEYPAD照片查看</span>
+            <span class="post-date" title="2023-09-19 00:16:58">2023/09/19</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/17/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%9B%9B-%E2%80%94%E6%8C%89%E9%94%AE%E7%8B%AC%E7%AB%8B%E4%B8%AD%E6%96%AD/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(四)—按键独立中断">K210开发板(四)—按键独立中断</span>
+            <span class="post-date" title="2023-09-17 18:20:11">2023/09/17</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%89-%E2%80%94%E6%89%AC%E5%A3%B0%E5%99%A8%E6%92%AD%E6%94%BE/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(三)—扬声器播放">K210开发板(三)—扬声器播放</span>
+            <span class="post-date" title="2023-09-16 22:59:34">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(二)—点亮LED灯">K210开发板(二)—点亮LED灯</span>
+            <span class="post-date" title="2023-09-16 13:40:42">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%80-%E2%80%94%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(一)—搭建开发环境">K210开发板(一)—搭建开发环境</span>
+            <span class="post-date" title="2023-09-15 21:53:59">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(零)">K210开发板(零)</span>
+            <span class="post-date" title="2023-09-15 18:44:02">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我的第一篇博客">我的第一篇博客</span>
+            <span class="post-date" title="2023-09-15 15:44:02">2023/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-计算机网络笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">计算机网络笔记</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="笔记">笔记</a> > 
+            
+            <a  data-rel="笔记&lt;---&gt;课程">课程</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">计网</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-01-03 23:57:16'>2023-12-14 21:58</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:5.9k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BD%91%E7%BB%9C"><span class="toc-text">一、网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E7%B1%BB"><span class="toc-text">1. 分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E7%89%A9%E7%90%86%E5%88%86%E7%B1%BB"><span class="toc-text">1.1 物理分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E8%8C%83%E5%9B%B4%E5%88%86%E7%B1%BB"><span class="toc-text">1.2 范围分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A8%A1%E5%9E%8B"><span class="toc-text">2. 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">2.1 基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-OSI%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.2 OSI参考模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-TCP-IP%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.3 TCP&#x2F;IP模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E5%AF%BB%E5%9D%80"><span class="toc-text">2.4 寻址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1"><span class="toc-text">二、数据通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 基础概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">2. 通信模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E6%96%B9%E5%90%91%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.1 方向模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.2 数据模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%97%B6%E5%BA%8F%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.3 时序模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E4%BC%A0%E8%BE%93%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.4 传输模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B"><span class="toc-text">3. 通信过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E8%BD%AC%E6%8D%A2"><span class="toc-text">4. 模拟信号与数字信号转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E8%BD%AC%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7"><span class="toc-text">4.1 数字信号转数字信号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E8%BD%AC%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7"><span class="toc-text">4.2 数字信号转模拟信号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E6%A8%A1%E6%8B%9F%E4%BF%A1%E5%8F%B7%E8%BD%AC%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7"><span class="toc-text">4.3 模拟信号转数字信号</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%80%A7%E8%83%BD"><span class="toc-text">5.性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-text">5.1 性能指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E6%80%A7%E8%83%BD%E5%B9%B2%E6%89%B0"><span class="toc-text">5.2 性能干扰</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A5%88%E5%A5%8E%E6%96%AF%E7%89%B9%E5%AE%9A%E7%90%86"><span class="toc-text">奈奎斯特定理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A6%99%E5%86%9C%E5%AE%9A%E7%90%86"><span class="toc-text">香农定理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-text">三、物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%89%E5%90%91%E4%BB%8B%E8%B4%A8"><span class="toc-text">1. 有向介质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%8F%8C%E7%BB%9E%E7%BA%BF"><span class="toc-text">1.1 双绞线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%90%8C%E8%BD%B4%E7%94%B5%E7%BC%86"><span class="toc-text">1.2 同轴电缆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%85%89%E7%BC%86"><span class="toc-text">1.3 光缆</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%97%A0%E5%90%91%E4%BB%8B%E8%B4%A8"><span class="toc-text">2. 无向介质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E6%97%A0%E7%BA%BF%E7%94%B5%E6%B3%A2"><span class="toc-text">2.1 无线电波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%BE%AE%E6%B3%A2"><span class="toc-text">2.2 微波</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E7%BA%A2%E5%A4%96%E6%B3%A2"><span class="toc-text">2.3 红外波</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="toc-text">四、数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%B8%A7"><span class="toc-text">成帧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E4%B8%8E%E7%BA%A0%E9%94%99"><span class="toc-text">检测与纠错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE"><span class="toc-text">可靠传输协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E5%88%B0%E7%82%B9%E5%8D%8F%E8%AE%AEPPP"><span class="toc-text">点到点协议PPP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%90%E5%B8%A7-1"><span class="toc-text">成帧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93"><span class="toc-text">传输</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AE"><span class="toc-text">多路访问</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE"><span class="toc-text">随机访问协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BA%AFALOHA%E5%8D%8F%E8%AE%AE"><span class="toc-text">纯ALOHA协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E9%9A%99ALOHA%E5%8D%8F%E8%AE%AE"><span class="toc-text">时隙ALOHA协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%BD%E6%B3%A2%E4%BE%A6%E5%90%AC%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AECSMA"><span class="toc-text">载波侦听多路访问协议CSMA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%A6%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B%E7%9A%84%E8%BD%BD%E6%B3%A2%E4%BE%A6%E5%90%AC%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AECSMA-CD"><span class="toc-text">带冲突检测的载波侦听多路访问协议CSMA&#x2F;CD</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%97%E6%8E%A7%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE"><span class="toc-text">受控访问协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E9%81%93%E5%8C%96%E5%8D%8F%E8%AE%AE"><span class="toc-text">通道化协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%91%E5%88%86%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AEFDMA"><span class="toc-text">频分多路访问FDMA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%88%86%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AETDMA"><span class="toc-text">时分多路访问TDMA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A0%81%E5%88%86%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AECDMA"><span class="toc-text">码分多路访问CDMA</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-4 i,
+    .toc-level-4 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：<br>&emsp;&emsp;</span></p>
+<hr>
+<h2 id="一、网络"><a href="#一、网络" class="headerlink" title="一、网络"></a>一、网络</h2><h3 id="1-分类"><a href="#1-分类" class="headerlink" title="1. 分类"></a>1. 分类</h3><h4 id="1-1-物理分类"><a href="#1-1-物理分类" class="headerlink" title="1.1 物理分类"></a>1.1 物理分类</h4><ol>
+<li>网状：每台设备之间都有一条专用链路。优点：健壮，即使一条链路不可用，整个系统也不会不可用；缺点：线缆多</li>
+<li>星型：每台设备与中央控制器（集线器）有一条链路，集线器负责转播信号。优点：健壮，即使一条链路不可用，整个系统也不会不可用；缺点：依赖集线器</li>
+<li>总线：由一条较长的线缆作为主干，每台设备引出一条线连接主干。优点：安装简单，路径高效；缺点：总线电缆上的错误会使得所有传输中止</li>
+<li>环状：由一条环型线缆，环中有若干中继器，每个中继器引出一条线连接设备。优点：信号循环，故障隔离；缺点：环中的故障会使整个网络瘫痪</li>
+<li>混合型：混合上述结构</li>
+</ol>
+<h4 id="1-2-范围分类"><a href="#1-2-范围分类" class="headerlink" title="1.2 范围分类"></a>1.2 范围分类</h4><ol>
+<li>局域网LAN：通常是专用的，如办公室</li>
+<li>城域网MAN：通常覆盖一个城市，为高速连接而设计</li>
+<li>广域网WAN：提供远距离数据传输，可跨越国家甚至更大</li>
+<li>互联网：多个上述网络一起连接组成的网络</li>
+</ol>
+<h3 id="2-模型"><a href="#2-模型" class="headerlink" title="2. 模型"></a>2. 模型</h3><h4 id="2-1-基本概念"><a href="#2-1-基本概念" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h4><ol>
+<li>实体：第n层的活动元素称为n层实体。同一层的实体叫对等实体</li>
+<li>协议：为对等实体数据交换建立的规则，包括<strong>语法</strong>（数据的格式）、<strong>语义</strong>（数据的含义）、<strong>时序</strong>（操作的顺序）</li>
+<li>接口：上层使用下层服务的入口</li>
+<li>服务：下层为相邻上层提供的功能调用</li>
+</ol>
+<h4 id="2-2-OSI参考模型"><a href="#2-2-OSI参考模型" class="headerlink" title="2.2 OSI参考模型"></a>2.2 OSI参考模型</h4><p>OSI是由官方创立的法定标准<br>由物理层、数据链路层、网络层、传输层、会话层、表示层以及应用层组成</p>
+<ol>
+<li>物理层：负责位从一个节点到另一个节点的传递</li>
+<li>数据链路层：负责帧从一节点到另一节点传递。负责一个网络内的寻址</li>
+<li>网络层：负责分组从源地址传递到目的地址。负责需要跨越网络的寻址</li>
+<li>传输层：负责报文从一个进程到另一个进程传递。负责数据的进程（计算机程序）到进程传递</li>
+<li>会话层：负责对话控制和同步</li>
+<li>表示层：负责翻译、加密和压缩数据</li>
+<li>应用层：负责向用户提供服务</li>
+</ol>
+<h4 id="2-3-TCP-IP模型"><a href="#2-3-TCP-IP模型" class="headerlink" title="2.3 TCP&#x2F;IP模型"></a>2.3 TCP&#x2F;IP模型</h4><p>TCP是已经被广泛接受的事实标准，以下主要介绍其规定的协议</p>
+<ol>
+<li>物理层和数据链路层：不定义任何协议，支持所有标准协议</li>
+<li>网络层：<ol>
+<li>网际协议（IP）：提供尽力传递服务，没有差错检错和跟踪。ip传输的数据称为数据报，每个数据报都独立传输</li>
+<li>地址解析协议：将逻辑地址与物理地址相联系</li>
+<li>逆地址解析协议：允许主机在仅知道物理地址的情况下寻找因特网地址</li>
+<li>因特网控制报文协议：向发送方通知数据报所发生的问题</li>
+<li>因特网组报文协议：用于将一个报文同时发送给一组接收者</li>
+</ol>
+</li>
+<li>传输层：<ol>
+<li>用户数据报协议：进程到进程的协议，将端口号、校验、差错控制及信息长度添加在数据的头部</li>
+<li>传输控制协议：可靠的流传输协议，面向连接，在传输前先建立连接。 该协议划分数据流为片段，每个片段包含序号，用于接收后重新排序</li>
+<li>流传输控制协议：对新应用提供支持，如音频</li>
+</ol>
+</li>
+<li>应用层： 相当于OSI模型中的会话层、表示层和应用层</li>
+</ol>
+<h4 id="2-4-寻址"><a href="#2-4-寻址" class="headerlink" title="2.4 寻址"></a>2.4 寻址</h4><p>以TCP&#x2F;IP模型为例，地址有四部分：物理地址、逻辑地址（IP）、端口地址和专用地址</p>
+<ol>
+<li>物理地址：局域网或广域网定义的节点地址，在数据链路层被添加在数据头部。不同网络可能有不同格式的物理地址</li>
+<li>逻辑地址：逻辑地址适用于因特网，它唯一定义了连接到因特网的一台主机，通常为32位地址</li>
+<li>端口地址：进程地址</li>
+<li>专用地址：一些面向用户的应用，如电子邮件</li>
+</ol>
+<p>寻址过程见书P32，文字表述过于麻烦</p>
+<h2 id="二、数据通信"><a href="#二、数据通信" class="headerlink" title="二、数据通信"></a>二、数据通信</h2><h3 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1. 基础概念"></a>1. 基础概念</h3><p>模拟信号：连续的值<br>数字信号：离散的值</p>
+<p>码元（信号元素）：码元是一个固定时长的信号元素，其可以用带代表不同离散数值的基本波形。当一个信号的离散状态有K个时，此时码元称为K进制码元。一个K进制码元可以携带log2(K)个bit的信息量。如010101，有两种不同的码元，0，1。它是2进制码元，每个码元携带1bit信息</p>
+<h3 id="2-通信模式"><a href="#2-通信模式" class="headerlink" title="2. 通信模式"></a>2. 通信模式</h3><h4 id="2-1-方向模式"><a href="#2-1-方向模式" class="headerlink" title="2.1 方向模式"></a>2.1 方向模式</h4><ol>
+<li>单工：通信是单向的。两台设备只有一台能够发送，另一台只能接受</li>
+<li>半双工：通信是双向的。每台设备均能发送和接受，但不能同时进行，一台设备发送时，另一台只能接收</li>
+<li>全双工：通信是双向的。每台设备能同时发送和接受</li>
+</ol>
+<h4 id="2-2-数据模式"><a href="#2-2-数据模式" class="headerlink" title="2.2 数据模式"></a>2.2 数据模式</h4><ol>
+<li>并行传输：一次可以发送n位数据。</li>
+<li>串行传输：一次只能发送1为数据。速度慢，费用低，适用远距离</li>
+</ol>
+<h4 id="2-3-时序模式"><a href="#2-3-时序模式" class="headerlink" title="2.3 时序模式"></a>2.3 时序模式</h4><ol>
+<li>同步传输：先送出一个或多个同步字符</li>
+<li>异步传输：添加开始位和结束位</li>
+</ol>
+<h4 id="2-4-传输模式"><a href="#2-4-传输模式" class="headerlink" title="2.4 传输模式"></a>2.4 传输模式</h4><ol>
+<li>基带传输：将数字信号1和0用不同电压表示，再送到数字信道上传输</li>
+<li>宽带传输：将基带信号经过载波调制，频率范围搬移到更高频段，再送到模拟信道上去传输</li>
+</ol>
+<h3 id="3-通信过程"><a href="#3-通信过程" class="headerlink" title="3. 通信过程"></a>3. 通信过程</h3><p>为解决多台设备的通信问题，提出了交换网络的方法，交换网络由一系列节点构成，这些节点成为交换机，交换机可以在多个端系统（设备）间建立临时链接<br>交换网络有三种：电路交换网、分组交换网、  报文交换网，分组交换网又分为虚电路网和数据报网。<br>文字表述过于复杂，见书P139</p>
+<h3 id="4-模拟信号与数字信号转换"><a href="#4-模拟信号与数字信号转换" class="headerlink" title="4. 模拟信号与数字信号转换"></a>4. 模拟信号与数字信号转换</h3><h4 id="4-1-数字信号转数字信号"><a href="#4-1-数字信号转数字信号" class="headerlink" title="4.1 数字信号转数字信号"></a>4.1 数字信号转数字信号</h4><p>通过编码方式</p>
+<ol>
+<li>不归零编码（NRZ）：正电平定义为1，零电平定义为0。存在问题：由于信号使用此方式会出现一整段高电平信号或低电平信号，接收方不知道这一段里又多少个1多少个0</li>
+<li>归零编码（RZ）：正电平定义为1，零电平定义为0，但是在每个码元后半段都会置零。和1存在同样问题，且低电平大量出现，信道利用率低</li>
+<li>反向不归零编码（NRZI）：信号电平和上一个电平相比，翻转表示0， 不翻转表示1。和1存在同样问题</li>
+<li>曼彻斯特编码：一个码元内前半段高电平后半段低电平表示0，反之是1。该编码特点是一个码元中间出现电平跳变可以用于同步。该编码最小带宽是NRZ两倍</li>
+<li>差分曼彻斯特编码：该码元前半段和上一个码元的后半段电平相同为1，反之是0。特点和曼彻斯特编码一样，但是抗干扰性更强。该编码最小带宽是NRZ两倍</li>
+<li>mBnL编码：用n为L进制数表示m位B进制数，L&#x3D;2时用B表示，L&#x3D;3时用T表示，L&#x3D;4时用Q表示</li>
+<li>MLT-3编码：如果下一位是0，则信号保持，如果下一位是1且当前电平不是0，则下一个电平是0，如果下一位是1且当前电平是0，则下一个电平是最后一个非零电平的相反值</li>
+</ol>
+<h4 id="4-2-数字信号转模拟信号"><a href="#4-2-数字信号转模拟信号" class="headerlink" title="4.2 数字信号转模拟信号"></a>4.2 数字信号转模拟信号</h4><p>调幅、调频、调相</p>
+<h4 id="4-3-模拟信号转数字信号"><a href="#4-3-模拟信号转数字信号" class="headerlink" title="4.3 模拟信号转数字信号"></a>4.3 模拟信号转数字信号</h4><ol>
+<li>抽样：对模拟信号周期性扫描，得到一系列离散的信号。为了使得无失真代表，要求采样频率&gt;&#x3D;2*信号最高频率</li>
+<li>量化：把抽样得到的电平按照一定的分级标准转化为整数</li>
+<li>编码：将量化的结果转化为二进制编码</li>
+</ol>
+<h3 id="5-性能"><a href="#5-性能" class="headerlink" title="5.性能"></a>5.性能</h3><h4 id="5-1-性能指标"><a href="#5-1-性能指标" class="headerlink" title="5.1 性能指标"></a>5.1 性能指标</h4><ol>
+<li>速率（比特率、数据传输率、数据率）：主机在信道上传送数据位数的速率，单位为b&#x2F;s，B&#x2F;s，bps…</li>
+<li>码元速率（信号速率、波特率）：主机在信道上传送码元（信号元素）的速率，速率&#x3D;码元速率*一个码元携带的信息量，单位为波特每秒</li>
+<li>传播速率：信号在链路上传播的速度，单位是m&#x2F;s</li>
+<li>信号带宽：信号最高频率和最低频率之差，单位为Hz</li>
+<li>带宽：指单位时间内从网络某一点能通过的最高数据率，单位是b&#x2F;s</li>
+<li>吞吐量：单位时间内通过某个网络&#x2F;信道&#x2F;接口的数据量，单位为b&#x2F;s</li>
+<li>发送时延：第一个bit被推送到信道和最后一个bit被推送到信道的时间差，发送时延&#x3D;数据长度&#x2F;发送速率（理想为信号带宽)</li>
+<li>传播时延：信号在信道上传播的时间，传播时延&#x3D;信道长度&#x2F;传播速率</li>
+<li>排队时延：信号等待输入可用的时间</li>
+<li>处理时延：检错、找出口 等的时间</li>
+<li>时延带宽积：留存在信道的数据量，时延带宽积&#x3D;传播时延*带宽，单位为bit</li>
+<li>信道利用率：有数据通过的时间&#x2F;（有+无）数据通过的时间</li>
+<li>网络利用率：信道利用率加权平均</li>
+</ol>
+<h4 id="5-2-性能干扰"><a href="#5-2-性能干扰" class="headerlink" title="5.2 性能干扰"></a>5.2 性能干扰</h4><h5 id="奈奎斯特定理"><a href="#奈奎斯特定理" class="headerlink" title="奈奎斯特定理"></a>奈奎斯特定理</h5><p>（内部干扰）在无噪声、带宽受限条件下，为避免码间干扰，极限码元传输速率为2W，极限数据传输速率为2Wlog2(V)，其中W是信号带宽，V是信号离散电平数</p>
+<h5 id="香农定理"><a href="#香农定理" class="headerlink" title="香农定理"></a>香农定理</h5><p>（外部干扰）噪声会影响信号，信号若强，则噪声影响就弱，因此信噪比就很重要，信噪比&#x3D;信号的平均功率&#x2F;噪声的平均功率，记为S&#x2F;N(db)，其数值为10log10(S&#x2F;N)。为避免信号干扰影响传输，极限数据传输速率&#x3D;Wlog2(1+S&#x2F;N)，W是信号带宽</p>
+<h2 id="三、物理层"><a href="#三、物理层" class="headerlink" title="三、物理层"></a>三、物理层</h2><h3 id="1-有向介质"><a href="#1-有向介质" class="headerlink" title="1. 有向介质"></a>1. 有向介质</h3><p>有向介质是指在设备之间提供通路的介质，包括双绞线、同轴电缆和光缆</p>
+<h4 id="1-1-双绞线"><a href="#1-1-双绞线" class="headerlink" title="1.1 双绞线"></a>1.1 双绞线</h4><p>双绞线由两根并排绞合的相互绝缘的铜导线组成<br>双绞线分为非屏蔽双绞线与屏蔽双绞线，后者有一层金属薄片将导体包围起来，防止噪声或串扰</p>
+<p>特质：<br>便宜、通信距离为几公里到数十公里<br>应用：<br>电话线路、局域网</p>
+<h4 id="1-2-同轴电缆"><a href="#1-2-同轴电缆" class="headerlink" title="1.2 同轴电缆"></a>1.2 同轴电缆</h4><p>同轴电缆由导体铜制芯线、绝缘层、网状编制屏蔽层和塑料外壳构成</p>
+<p>特质：<br>抗干扰性比双绞线强、传输距离更远，被广泛用于传输高速率数据，但是价格贵<br>应用：<br>以太局域网、模拟电话网络</p>
+<h4 id="1-3-光缆"><a href="#1-3-光缆" class="headerlink" title="1.3 光缆"></a>1.3 光缆</h4><p>光缆由纤芯和包层构成，传递光脉冲来进行通信，有光脉冲表示1，无为0<br>光缆的传播模式有多模和单模两种，前者代表光束沿多个不同的路径通过纤芯</p>
+<p>特质：<br>带宽高、信号衰减小、无电磁干扰、抗腐蚀、重量轻、不易被窃听，但是安装维护费用高、传播单向性、成本高<br>应用：<br>混合网络、快速以太网</p>
+<h3 id="2-无向介质"><a href="#2-无向介质" class="headerlink" title="2. 无向介质"></a>2. 无向介质</h3><p>无线通信不适用物理导体传输电磁波，信号通过空气传播，能被任何人接收</p>
+<h4 id="2-1-无线电波"><a href="#2-1-无线电波" class="headerlink" title="2.1 无线电波"></a>2.1 无线电波</h4><p>频率在1-3GHz之间，使用全向天线发送信号</p>
+<p>应用：<br>多播通信，如收音机、电视、寻呼系统</p>
+<h4 id="2-2-微波"><a href="#2-2-微波" class="headerlink" title="2.2 微波"></a>2.2 微波</h4><p>频率在1-300GHz，使用单向天线（有抛物面碟形天线和喇叭天线）发送信号</p>
+<p>应用：<br>单播通信，如移动电话、卫星网络和无线局域网</p>
+<h4 id="2-3-红外波"><a href="#2-3-红外波" class="headerlink" title="2.3 红外波"></a>2.3 红外波</h4><p>频率在300GHz-400THz，频率很高不会穿透墙体，可防止系统之间相互干扰</p>
+<p>应用：<br>封闭区域通信，如视线传播、遥控器</p>
+<h2 id="四、数据链路层"><a href="#四、数据链路层" class="headerlink" title="四、数据链路层"></a>四、数据链路层</h2><h3 id="成帧"><a href="#成帧" class="headerlink" title="成帧"></a>成帧</h3><p>数据链路层要将位组合成帧，并且帧与帧之间要可识别。成帧方法有固定大小成帧（长度本身就用做分隔符）和可变长度成帧，其中可变长度成帧又可分为面向字符协议和面向位协议<br>面向字符协议：<br>在帧的开始和结束增加一字节的标记。由于数据中可能出现和标记一样的字符，为区别标记和数据中作为文本的标记字符，采用<strong>字节填充</strong>，在数据段出现和标记一样的文本时，在其前面添加<strong>换义字符</strong>，同样的，如果要将换义字符作为文本传输，在换义字符前再添加换义字符即可。接收方会在接收时移走这些被额外添加的换义字符<br>面向位协议：<br>使用8位标记01111110来作为分隔符。由于数据中可能也会出现01111110，所以采用<strong>位填充</strong>，在数据中每遇到1个0和5个连续的1便在后面添加一个0，接收方在接收时会移走这些0</p>
+<h3 id="检测与纠错"><a href="#检测与纠错" class="headerlink" title="检测与纠错"></a>检测与纠错</h3><p>错误类型：<br>单个位差错：，数据单元中仅有一位发生变化，1变成了0或0变成了1<br>突发性差错：数据单元中有两位或更多位发生了变化</p>
+<p>奇偶校验：在数据末尾添加一位奇偶校验位，使得数据中1的个数位奇数（奇校验）或偶数（偶校验），接收方查看数据中的1是否为奇数&#x2F;偶数<br>多维奇偶校验：<br>循环冗余校验：约定多项式，发送方计算余数并在数据后添加该余数，接收方把接收到的数据连同余数一起重新计算，若余数为0则代表传输无误<br>汉明编码：</p>
+<h3 id="可靠传输协议"><a href="#可靠传输协议" class="headerlink" title="可靠传输协议"></a>可靠传输协议</h3><p>无噪声通道协议：<br>不会丢失帧、复制帧或损坏帧的通道</p>
+<ol>
+<li>最简单的协议：发送方数据链路层不断发送数据，接收方数据链路层从物理层接收到帧，从帧取出数据传输到网络层</li>
+<li>停止等待协议：发送方发送一个帧后必须停下来直到接收到接收方的确认（ACK帧）才能发送下一个帧</li>
+</ol>
+<p>有噪声通道协议：<br>3. 停止等待自动重复请求协议（SW-ARQ）：发送方发送一个帧后停下来等待接收方的ACK帧，如果超过一定时间未接受到ACK帧，则发送方重传当前帧。并且，为了避免重复接收的错误，要给每个帧（包括ACK帧）使用一个bit编号。信道利用率&#x3D;数据发送时延&#x2F;（数据发送时延+传播时延+ACK帧发送时延），信道利用率很低。<br>4. 回退N帧自动重发请求协议（GBN-ARQ）：使用n个bit给数据编码。发送方与接收方使用滑动窗口（一种抽象的假想概念），落在滑动窗口内的帧可以被发送&#x2F;接收（相当于流水线处理，滑动窗口中的第一个帧被发送后不需要等待确认就可以发送滑动窗口中的第二个帧），当接收方接收到滑动窗口的第一个帧时，滑动窗口向后滑动一格，并发送确认帧。当发送方接收到滑动窗口中的帧的确认时，就滑动到该帧之后（使用累积确认方法，接收到编号为M的确认帧，代表0-M都被正确接收）。如果超过一定时间窗口都没有滑动，则重传窗口内的所有数据。发送方的滑动窗口尺寸Wt要满足：1&lt;Wt&lt;&#x3D;2^n-1，如果Wt&#x3D;1，该协议退化为停止等待协议，如果Wt&gt;2 ^n-1，则接收方无法辨别新旧分组。接收方的滑动窗口尺寸Wr要满足：Wr&#x3D;1。<br>5.选择重传协议（SR-ARQ）：相比与GBN-ARQ，接收方的滑动窗口尺寸满足：1&lt;Wr&lt;&#x3D;Wt，当Wr等于1时，退化为GBN-ARQ，当Wr&gt;Wt时无意义。且该协议抛弃累计确认方法，需要对每一个分组逐一确认。</p>
+<h3 id="点到点协议PPP"><a href="#点到点协议PPP" class="headerlink" title="点到点协议PPP"></a>点到点协议PPP</h3><h4 id="成帧-1"><a href="#成帧-1" class="headerlink" title="成帧"></a>成帧</h4><p>面向字节协议<br>帧包括：</p>
+<ol>
+<li>标记：使用01111110的一个字节标记开始和结束</li>
+<li>地址：常量11111111。预留，目前无作用</li>
+<li>控制：常量11000000。预留，目前无作用</li>
+<li>协议：1-2字节，指明数据字段承载什么</li>
+<li>有效载荷字段：承载数据或其他信息。如果标记出现在此段，需要用转移字节01111101在前面填充</li>
+<li>帧校验序列：CRC循环校验的余数</li>
+</ol>
+<h4 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h4><ol>
+<li>闲置：链路没有被使用的阶段</li>
+<li>建立：当一个节点开始通信，就进入此阶段。双方进行协商，使用链路控制协议<strong>LCP</strong>，协商成功则进入鉴别阶段，否则回到闲置阶段</li>
+<li>鉴别：使用<strong>PAP</strong>口令鉴别协议或<strong>CHAP</strong>查询握手鉴别协议，或者不使用鉴别。鉴别成功或无需鉴别则进入联网阶段，否则进入终止阶段</li>
+<li>联网：使用字段规定的<strong>NCP</strong>协议（包括不同的网络层协议，如互联网络协议控制协议<strong>IPCP</strong>），进行网络层的协商。因为PPP在网络层支持多协议，所以在网络层的数据进行交换之前，节点双方必须达成一个网络协定</li>
+<li>打开：在此阶段，进行数据传输，直到一个终端想终止连接就进入终止阶段</li>
+<li>终止：终止连接，两端交换一些分组用于关闭链路</li>
+</ol>
+<h3 id="多路访问"><a href="#多路访问" class="headerlink" title="多路访问"></a>多路访问</h3><h4 id="随机访问协议"><a href="#随机访问协议" class="headerlink" title="随机访问协议"></a>随机访问协议</h4><p>所有站点通过竞争，随机在信道上发送数据，每个站点都是平等的。然而当多个站点同时发送时，就会产生冲突，随机访问协议就用于避免冲突以及冲突产生后尽快恢复通信</p>
+<h5 id="纯ALOHA协议"><a href="#纯ALOHA协议" class="headerlink" title="纯ALOHA协议"></a>纯ALOHA协议</h5><p>最早的随机访问方法，每个站点只要有帧要发送即发送，解决冲突依赖于接收方的确认，当超时还未收到确认，则重发帧，如果重发次数超过最大次数，则必须放弃一段时间再尝试。</p>
+<p>性能评估：<br>脆弱时间（可能发生的冲突时间的长短）&#x3D;2*Tfr，其中Tfr指每个帧的发送时间<br>吞吐量&#x3D;G * e^-2G^，其中G为一个帧传输时间内系统产生帧的平均数量</p>
+<h5 id="时隙ALOHA协议"><a href="#时隙ALOHA协议" class="headerlink" title="时隙ALOHA协议"></a>时隙ALOHA协议</h5><p>把时间分隔成Tfr秒的时隙，强制站点只有在时隙开始时才能发送，一旦站点错过这个时刻，就要等待下一个时隙开始。</p>
+<p>性能评估：<br>脆弱时间&#x3D;Tfr<br>吞吐量&#x3D;G * e^-G^</p>
+<h5 id="载波侦听多路访问协议CSMA"><a href="#载波侦听多路访问协议CSMA" class="headerlink" title="载波侦听多路访问协议CSMA"></a>载波侦听多路访问协议CSMA</h5><p>站点在发送帧前先监听介质是否空闲，如果空闲再发送帧，如果繁忙则等待下一个随机监听时间。这种方法仍然会导致冲突，由于传播延迟的存在，一个站点发送的一帧未到达下一个站点，导致下一个站点仍然监听到空闲的介质而发送了一个帧，导致了碰撞</p>
+<p>性能评估：<br>脆弱时间&#x3D;传播时间</p>
+<h5 id="带冲突检测的载波侦听多路访问协议CSMA-CD"><a href="#带冲突检测的载波侦听多路访问协议CSMA-CD" class="headerlink" title="带冲突检测的载波侦听多路访问协议CSMA&#x2F;CD"></a>带冲突检测的载波侦听多路访问协议CSMA&#x2F;CD</h5><p>再CSMA基础上引入冲突检测，同时要监测帧是否传送成功，如果不成功就要退避一段时间再重发帧，如果成功则继续发送（还可以在发生碰撞时加强冲突，发送一个短小的<strong>干扰信号</strong>以便其它站点更容易检测冲突）。为了实现该协议，需要限定<strong>最小帧长</strong>，发送方必须在发送帧的最后一位前检测冲突，因为一旦整个帧被发送了，站点就无法保留帧的副本并掌握线路的冲突检测，帧传输时间Tfr至少是最大传播时间Tp的两倍。</p>
+<p>性能评估：<br>吞吐量大于ALOHA方法，当G&#x3D;1是，吞吐量最大约为50%</p>
+<h4 id="受控访问协议"><a href="#受控访问协议" class="headerlink" title="受控访问协议"></a>受控访问协议</h4><h4 id="通道化协议"><a href="#通道化协议" class="headerlink" title="通道化协议"></a>通道化协议</h4><p>预先分配好信道，，不同站点在时间上、频率上或编码来公用带宽。这类方法非常不灵活，对于突发数据信道利用率很低，通常在无线网络的物理层使用</p>
+<h5 id="频分多路访问FDMA"><a href="#频分多路访问FDMA" class="headerlink" title="频分多路访问FDMA"></a>频分多路访问FDMA</h5><p>公用通道的可用带宽被分割成频带并由防护频带隔离。每一个频带都预留给特定的站点使用，该频带永远属于一个站点</p>
+<h5 id="时分多路访问TDMA"><a href="#时分多路访问TDMA" class="headerlink" title="时分多路访问TDMA"></a>时分多路访问TDMA</h5><p>带宽被认为是时间上共享的一个通道。每个站点被分配一个时隙，只有在该时隙内才能发送数据。由于系统的传播延迟会难以同步，所以插入保护时间用于同步化</p>
+<h5 id="码分多路访问CDMA"><a href="#码分多路访问CDMA" class="headerlink" title="码分多路访问CDMA"></a>码分多路访问CDMA</h5><p>一个通道同时承载所有的传输。该协议给每一个站点指定一个被称为芯片的数字序列（该数字序列用-1表示0，用1表示1）（要求：两两站点的芯片要不同且正交，正交即规格化内积为0），如果该站点要发送比特1则发送该芯片的值，要发送比特0则发送该芯片的反码，不发送数据则视为0。信道上发送的数据为所有站点发送的数据的叠加，接收方收到该数据后，针对每一个站点，求该站点芯片和该数据的规格化内积，如果是1代表站点发送了比特1，如果是-1代表站点发送了比特0，如果是0代表站点未发送数据。<br>例：<br>A站点芯片序列（-1 +1 -1 -1）<br>B站点芯片序列（+1 +1 -1 +1）<br>其规格化内积为：(-1 * 1+1 * 1+ -1 * -1+ -1 * +1)&#x2F;4&#x3D;0，符合要求<br>现有A站点要发送1（即发送(-1 +1 -1 -1)），B站点要发送0（即发送(-1 -1 +1 -1)），则通路发送叠加数据(-2 0 0 -2)，接收方求与A站点芯片序列规格化内积为1，代表A发送了比特1，求与B站点规格化内积为-1，代表发送了比特0</p>
+<hr>
+<p><span style="color: gray;">结语：<br>&emsp;&emsp;</span></p>
+<hr>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 弦上的箭
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=230 height=75 src="//music.163.com/outchain/player?type=2&id=2059532170&auto=0&height=66"></iframe>
+</div>
+
+<script>
+    var $DOC = $(document)
+    $('#musicMouseDrag').on('mousedown', function (e) {
+      // 阻止文本选中
+      $DOC.bind("selectstart", function () {
+        return false;
+      });
+      $('#musicDragArea').css('height', '100%');
+      var $moveTarget = $('#musicMouseDrag');
+      $moveTarget.css('border', '1px dashed grey')
+      var div_x = e.pageX - $moveTarget.offset().left;
+      var div_y = e.pageY - $moveTarget.offset().top;
+      $DOC.on('mousemove', function (e) {
+        var targetX = e.pageX - div_x;
+        var targetY = e.pageY - div_y;
+        targetX = targetX < 0 ? 0 : (targetX + $moveTarget.outerWidth() >= window.innerWidth) ? window.innerWidth - $moveTarget.outerWidth() : targetX;
+        targetY = targetY < 0 ? 0 : (targetY + $moveTarget.outerHeight() >= window.innerHeight) ? window.innerHeight - $moveTarget.outerHeight() : targetY;
+        $moveTarget.css({'left': targetX + 'px', 'top': targetY + 'px', 'bottom': 'inherit', 'right': 'inherit'})
+      }).on('mouseup', function () {
+        $DOC.unbind("selectstart");
+        $DOC.off('mousemove')
+        $DOC.off('mouseup')
+        $moveTarget.css('border', 'none')
+        $('#musicDragArea').css('height', '10px');
+      })
+    })
+</script>
+</html>

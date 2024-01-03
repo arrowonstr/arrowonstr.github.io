@@ -6,36 +6,28 @@
   <meta name="keywords" content=" K210 ">
   <meta name="description" content="K210开发板(二)—点亮LED灯 | 弦上的箭">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="简介：&amp;emsp;&amp;emsp;  一. 编译器概述1. 计算机语言面向机器语言：机器指令、汇编面向人类语言：通用程序设计语言、数据查询语言… 2. 语言之间的翻译2.1 翻译模式正向工作：  汇编语言-&gt;机器指令：汇编&#x2F;交叉汇编 高级语言-&gt;汇编语言&#x2F;机器指令：编译&#x2F;交叉编译 高级语言-&gt;高级语言：转换&#x2F;预编译&#x2F;预处理（如#in">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译原理笔记">
-<meta property="og:url" content="http://example.com/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="编译原理实践—python构建编译器">
+<meta property="og:url" content="http://example.com/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/index.html">
 <meta property="og:site_name" content="弦上的箭">
-<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;  一. 编译器概述1. 计算机语言面向机器语言：机器指令、汇编面向人类语言：通用程序设计语言、数据查询语言… 2. 语言之间的翻译2.1 翻译模式正向工作：  汇编语言-&gt;机器指令：汇编&#x2F;交叉汇编 高级语言-&gt;汇编语言&#x2F;机器指令：编译&#x2F;交叉编译 高级语言-&gt;高级语言：转换&#x2F;预编译&#x2F;预处理（如#in">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/imgs/$BBIRTAU%5BTJ~DV%7D4T33K6MT.png">
-<meta property="og:image" content="http://example.com/imgs/NQDWYTP3F1V6LC4LX_%7BH1.png">
-<meta property="og:image" content="http://example.com/imgs/%7DB8Y_OJ0SKC7UR0NOIAJES4.png">
-<meta property="og:image" content="http://example.com/imgs/WD7AQX1HJEF24%5B%7DS0.png">
-<meta property="og:image" content="http://example.com/imgs/1WAR%7D8KS_B5S_NPTB%5DDCAC.png">
-<meta property="og:image" content="http://example.com/imgs/0G2MXL_37XONV%25M%5B_$22NC.png">
-<meta property="og:image" content="http://example.com/imgs/JBCLYRXBF90%7D1LFGF8WABCX.jpg">
-<meta property="og:image" content="http://example.com/imgs/G3D%256Q5DYCR~1DLGH1U4C8V.png">
-<meta property="og:image" content="http://example.com/imgs/JMFS8WXAAK%7B5T_V7~2FV.png">
-<meta property="og:image" content="http://example.com/imgs/BMN1OKPDYU5IIWN36M5.png">
-<meta property="og:image" content="http://example.com/imgs/NIGO%7D0DK8QJ3M5UQ.png">
-<meta property="og:image" content="http://example.com/imgs/U5K2O03UJAQ~QBSEOP7KL3B.png">
-<meta property="og:image" content="http://example.com/imgs/4%7BKHONV3B82NX%25E%5B0J%7BU3.png">
-<meta property="og:image" content="http://example.com/imgs/VA42IVU11Z6W3%25KES4%7B5I.png">
-<meta property="og:image" content="http://example.com/imgs/SPQEYW1WNJE3B61H73.png">
-<meta property="og:image" content="http://example.com/imgs/J3CGKW_AW1XFWN61QV.png">
-<meta property="og:image" content="http://example.com/imgs/N9W3XM7VZDGYPMCDF.png">
-<meta property="og:image" content="http://example.com/imgs/7MSIWLFH4CHU64WZN7.png">
-<meta property="article:published_time" content="2023-11-24T07:26:00.000Z">
-<meta property="article:modified_time" content="2023-11-28T09:08:49.011Z">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407011813.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407079046.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407127151.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407220618.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407388728.jpg">
+<meta property="og:image" content="http://example.com/imgs/123124.png">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703432926195.jpg">
+<meta property="article:published_time" content="2024-01-03T15:54:24.000Z">
+<meta property="article:modified_time" content="2024-01-03T15:56:42.556Z">
 <meta property="article:author" content="弦上的箭">
+<meta property="article:tag" content="编译原理">
+<meta property="article:tag" content="编译器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/imgs/$BBIRTAU%5BTJ~DV%7D4T33K6MT.png">
+<meta name="twitter:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -122,7 +114,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(14)</small>
+                <small>(16)</small>
             
         </div>
     </li>
@@ -134,7 +126,7 @@
         <div data-rel="项目">
             <i class="fold iconfont icon-right"></i>
             项目
-            <small>(9)</small>
+            <small>(10)</small>
         </div>
         
             <ul class="sub hide">
@@ -205,17 +197,17 @@
         <div data-rel="笔记">
             <i class="fold iconfont icon-right"></i>
             笔记
-            <small>(3)</small>
+            <small>(4)</small>
         </div>
         
             <ul class="sub hide">
                 
                     
     <li>
-        <div data-rel="笔记&lt;---&gt;编译原理">
+        <div data-rel="笔记&lt;---&gt;课程">
             
-            编译原理
-            <small>(1)</small>
+            课程
+            <small>(2)</small>
         </div>
         
     </li>
@@ -312,8 +304,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="14">
-<input type="hidden" id="yelog_site_word_count" value="16.4k">
+<input type="hidden" id="yelog_site_posts_number" value="16">
+<input type="hidden" id="yelog_site_word_count" value="28.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -361,6 +353,18 @@
     <div class="tag-wrapper">
         
             <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译器</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计网</a>
+            </li>
+        
+            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>目标检测</a>
             </li>
         
@@ -397,9 +401,27 @@
         </a>
         
         
-        <a  class="All 笔记 编译原理 "
+        <a  class="All 项目 "
+           href="/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/"
+           data-tag="编译原理,编译器"
+           data-author="" >
+            <span class="post-title" title="编译原理实践—python构建编译器">编译原理实践—python构建编译器</span>
+            <span class="post-date" title="2024-01-03 23:54:24">2024/01/03</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/"
+           data-tag="计网"
+           data-author="" >
+            <span class="post-title" title="计算机网络笔记">计算机网络笔记</span>
+            <span class="post-date" title="2023-12-14 21:58:14">2023/12/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
            href="/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"
-           data-tag=""
+           data-tag="编译原理"
            data-author="" >
             <span class="post-title" title="编译原理笔记">编译原理笔记</span>
             <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
