@@ -114,7 +114,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(16)</small>
+                <small>(18)</small>
             
         </div>
     </li>
@@ -197,7 +197,7 @@
         <div data-rel="笔记">
             <i class="fold iconfont icon-right"></i>
             笔记
-            <small>(4)</small>
+            <small>(6)</small>
         </div>
         
             <ul class="sub hide">
@@ -207,7 +207,7 @@
         <div data-rel="笔记&lt;---&gt;课程">
             
             课程
-            <small>(2)</small>
+            <small>(4)</small>
         </div>
         
     </li>
@@ -304,8 +304,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="28.8k">
+<input type="hidden" id="yelog_site_posts_number" value="18">
+<input type="hidden" id="yelog_site_word_count" value="47.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -361,6 +361,10 @@
             </li>
         
             <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计算机组成原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>计网</a>
             </li>
         
@@ -370,6 +374,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -393,10 +401,10 @@
         
         
         <a id="top" class="All 日记 "
-           href="/2023/09/15/%E6%88%91%E6%98%AF%E5%8D%B3%E5%B0%86%E5%88%B0%E6%9D%A5%E7%9A%84%E6%97%A5%E5%AD%90/"
+           href="/2023/09/15/%E5%B0%81%E9%9D%A2/"
            data-tag="日记"
            data-author="" >
-            <span class="post-title" title="我是即将到来的日子">我是即将到来的日子</span>
+            <span class="post-title" title="封面">封面</span>
             <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
         </a>
         
@@ -416,6 +424,24 @@
            data-author="" >
             <span class="post-title" title="计算机网络笔记">计算机网络笔记</span>
             <span class="post-date" title="2023-12-14 21:58:14">2023/12/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/"
+           data-tag="数据库"
+           data-author="" >
+            <span class="post-title" title="数据库笔记">数据库笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86II%E7%AC%94%E8%AE%B0/"
+           data-tag="计算机组成原理"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理II笔记">计算机组成原理II笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
         </a>
         
         
@@ -632,7 +658,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XW4y1a7f4/?spm_id_from=333.337.search-card.all.click&vd_source=8b2398d98a4487639de4623a34c41de8">【百万播放】零基础、快速学YOLO目标检测算法！完整学习路线一条龙，无脑通关！【YOLOv5|YOLO算法|目标检测算法】_哔哩哔哩_bilibili</a></p>
 </blockquote>
 <p>&emsp;&emsp;Yolo属于one-stage的目标检测，优点是速度快，实时检测，缺点是牺牲效果</p>
-<h2 id="一、Yolo原理"><a href="#一、Yolo原理" class="headerlink" title="一、Yolo原理"></a>一、Yolo原理</h2><h3 id="1-评估指标"><a href="#1-评估指标" class="headerlink" title="1.评估指标"></a>1.评估指标</h3><h4 id="1-1-MAP"><a href="#1-1-MAP" class="headerlink" title="1.1 MAP"></a>1.1 MAP</h4><p>&emsp;&emsp;查准率：预测对的正样本占所有预测为正样本的比值<br>&emsp;&emsp;召回率：预测对的正样本占所有正样本的比值<br>&emsp;&emsp;AP：将该类别预测样本按置信度排序，分别计算查准率和召回率，绘制查准率关于召回率的图像，计算面积<br>&emsp;&emsp;MAP：将每个类的AP平均<br>&emsp;&emsp;<a href="mailto:&#77;&#65;&#80;&#64;&#48;&#46;&#53;">&#77;&#65;&#80;&#64;&#48;&#46;&#53;</a>:9.5：使用不同的IOU并平均</p>
+<h2 id="一、Yolo原理"><a href="#一、Yolo原理" class="headerlink" title="一、Yolo原理"></a>一、Yolo原理</h2><h3 id="1-评估指标"><a href="#1-评估指标" class="headerlink" title="1.评估指标"></a>1.评估指标</h3><h4 id="1-1-MAP"><a href="#1-1-MAP" class="headerlink" title="1.1 MAP"></a>1.1 MAP</h4><p>&emsp;&emsp;查准率：预测对的正样本占所有预测为正样本的比值<br>&emsp;&emsp;召回率：预测对的正样本占所有正样本的比值<br>&emsp;&emsp;AP：将该类别预测样本按置信度排序，分别计算查准率和召回率，绘制查准率关于召回率的图像，计算面积<br>&emsp;&emsp;MAP：将每个类的AP平均<br>&emsp;&emsp;<a href="mailto:&#77;&#x41;&#x50;&#x40;&#x30;&#x2e;&#53;">&#77;&#x41;&#x50;&#x40;&#x30;&#x2e;&#53;</a>:9.5：使用不同的IOU并平均</p>
 <h4 id="1-2-IOU"><a href="#1-2-IOU" class="headerlink" title="1.2 IOU"></a>1.2 IOU</h4><p>&emsp;&emsp;真实值和预测值并集比上交集 ，越接近1效果越好</p>
 <h4 id="1-3-前传耗时"><a href="#1-3-前传耗时" class="headerlink" title="1.3 前传耗时"></a>1.3 前传耗时</h4><p>&emsp;&emsp;从输入一张图像到输出结果所耗时间</p>
 <h4 id="1-4-FPS"><a href="#1-4-FPS" class="headerlink" title="1.4 FPS"></a>1.4 FPS</h4><p>&emsp;&emsp;每秒能处理的图像数量</p>

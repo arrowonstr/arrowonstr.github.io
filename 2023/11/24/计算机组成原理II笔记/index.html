@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>计算机组成原理II笔记 | 弦上的箭</title>
+  <meta name="keywords" content=" 计算机组成原理 ">
+  <meta name="description" content="计算机组成原理II笔记 | 弦上的箭">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理实践—python构建编译器">
+<meta property="og:url" content="http://example.com/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/index.html">
+<meta property="og:site_name" content="弦上的箭">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407011813.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407079046.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407127151.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407220618.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407388728.jpg">
+<meta property="og:image" content="http://example.com/imgs/123124.png">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703432926195.jpg">
+<meta property="article:published_time" content="2024-01-03T15:54:24.000Z">
+<meta property="article:modified_time" content="2024-01-03T15:56:42.556Z">
+<meta property="article:author" content="弦上的箭">
+<meta property="article:tag" content="编译原理">
+<meta property="article:tag" content="编译器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>弦上的箭</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/arrowonstr"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:21009200039@stu.xidian.edu.cn"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(18)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="项目">
+            <i class="fold iconfont icon-right"></i>
+            项目
+            <small>(10)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计">
+            <i class="fold iconfont icon-right"></i>
+            程序设计
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计&lt;---&gt;会议室系统">
+            
+            会议室系统
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式">
+            <i class="fold iconfont icon-right"></i>
+            嵌入式
+            <small>(7)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式&lt;---&gt;K210">
+            
+            K210
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="笔记">
+            <i class="fold iconfont icon-right"></i>
+            笔记
+            <small>(6)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;课程">
+            
+            课程
+            <small>(4)</small>
+        </div>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能">
+            <i class="fold iconfont icon-right"></i>
+            人工智能
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能&lt;---&gt;yolo">
+            
+            yolo
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="日记">
+            
+            日记
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        <a 
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="18">
+<input type="hidden" id="yelog_site_word_count" value="47.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://gohoy.github.io/blog">GOHOY</a></li>
+            
+            <li><a target="_blank" href="https://blog.dx39061.top">DX3906</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译器</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计算机组成原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计网</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>目标检测</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>K210</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>qt</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All 日记 "
+           href="/2023/09/15/%E5%B0%81%E9%9D%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="封面">封面</span>
+            <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 "
+           href="/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/"
+           data-tag="编译原理,编译器"
+           data-author="" >
+            <span class="post-title" title="编译原理实践—python构建编译器">编译原理实践—python构建编译器</span>
+            <span class="post-date" title="2024-01-03 23:54:24">2024/01/03</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/"
+           data-tag="计网"
+           data-author="" >
+            <span class="post-title" title="计算机网络笔记">计算机网络笔记</span>
+            <span class="post-date" title="2023-12-14 21:58:14">2023/12/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/"
+           data-tag="数据库"
+           data-author="" >
+            <span class="post-title" title="数据库笔记">数据库笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86II%E7%AC%94%E8%AE%B0/"
+           data-tag="计算机组成原理"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理II笔记">计算机组成原理II笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"
+           data-tag="编译原理"
+           data-author="" >
+            <span class="post-title" title="编译原理笔记">编译原理笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%BA%8C-%E2%80%94YoloV1V2%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(二)—YoloV1V2原理及源码使用">目标检测算法Yolo(二)—YoloV1V2原理及源码使用</span>
+            <span class="post-date" title="2023-10-30 11:46:34">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%B8%80-%E2%80%94%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEPytorch/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(一)—环境配置Pytorch">目标检测算法Yolo(一)—环境配置Pytorch</span>
+            <span class="post-date" title="2023-10-30 11:25:33">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E2%80%94QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)—QT开发数据库学习">会议室预约系统(一)—QT开发数据库学习</span>
+            <span class="post-date" title="2023-10-29 23:16:04">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%BA%8C-%E2%80%94%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(二)—代码实现">会议室预约系统(二)—代码实现</span>
+            <span class="post-date" title="2023-10-29 22:53:54">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/23/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%85%AD-yolo%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(六)-yolo目标检测">K210开发板(六)-yolo目标检测</span>
+            <span class="post-date" title="2023-09-23 16:28:11">2023/09/23</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/19/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%94-%E2%80%94%E6%8B%8D%E6%91%84%E5%92%8CKEYPAD%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(五)—拍摄和KEYPAD照片查看">K210开发板(五)—拍摄和KEYPAD照片查看</span>
+            <span class="post-date" title="2023-09-19 00:16:58">2023/09/19</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/17/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%9B%9B-%E2%80%94%E6%8C%89%E9%94%AE%E7%8B%AC%E7%AB%8B%E4%B8%AD%E6%96%AD/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(四)—按键独立中断">K210开发板(四)—按键独立中断</span>
+            <span class="post-date" title="2023-09-17 18:20:11">2023/09/17</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%89-%E2%80%94%E6%89%AC%E5%A3%B0%E5%99%A8%E6%92%AD%E6%94%BE/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(三)—扬声器播放">K210开发板(三)—扬声器播放</span>
+            <span class="post-date" title="2023-09-16 22:59:34">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(二)—点亮LED灯">K210开发板(二)—点亮LED灯</span>
+            <span class="post-date" title="2023-09-16 13:40:42">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%80-%E2%80%94%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(一)—搭建开发环境">K210开发板(一)—搭建开发环境</span>
+            <span class="post-date" title="2023-09-15 21:53:59">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(零)">K210开发板(零)</span>
+            <span class="post-date" title="2023-09-15 18:44:02">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我的第一篇博客">我的第一篇博客</span>
+            <span class="post-date" title="2023-09-15 15:44:02">2023/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-计算机组成原理II笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">计算机组成原理II笔记</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="笔记">笔记</a> > 
+            
+            <a  data-rel="笔记&lt;---&gt;课程">课程</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">计算机组成原理</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-01-12 17:21:37'>2023-11-24 15:26</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:9k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">一、高速缓冲存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9F%E7%90%86"><span class="toc-text">1. 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E7%90%86%E8%AE%BA%E4%BE%9D%E6%8D%AE"><span class="toc-text">1.1 理论依据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E6%9E%84%E6%88%90"><span class="toc-text">1.2 构成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-text">1.3 工作过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F"><span class="toc-text">2. 映射方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%85%A8%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-text">1.1 全相联映射</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98"><span class="toc-text">主存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E8%81%94%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">相联存储器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cache"><span class="toc-text">cache</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84%EF%BC%9A"><span class="toc-text">1.2 直接映射：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98-1"><span class="toc-text">主存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E8%81%94%E5%AD%98%E5%82%A8%E5%99%A8-1"><span class="toc-text">相联存储器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cache-1"><span class="toc-text">cache</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E7%BB%84%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84%EF%BC%9A"><span class="toc-text">1.3 组相联映射：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98-2"><span class="toc-text">主存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E8%81%94%E5%AD%98%E5%82%A8%E5%99%A8-2"><span class="toc-text">相联存储器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cache-2"><span class="toc-text">cache</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">3. 替换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%BB%E5%AD%98cache%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">4. 主存cache一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%80%A7%E8%83%BD"><span class="toc-text">5. 性能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-text">二、流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%86%E7%B1%BB"><span class="toc-text">2. 分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E6%8C%89%E4%BD%BF%E7%94%A8%E7%BA%A7%E5%88%AB%EF%BC%88%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%EF%BC%89%E5%88%86"><span class="toc-text">2.1 按使用级别（系统层次）分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%8C%89%E5%8A%9F%E8%83%BD%E6%95%B0"><span class="toc-text">2.2 按功能数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%8C%89%E5%8A%9F%E8%83%BD%E8%BF%9E%E6%8E%A5"><span class="toc-text">2.3 按功能连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E6%8C%89%E5%8F%8D%E9%A6%88%E5%8A%9F%E8%83%BD"><span class="toc-text">2.4 按反馈功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E6%8C%89%E5%87%BA%E5%85%A5%E9%A1%BA%E5%BA%8F"><span class="toc-text">2.5 按出入顺序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98%E2%80%94%E7%9B%B8%E5%85%B3"><span class="toc-text">3. 流水线存在问题—相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="toc-text">3.1 结构相关</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="toc-text">3.2 数据相关</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="toc-text">分类：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-1"><span class="toc-text">解决方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="toc-text">3.3 控制相关</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-2"><span class="toc-text">解决方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%80%A7%E8%83%BD"><span class="toc-text">4. 性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-CPI"><span class="toc-text">4.1 CPI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E5%90%9E%E5%90%90%E7%8E%87TP"><span class="toc-text">4.2 吞吐率TP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E6%9C%80%E5%A4%A7%E5%90%9E%E5%90%90%E7%8E%87TPmax"><span class="toc-text">4.3 最大吞吐率TPmax</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E5%8A%A0%E9%80%9F%E6%AF%94S"><span class="toc-text">4.4 加速比S</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-%E6%95%88%E7%8E%87E"><span class="toc-text">4.5 效率E</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%8F%90%E9%AB%98%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD"><span class="toc-text">5. 提高流水线性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E6%8F%90%E9%AB%98%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="toc-text">5.1 提高指令级并行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-1-%E4%B9%B1%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">5.1.1 乱序执行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">5.1.2 寄存器重命名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-3-%E6%8E%A8%E6%B5%8B%E6%89%A7%E8%A1%8C"><span class="toc-text">5.1.3 推测执行</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E5%A4%9A%E6%8C%87%E4%BB%A4%E6%B5%81%E5%87%BA%E6%8A%80%E6%9C%AF"><span class="toc-text">5.2 多指令流出技术</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-1-%E8%B6%85%E6%A0%87%E9%87%8F%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">5.2.1 超标量处理机</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-2-%E8%B6%85%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">5.2.2 超流水线处理机</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-3-%E8%B6%85%E6%A0%87%E9%87%8F%E8%B6%85%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">5.2.3 超标量超流水线处理机</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-4-%E8%B6%85%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">5.2.4 超长指令字处理机</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">三、输入输出系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%BB%E7%BA%BF"><span class="toc-text">1. 总线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%88%86%E7%B1%BB"><span class="toc-text">1.1 分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-1-%E7%89%87%E5%86%85%E6%80%BB%E7%BA%BF"><span class="toc-text">1.1.1 片内总线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-2-%E5%85%83%E4%BB%B6%E7%BA%A7%E6%80%BB%E7%BA%BF"><span class="toc-text">1.1.2 元件级总线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-3-%E5%86%85%E6%80%BB%E7%BA%BF%EF%BC%88%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF%EF%BC%89"><span class="toc-text">1.1.3 内总线（系统总线）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-4-%E5%A4%96%E6%80%BB%E7%BA%BF%EF%BC%88%E9%80%9A%E4%BF%A1%E6%80%BB%E7%BA%BF%EF%BC%89"><span class="toc-text">1.1.4 外总线（通信总线）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E7%BB%93%E6%9E%84"><span class="toc-text">1.2 结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E4%BC%A0%E9%80%81%E6%96%B9%E5%BC%8F"><span class="toc-text">1.3 传送方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E6%80%A7%E8%83%BD%EF%BC%9A"><span class="toc-text">1.4 性能：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81"><span class="toc-text">1.5 总线仲裁</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E4%BB%B2%E8%A3%81%EF%BC%9A"><span class="toc-text">1.5.1 集中式仲裁：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5-2-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%B2%E8%A3%81"><span class="toc-text">1.5.2 分布式仲裁</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AD%98%E5%82%A8%E5%99%A8%E8%AE%BE%E5%A4%87"><span class="toc-text">2. 存储器设备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E7%A3%81%E8%A1%A8%E9%9D%A2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">2.1 磁表面存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-%E5%8E%9F%E7%90%86"><span class="toc-text">2.1.1 原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2-%E6%80%A7%E8%83%BD"><span class="toc-text">2.1.2 性能</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E7%A1%AC%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">2.2硬磁盘存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-%E7%BB%93%E6%9E%84"><span class="toc-text">2.2.1 结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="toc-text">2.2.2 数据格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-%E6%80%A7%E8%83%BD"><span class="toc-text">2.2.3 性能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-4-%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97RAID%E6%8A%80%E6%9C%AF"><span class="toc-text">2.2.4 磁盘阵列RAID技术</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8A%80%E6%9C%AF"><span class="toc-text">3. 输入输出技术</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%9C%B0%E5%9D%80%E7%BC%96%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-text">输入输出地址编制方式：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1 程序控制方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-1%E6%97%A0%E6%9D%A1%E4%BB%B6%E4%BC%A0%E9%80%81%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1.1无条件传送方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-%E6%9F%A5%E8%AF%A2%E4%BC%A0%E9%80%81%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1.2 查询传送方式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E4%B8%AD%E6%96%AD%E6%96%B9%E5%BC%8F"><span class="toc-text">3.2 中断方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-1-%E4%B8%AD%E6%96%AD%E6%A6%82%E5%BF%B5"><span class="toc-text">3.2.1 中断概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-2-%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8"><span class="toc-text">3.2.2 中断向量表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-3-%E4%B8%AD%E6%96%AD%E8%BF%87%E7%A8%8B%EF%BC%88%E4%BB%A5%E5%A4%96%E4%B8%8D%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%ADINTR%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-text">3.2.3 中断过程（以外不可屏蔽中断INTR为例）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-DMA%E6%96%B9%E5%BC%8F"><span class="toc-text">3.3 DMA方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-1-CPU%E5%81%9C%E6%AD%A2%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-text">3.3.1 CPU停止工作方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-2-%E5%91%A8%E6%9C%9F%E6%8C%AA%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">3.3.2 周期挪用方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-3-CPU%E4%B8%8EDMA%E4%BA%A4%E6%9B%BF%E5%88%86%E6%97%B6%E5%B7%A5%E4%BD%9C"><span class="toc-text">3.3.3 CPU与DMA交替分时工作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E9%80%9A%E9%81%93%E6%96%B9%E5%BC%8F"><span class="toc-text">3.4 通道方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-1-%E9%80%89%E6%8B%A9%E9%80%9A%E9%81%93"><span class="toc-text">3.4.1 选择通道</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-2-%E6%95%B0%E7%BB%84%E5%A4%9A%E8%B7%AF%E9%80%9A%E9%81%93"><span class="toc-text">3.4.2 数组多路通道</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-3-%E5%AD%97%E8%8A%82%E5%A4%9A%E8%B7%AF%E9%80%9A%E9%81%93"><span class="toc-text">3.4.3 字节多路通道</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%A4%9A%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">四、多机系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%A4%9A%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%80%9D%E6%83%B3"><span class="toc-text">1. 多机系统思想</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">并行处理方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%88%86%E7%B1%BB"><span class="toc-text">2. 并行计算机分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%8D%95%E6%8C%87%E4%BB%A4%E6%B5%81%E5%8D%95%E6%95%B0%E6%8D%AE%E6%B5%81SISD"><span class="toc-text">2.1 单指令流单数据流SISD</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="toc-text">2.1.1 指令级并行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2-%E8%8A%AF%E7%89%87%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">2.1.2 芯片多线程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-3-%E5%8D%95%E7%89%87%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">2.1.3 单片多处理器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%8D%95%E6%8C%87%E4%BB%A4%E6%B5%81%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%B5%81SIMD"><span class="toc-text">2.2 单指令流多数据流SIMD</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="toc-text">2.2.1 向量计算机</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-%E9%98%B5%E5%88%97%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="toc-text">2.2.2 阵列计算机</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E5%A4%9A%E6%8C%87%E4%BB%A4%E6%B5%81%E5%8D%95%E6%95%B0%E6%8D%AE%E6%B5%81MISD"><span class="toc-text">2.3 多指令流单数据流MISD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E5%A4%9A%E6%8C%87%E4%BB%A4%E6%B5%81%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%B5%81MIMD"><span class="toc-text">2.4 多指令流多数据流MIMD</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-1-%E9%9B%86%E4%B8%AD%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%93%E6%9E%84%EF%BC%88%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%89"><span class="toc-text">2.4.1 集中共享存储器结构（多处理器）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-2-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%93%E6%9E%84%EF%BC%88%E5%A4%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%89"><span class="toc-text">2.4.2 分布式存储器结构（多计算机）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%9A%E6%9C%BA%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C"><span class="toc-text">3. 多机互联网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E4%BA%92%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">3.1 互联函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-1-%E8%A1%A8%E7%A4%BA%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1.1 表示方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-%E5%9F%BA%E6%9C%AC%E4%BA%92%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">3.1.2 基本互联函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E9%9D%99%E6%80%81%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C"><span class="toc-text">3.2 静态互联网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E5%8A%A8%E6%80%81%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C"><span class="toc-text">3.3 动态互联网络</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%9A%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%AE%9E%E4%BE%8B"><span class="toc-text">4. 多机系统实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BASMP"><span class="toc-text">4.1 对称多处理机SMP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-1-%E7%89%B9%E7%82%B9"><span class="toc-text">4.1.1 特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-%E4%BC%98%E7%82%B9"><span class="toc-text">4.1.2 优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-3-%E9%97%AE%E9%A2%98"><span class="toc-text">4.1.3 问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%B9%B6%E8%A1%8C%E6%9C%BAMPP"><span class="toc-text">4.2 大规模并行机MPP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E5%B7%A5%E4%BD%9C%E7%AB%99%E9%9B%86%E7%BE%A4COW"><span class="toc-text">4.3 工作站集群COW</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E7%BD%91%E6%A0%BCGRID"><span class="toc-text">4.4 网格GRID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%80%A7%E8%83%BD-1"><span class="toc-text">5. 性能</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-4 i,
+    .toc-level-4 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><span style="color: gray;">简介：本课程缺少8259、8253、8255等芯片的讲述，建议b站搜索车向泉微机原理（最后几p）自行观看<br>&emsp;&emsp;</span></p>
+<hr>
+<h2 id="一、高速缓冲存储器"><a href="#一、高速缓冲存储器" class="headerlink" title="一、高速缓冲存储器"></a>一、高速缓冲存储器</h2><h3 id="1-原理"><a href="#1-原理" class="headerlink" title="1. 原理"></a>1. 原理</h3><p>系统全由硬件实现，比主存访问速度快很多</p>
+<h4 id="1-1-理论依据"><a href="#1-1-理论依据" class="headerlink" title="1.1 理论依据"></a>1.1 理论依据</h4><p>时间局部性：某位置若被访问，则近期内很可能又被访问<br>空间局部性：某位置若被访问，则临近的位置也可能被访问</p>
+<h4 id="1-2-构成"><a href="#1-2-构成" class="headerlink" title="1.2 构成"></a>1.2 构成</h4><p>小容量高速存储器、相联存储器构成的存储表、替换管理模块</p>
+<h4 id="1-3-工作过程"><a href="#1-3-工作过程" class="headerlink" title="1.3 工作过程"></a>1.3 工作过程</h4><p>cpu访问主存时，先访问相联存储表，若发现要访问的信息就在cache中（命中），通过存储表将地址转换为cache地址，从cache中读出信息。若未命中，则cpu从主存中读取信息，同时将该信息替换cache中的某一块（为提高效率，通常将cache和主存分成容量相等的块）</p>
+<h3 id="2-映射方式"><a href="#2-映射方式" class="headerlink" title="2. 映射方式"></a>2. 映射方式</h3><h4 id="1-1-全相联映射"><a href="#1-1-全相联映射" class="headerlink" title="1.1 全相联映射"></a>1.1 全相联映射</h4><h5 id="主存"><a href="#主存" class="headerlink" title="主存"></a>主存</h5><p>主存分块<br>主存地址为<strong>主存块号+块内地址</strong><br><strong>主存的任何一块可装入cache的任何一块中</strong></p>
+<h5 id="相联存储器"><a href="#相联存储器" class="headerlink" title="相联存储器"></a>相联存储器</h5><p>相联存储器有和cache块数相同的单元（相联存储器的单元地址和cache块号一一对应）<br>相联存储器中每个单元存储主存的<strong>某个块号</strong></p>
+<h5 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h5><p>cpu访问时，查询存储器，如果要访问的块号就在存储器的某个单元中（命中），<strong>cache地址&#x3D;单元地址+块内地址</strong>，用该地址访问cache</p>
+<p><img src="/imgs/jizu/1704269486694.jpg" alt="图片"></p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>灵活性（主存任意块都可装入cache任意块，全部装满后才需要替换）</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>要求相联存储器容量最大<br>地址变换机构最复杂（比较检索式需要全部检索相联存储器才能获得cache块号）</p>
+<h4 id="1-2-直接映射："><a href="#1-2-直接映射：" class="headerlink" title="1.2 直接映射："></a>1.2 直接映射：</h4><h5 id="主存-1"><a href="#主存-1" class="headerlink" title="主存"></a>主存</h5><p>将主存按照每区为cache的容量分区，并在每个区内分块。<strong>主存中块号相同的块只能装入cache中相同块号的块</strong>。<br>（如：主存第一区0号块和第二区0号块只能装入cache中第0块）<br>主存地址为<strong>主存区号+块号+块内地址</strong></p>
+<h5 id="相联存储器-1"><a href="#相联存储器-1" class="headerlink" title="相联存储器"></a>相联存储器</h5><p>相联存储器有和cache块数相同的单元<br>相联存储器每个单元存储<strong>主存区号</strong></p>
+<h5 id="cache-1"><a href="#cache-1" class="headerlink" title="cache"></a>cache</h5><p>cpu访问时，查询存储器，比较地址为要访问的块号的单元，若该单元存储的区号和要访问的主存区号相同，则命中<strong>cache地址&#x3D;要访问的块号+块内地址</strong></p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><p>地址变换简单（只需要以主存地址的块号访问存储器）</p>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p>效率低（不允许不同区的相同块号同时出现，可能会出现频繁替换的情况，所以更适合用于大容量cache）</p>
+<h4 id="1-3-组相联映射："><a href="#1-3-组相联映射：" class="headerlink" title="1.3 组相联映射："></a>1.3 组相联映射：</h4><p>组相联映射是组间直接映射而组内块全相联映射，结合了直接映射和全相联映射</p>
+<h5 id="主存-2"><a href="#主存-2" class="headerlink" title="主存"></a>主存</h5><p>主存先按cache容量分区，区内分组，组内分块<br>主存地址为<strong>主存区号+组号+块号+块内地址</strong></p>
+<h5 id="相联存储器-2"><a href="#相联存储器-2" class="headerlink" title="相联存储器"></a>相联存储器</h5><p>相联存储器和cache一样分组分块<br>相联存储器存储<strong>主存区号+块号</strong></p>
+<h5 id="cache-2"><a href="#cache-2" class="headerlink" title="cache"></a>cache</h5><p>cache和主存一样分组分块<br>cpu访问时，在存储器中对应组查询，若能在该组中找到某个单元存储的信息和要访问区号+块号相同，则命中，<strong>cache地址&#x3D;组号+单元地址+块内地址</strong></p>
+<h3 id="3-替换算法"><a href="#3-替换算法" class="headerlink" title="3. 替换算法"></a>3. 替换算法</h3><ol>
+<li>随机替换RAND：随机函数发生器产生需要替换的块号，命中率低</li>
+<li>先进先出算法FIFO：将最先装入cache的块替换，命中率低</li>
+<li>近期最少使用算法LRU：将近期最少使用的块替换。对每块设置一个计数器，某块命中时，将该块计数器清零，其它块计数器加一，替换时将<strong>计数值最大</strong>的块替换。命中率更高</li>
+<li>最不经常使用算法LFU：将一段时间里访问次数最少的块替换。对每块设置一个计数器，某块命中时，该块计数器加一。需要替换时将<strong>计数值最小</strong>的块替换，并将所有块计数器清零</li>
+<li>最优替换算法OTP：将最长时间不会被访问的块替换。该算法要求已知访问的顺序，替换时在访问序列中查找最长时间会被访问的块，将其替换。该算法不可实现，可用于衡量其他算法</li>
+</ol>
+<h3 id="4-主存cache一致性"><a href="#4-主存cache一致性" class="headerlink" title="4. 主存cache一致性"></a>4. 主存cache一致性</h3><p>cache内容是主存的复制，所以cache要和主存内容保持一致，采用方法有:</p>
+<ol>
+<li>全写法：<br>当cpu写cache命中时，数据写入cache时的同时写入主存。未命中时，直接对主存修改，而后将主存内容调入cache。速度慢</li>
+<li>写回法：<br>cpu写cache命中时，只将数据写入cache，只有当cache中被修改过的块替换出去时才写回主存。未命中时，将相应主存块直接调入cache，然后对cache修改。速度快，但存在替换前不一致问题</li>
+</ol>
+<h3 id="5-性能"><a href="#5-性能" class="headerlink" title="5. 性能"></a>5. 性能</h3><ol>
+<li>命中率H：<br>H&#x3D;命中次数&#x2F;访问总次数</li>
+<li>理论命中率：<br>H&#x3D;1-S^-0.5^<br>S为cache容量</li>
+<li>平均访问周期T：<br>T&#x3D;H * Tc+(1-H) * (Tc+Tx)<br>Tc为cache访问周期<br>Tm为主存访问周期<br>Tx&#x3D;n * Tm，n代表cache以n个字（节）为一块</li>
+<li>加速比Sp：Sp&#x3D;Tm&#x2F;T</li>
+<li>存储器平均价格C：<br>C&#x3D;(C1 * S1+C2 * S2)&#x2F;(S1+S2)<br>S1，S2为主存与cache容量<br>C1，C2为主存与cache单位价格</li>
+<li>总失效率：<br>总失效率&#x3D;一级cache失效率 * 二级cache失效率<br>失效率即为未命中率</li>
+</ol>
+<h2 id="二、流水线"><a href="#二、流水线" class="headerlink" title="二、流水线"></a>二、流水线</h2><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h3><p>流水线技术是将重复的处理过程分解为若干子过程，且每个子过程可以与其它子过程同时执行</p>
+<ol>
+<li>每个子过程需要的时间应尽可能相等</li>
+<li>每个子过程称为流水线的级&#x2F;段</li>
+<li>级的数量为流水线深度</li>
+<li>第一个任务从进入到流出的时间叫做<strong>通过时间</strong>，在此之后每个时钟周期（拍）就流出一个结果</li>
+<li>流水线适合于大量重复过程</li>
+</ol>
+<p>时空图：用于描述流水线的图，横坐标代表时间，纵坐标为事件&#x2F;指令&#x2F;任务</p>
+<h3 id="2-分类"><a href="#2-分类" class="headerlink" title="2. 分类"></a>2. 分类</h3><h4 id="2-1-按使用级别（系统层次）分"><a href="#2-1-按使用级别（系统层次）分" class="headerlink" title="2.1 按使用级别（系统层次）分"></a>2.1 按使用级别（系统层次）分</h4><ol>
+<li>系统级流水线&#x2F;宏流水线：<br>由多个处理机组成流水线，每个处理机完成任务的一部分</li>
+<li>处理机级流水线：<br>由多个部件组成流水线，流水线位于处理机内部</li>
+<li>部件级流水线：<br>由多个微程序控制单元组成，流水线位于部件内部</li>
+</ol>
+<h4 id="2-2-按功能数"><a href="#2-2-按功能数" class="headerlink" title="2.2 按功能数"></a>2.2 按功能数</h4><ol>
+<li>单功能流水线：只含一种功能</li>
+<li>多功能流水线</li>
+</ol>
+<h4 id="2-3-按功能连接"><a href="#2-3-按功能连接" class="headerlink" title="2.3 按功能连接"></a>2.3 按功能连接</h4><ol>
+<li>静态流水线：流水线同一时间内只能按同一种功能的连接方式工作。如流水线有A、B两功能，同一时间要么按AB这样的方式工作，要么按BA方式工作</li>
+<li>动态流水线：同一时间可以实现多种功能的连接。效率更高、实现麻烦（需要硬件能够识别当前在完成哪一种连接方式）</li>
+</ol>
+<h4 id="2-4-按反馈功能"><a href="#2-4-按反馈功能" class="headerlink" title="2.4 按反馈功能"></a>2.4 按反馈功能</h4><ol>
+<li>线性流水线：没有反馈回路</li>
+<li>非线性流水线：有反馈回路，可以根据反馈来决定下一步进行哪个功能</li>
+</ol>
+<h4 id="2-5-按出入顺序"><a href="#2-5-按出入顺序" class="headerlink" title="2.5 按出入顺序"></a>2.5 按出入顺序</h4><ol>
+<li>顺序流水线：任务输入顺序和流出顺序相同</li>
+<li>乱序流水线</li>
+</ol>
+<h3 id="3-流水线存在问题—相关"><a href="#3-流水线存在问题—相关" class="headerlink" title="3. 流水线存在问题—相关"></a>3. 流水线存在问题—相关</h3><p>相关：相邻任务因存在某种制约、依赖、影响，使任务之间有了某种关联，其以影响了流水线性能，甚至影响流水线正常工作</p>
+<h4 id="3-1-结构相关"><a href="#3-1-结构相关" class="headerlink" title="3.1 结构相关"></a>3.1 结构相关</h4><p>结构相关指资源冲突，无法满足同时重叠执行两个任务，如取指令和取数据，都要访问主存。</p>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li>增加资源副本：如设计数据存储器和指令存储器</li>
+<li>延迟&#x2F;暂停流水线：插入流水线气泡（气泡只占用资源但没有实际操作</li>
+<li>改变资源：改变资源使它们能并发使用</li>
+</ol>
+<h4 id="3-2-数据相关"><a href="#3-2-数据相关" class="headerlink" title="3.2 数据相关"></a>3.2 数据相关</h4><p>数据相关指某任务需要用到另一个任务的结果，因而不能重叠执行</p>
+<h5 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h5><ol>
+<li>先写后读相关：要求写完之后读，如果在写还在执行的时候读就会出现错误</li>
+<li>先读后写相关：要求读完之后写，如果在读之前写了就会出现错误</li>
+<li>先写后写相关：要求第一个写比第二个写先执行，如果第二个写先执行就会出现错误</li>
+</ol>
+<p>	</p>
+<h5 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li>直通技术（定向技术）：在流水线之间设置直接连接通路，把相关的任务的前一个任务的结果直接送给后一个任务，后一个任务就无需从资源里读数据，没有冲突</li>
+<li>增加专用硬件：<br>使用互锁硬件，互锁硬件检测是否有数据相关，如果有就使流水线停顿，直到相关消失</li>
+<li>利用编译器（流水线调度）：编译器对指令重新排序或插入空指令</li>
+</ol>
+<h4 id="3-3-控制相关"><a href="#3-3-控制相关" class="headerlink" title="3.3 控制相关"></a>3.3 控制相关</h4><p>控制相关&#x2F;全局性相关是指存在分支转移等指令，会打乱流水线指令顺序</p>
+<h5 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h5><ol>
+<li>冻结流水线：当检测到分支指令，就在转移前保存或删除紧随分支指令之后的指令，确定出新的PC值后，再填充流水线</li>
+<li>预取分支目标：当条件分支指令被识别时，分支目标被预取，保存到分支指令被执行，如果分支跳转，已取到的指令可立即执行</li>
+<li>多流：在条件分支的两路上同时取指令，并将指令保存到分支指令被执行的时候，分支指令执行时，真的执行通路即刻可以获得</li>
+<li>循环缓冲器：保存最近获取的n条顺序的指令，分支发生时，先检查分支目标是否在缓冲其中</li>
+<li>分支预测：<ol>
+<li>静态分支预测：<ol>
+<li>预测分支不会发生：在知道分支结果之前，流水线流动分支指令和紧随其后指令，如果分支预测失败，流水线正常执行，如果预测成功，用空操作代替已经取得的指令，并到目标地址重新取指令。如果程序中大多数条件是用于出错检测，那么这种机制合理，因为出错的概率是小的</li>
+<li>预测分支总是发生：一旦分支转移成功，从目标地址取指令。如果程序包含较多循环，那么这种机制有利。</li>
+<li>由编译器预测：编译器预测条件转移，认为会转移时将指令某位置1，硬件遇到这样的指令就按照指示采取行动</li>
+</ol>
+</li>
+<li>动态分支预测：见书p201 文字表述过于麻烦</li>
+</ol>
+</li>
+<li>延迟分支：将跳转指令前的某些指令放到延迟槽，判断条件跳转后，将延迟槽执行完后在执行跳转<br>限制条件：被移动指令和移动过程中经过的指令不相关且被移动指令不破坏条件</li>
+</ol>
+<h3 id="4-性能"><a href="#4-性能" class="headerlink" title="4. 性能"></a>4. 性能</h3><h4 id="4-1-CPI"><a href="#4-1-CPI" class="headerlink" title="4.1 CPI"></a>4.1 CPI</h4><p>每条指令所需要的平均时钟周期<br>带相关的CPI：<br>&#x3D;理想CPI+相关造成的停顿周期数&#x2F;指令数<br>&#x3D;理想CPI+相关造成的停顿周期数 * 相关指令频度</p>
+<h4 id="4-2-吞吐率TP"><a href="#4-2-吞吐率TP" class="headerlink" title="4.2 吞吐率TP"></a>4.2 吞吐率TP</h4><p>单位时间内流水线完成的任务数<br>根据时空图计算，可以将时空图分为第一个任务完成前和完成后，完成后每个时间周期就完成一个任务</p>
+<h4 id="4-3-最大吞吐率TPmax"><a href="#4-3-最大吞吐率TPmax" class="headerlink" title="4.3 最大吞吐率TPmax"></a>4.3 最大吞吐率TPmax</h4><p>流水线在达到稳定状态时的吞吐率</p>
+<ol>
+<li>若各段时间相等：假设每段时钟周期为t，则TPmax&#x3D;1&#x2F;t</li>
+<li>各段时间不等：TPmax&#x3D;1&#x2F;max{ti}</li>
+</ol>
+<p>提高最大吞吐率的方法：</p>
+<ol>
+<li>细分瓶颈（耗时最长的段）：将瓶颈再细分为若干个小段</li>
+<li>重复：增加一个和瓶颈一样的段，使它们并行工作</li>
+</ol>
+<h4 id="4-4-加速比S"><a href="#4-4-加速比S" class="headerlink" title="4.4 加速比S"></a>4.4 加速比S</h4><p>代表比原来性能提升了多少<br>S&#x3D;不采用流水线完成任务时间&#x2F;采用流水线完成任务时间<br>S&#x3D;流水线深度&#x2F;CPI</p>
+<h4 id="4-5-效率E"><a href="#4-5-效率E" class="headerlink" title="4.5 效率E"></a>4.5 效率E</h4><p>流水线有工作时空的占比<br>E&#x3D;任务覆盖的面积&#x2F;任务开始到结束时空图的总面积</p>
+<p>E与S关系 E&#x3D;S&#x2F;m，m为流水线段数</p>
+<h3 id="5-提高流水线性能"><a href="#5-提高流水线性能" class="headerlink" title="5. 提高流水线性能"></a>5. 提高流水线性能</h3><h4 id="5-1-提高指令级并行"><a href="#5-1-提高指令级并行" class="headerlink" title="5.1 提高指令级并行"></a>5.1 提高指令级并行</h4><p>指令级并行是指当指令不相关时，它们能在流水线中重叠执行</p>
+<h5 id="5-1-1-乱序执行"><a href="#5-1-1-乱序执行" class="headerlink" title="5.1.1 乱序执行"></a>5.1.1 乱序执行</h5><p>乱序执行是指跳过存在相关的指令去执行不相关的指令，使顺序被打乱但结果不变。乱序执行会导致中断不准确</p>
+<h5 id="5-1-2-寄存器重命名"><a href="#5-1-2-寄存器重命名" class="headerlink" title="5.1.2 寄存器重命名"></a>5.1.2 寄存器重命名</h5><p>对寄存器重命名，有效减少先写后读，先写后写相关</p>
+<h5 id="5-1-3-推测执行"><a href="#5-1-3-推测执行" class="headerlink" title="5.1.3 推测执行"></a>5.1.3 推测执行</h5><p>在不知道是否需要执行前就执行代码的技术，核心思想是允许指令乱序执行，但是要求指令按序提交，并在提交前阻止不可恢复的动作。指令提交之前不会实际更新寄存器，发现预测错误时，处理器撤销推测的动作。该方法能够保证精确的中断和异常</p>
+<h4 id="5-2-多指令流出技术"><a href="#5-2-多指令流出技术" class="headerlink" title="5.2 多指令流出技术"></a>5.2 多指令流出技术</h4><h5 id="5-2-1-超标量处理机"><a href="#5-2-1-超标量处理机" class="headerlink" title="5.2.1 超标量处理机"></a>5.2.1 超标量处理机</h5><p>处理器内有多条流水线，这些流水线能并行处理，流水线数量称为度。处理n条指令的时间等于一条流水线处理n&#x2F;度条指令时间。相对性能最高</p>
+<h5 id="5-2-2-超流水线处理机"><a href="#5-2-2-超流水线处理机" class="headerlink" title="5.2.2 超流水线处理机"></a>5.2.2 超流水线处理机</h5><p>普通流水线一个时钟周期只能流出一条指令，而超流水线处理机把一个时钟周期划分为更小的段（划分段数称为度），使一个时钟周期能流出更多条指令（每一段都流出一条指令）。相对性能最低，由于指令启动延时大，条件转移损失大</p>
+<h5 id="5-2-3-超标量超流水线处理机"><a href="#5-2-3-超标量超流水线处理机" class="headerlink" title="5.2.3 超标量超流水线处理机"></a>5.2.3 超标量超流水线处理机</h5><p>结合二者，相对性能中等</p>
+<h5 id="5-2-4-超长指令字处理机"><a href="#5-2-4-超长指令字处理机" class="headerlink" title="5.2.4 超长指令字处理机"></a>5.2.4 超长指令字处理机</h5><p>采用并行编译技术（软件实现），将能够并行执行的不相关的多条指令组合在一起，构成一条位数超长的指令</p>
+<h2 id="三、输入输出系统"><a href="#三、输入输出系统" class="headerlink" title="三、输入输出系统"></a>三、输入输出系统</h2><h3 id="1-总线"><a href="#1-总线" class="headerlink" title="1. 总线"></a>1. 总线</h3><p>总线：连接在两个以上数字系统元器件的信息通路</p>
+<h4 id="1-1-分类"><a href="#1-1-分类" class="headerlink" title="1.1 分类"></a>1.1 分类</h4><h5 id="1-1-1-片内总线"><a href="#1-1-1-片内总线" class="headerlink" title="1.1.1 片内总线"></a>1.1.1 片内总线</h5><p>芯片内部各功能元件的连接线<br>典型片内总线：<br>如AMBA、Wishbone</p>
+<h5 id="1-1-2-元件级总线"><a href="#1-1-2-元件级总线" class="headerlink" title="1.1.2 元件级总线"></a>1.1.2 元件级总线</h5><p>电路板内各元器件的连接</p>
+<h5 id="1-1-3-内总线（系统总线）"><a href="#1-1-3-内总线（系统总线）" class="headerlink" title="1.1.3 内总线（系统总线）"></a>1.1.3 内总线（系统总线）</h5><p>电路板的连接。直接影响计算机性能</p>
+<p>典型内总线：</p>
+<ol>
+<li>PC&#x2F;XT总线：最早的以8088为CPU的系统总线</li>
+<li>ISA总线：16位，包含24个地址线、16个数据线</li>
+<li>EISA总线：32位，适用于32位CPU</li>
+<li>PCI总线：<br>并行传输方式<br>总线设备工作独立于CPU<br>高性能<br>即插即用<br>支持多主控设备</li>
+<li>PCIE总线：与PCI相比：<br>串行传输方式，每个通道独享带宽<br>支持双向传输和数据分通道传输<br>点到点互联、交换技术，降低复杂性、开发设计成本，提高了性价比</li>
+</ol>
+<h5 id="1-1-4-外总线（通信总线）"><a href="#1-1-4-外总线（通信总线）" class="headerlink" title="1.1.4 外总线（通信总线）"></a>1.1.4 外总线（通信总线）</h5><p>计算机与外设或计算机系统之间的连接。</p>
+<p>典型外总线：</p>
+<ol>
+<li>RS-232C：串行外总线，传送距离远，结构简单</li>
+<li>SCSI总线：<br>并行外总线<br>面向服务器、磁盘阵列等高端存储器<br>传输速率高，提高CPU效率<br>支持多任务<br>不支持热插拔</li>
+<li>SAS总线：<br>兼容性好<br>点对点架构<br>全双工设计<br>支持热插拔</li>
+<li>ATA总线：<br>并行总线<br>通常用于PC硬盘、光盘等外设接口</li>
+<li>SATA总线：<br>串行总线，对ATA的改进</li>
+<li>通用串行总线USB：<br>定义四个信号：Vusb(+5V)，GND，D+（信号正端），D-（信号负端），这四个信号用四芯电缆进行传送<br>支持即插即用、热插拔<br>扩展性好，可靠性高，标准统一<br>可通过总线供电</li>
+<li>IEEE-1394：<br>串行总线<br>即插即用、热插拔<br>支持同步异步传输</li>
+</ol>
+<h4 id="1-2-结构"><a href="#1-2-结构" class="headerlink" title="1.2 结构"></a>1.2 结构</h4><p>单总线结构<br>双总线结构<br>多总线结构</p>
+<h4 id="1-3-传送方式"><a href="#1-3-传送方式" class="headerlink" title="1.3 传送方式"></a>1.3 传送方式</h4><ol>
+<li>串行传送</li>
+<li>并行传送</li>
+<li>同步传送：同步总线包括一个公用的时钟，和一个固定的协议，该协议用于通信。同步方式不需要应答，实现方便，但每个设备以相同的频率工作，总线速度由慢设备决定。总线不宜过长</li>
+<li>异步传送：异步总线使用握手协议通信。允许总线周期可变</li>
+</ol>
+<h4 id="1-4-性能："><a href="#1-4-性能：" class="headerlink" title="1.4 性能："></a>1.4 性能：</h4><p>位宽： 总线能同时传送的二进制数据的位数，即数据总线的位数<br>工作频率：以Mhz为单位<br>带宽（数据传输速率）：单位时间内总线上传输的数据量，总线带宽&#x3D;总线工作频率×每个时钟周期传送的数据次数×总线位宽&#x2F;8。单位为MB&#x2F;s	</p>
+<p><strong>注意：计算总线传输n位数据需要的时间别忘了额外加上传输地址的时间</strong></p>
+<h4 id="1-5-总线仲裁"><a href="#1-5-总线仲裁" class="headerlink" title="1.5 总线仲裁"></a>1.5 总线仲裁</h4><p>决定哪个设备可以使用总线</p>
+<h5 id="1-5-1-集中式仲裁："><a href="#1-5-1-集中式仲裁：" class="headerlink" title="1.5.1 集中式仲裁："></a>1.5.1 集中式仲裁：</h5><p>使用集中的仲裁器<br>串行总线仲裁（链式查询）<br>并行总线冲裁（独立请求）<br>计数器查询仲裁（轮询）<br>见书P268，文字表述过于麻烦</p>
+<h5 id="1-5-2-分布式仲裁"><a href="#1-5-2-分布式仲裁" class="headerlink" title="1.5.2 分布式仲裁"></a>1.5.2 分布式仲裁</h5><p>不需要集中的冲裁器，每个主设备有自己的仲裁号和仲裁器。<br>当请求总线时，设备把它们的仲裁号发送到仲裁总线上，每个仲裁器将从仲裁总线上得到其它仲裁号，和自己的仲裁号比较，如果仲裁总线上的号大，则它的请求不予相应。可见仲裁号越大优先级越高</p>
+<h3 id="2-存储器设备"><a href="#2-存储器设备" class="headerlink" title="2. 存储器设备"></a>2. 存储器设备</h3><h4 id="2-1-磁表面存储器"><a href="#2-1-磁表面存储器" class="headerlink" title="2.1 磁表面存储器"></a>2.1 磁表面存储器</h4><p>如磁盘和磁带</p>
+<h5 id="2-1-1-原理"><a href="#2-1-1-原理" class="headerlink" title="2.1.1 原理"></a>2.1.1 原理</h5><p>用磁状态保存二进制信息，记录时将二进制信息变化为电流进而实现磁记录层上磁场的变化。方式有：</p>
+<ol>
+<li>归零制RZ：数据0代表负电流脉冲，1代表正电流脉冲，两个数据间电流归零</li>
+<li>不归零制NRZ：在数据发生变化时电流改变</li>
+<li>见1不归零制NRZ1：遇到数据1时电流改变</li>
+<li>调频制FM：写入每个数据都要将电流翻转，且遇到数据1时，电流中心再翻转</li>
+<li>改进调频制MFM：写入1时，电流中心翻转，遇到连续两个或以上0，每位电流翻转一次</li>
+<li>调相制PM：用电流方向表示0&#x2F;1，如电流中心从0到1（正方向）代表1</li>
+</ol>
+<h5 id="2-1-2-性能"><a href="#2-1-2-性能" class="headerlink" title="2.1.2 性能"></a>2.1.2 性能</h5><ol>
+<li>自同步能力R：从磁道中读出的脉冲序列中提取时钟周期的难易程度<br>R&#x3D;最小磁化翻转间隔&#x2F;最大磁化翻转间隔</li>
+<li>编码效率（记录密度）n：<br>n&#x3D;位密度&#x2F;最大磁化翻转密度<br>&#x3D;1&#x2F;记录1位二进制编码需磁化方向最大改变次数</li>
+</ol>
+<h4 id="2-2硬磁盘存储器"><a href="#2-2硬磁盘存储器" class="headerlink" title="2.2硬磁盘存储器"></a>2.2硬磁盘存储器</h4><h5 id="2-2-1-结构"><a href="#2-2-1-结构" class="headerlink" title="2.2.1 结构"></a>2.2.1 结构</h5><ol>
+<li>记录面：磁盘中可记录信息的磁介质表面</li>
+<li>磁道：记录面上若干个同心闭合圆环</li>
+<li>扇区：磁道分为的若干段。第一个扇区为主引导扇区，存储主引导记录和磁盘分区表</li>
+</ol>
+<h5 id="2-2-2-数据格式"><a href="#2-2-2-数据格式" class="headerlink" title="2.2.2 数据格式"></a>2.2.2 数据格式</h5><ol>
+<li>标志区：每一扇区的开始，包含磁道号+磁头号+扇区号+CRC校验码</li>
+<li>数据区：存放数据和校验码</li>
+<li>间隙：用于缓冲</li>
+</ol>
+<h5 id="2-2-3-性能"><a href="#2-2-3-性能" class="headerlink" title="2.2.3 性能"></a>2.2.3 性能</h5><ol>
+<li>道密度：沿磁盘半径方向，单位长度内磁道的数目</li>
+<li>位密度：磁道圆周上单位长度存储的二进制位数</li>
+<li>存储容量：磁盘能存储的二进制信息总量，有以下两种：<ol>
+<li>非格式化容量&#x3D;位密度×内圈磁道周长×每个记录面上的磁道数×记录面数</li>
+<li>格式化容量&#x3D;每个扇区的字节数×每道的扇区数×每个记录面上的磁道数×记录面数</li>
+</ol>
+</li>
+<li>寻道时间：磁头从某一位置移动到指定位置所需时间。是个常数，通常为几ms</li>
+<li>等待时间：指待读取的扇区转到磁头下方所需时间，<strong>一般选用磁盘旋转一周所用时间的一半</strong>，通常为几ms</li>
+<li>平均存取时间：其等于寻道时间+等待时间</li>
+<li>转速：硬盘内驱动电机主轴的旋转速度</li>
+<li>数据传输速率：单位时间内读写的字节数。数据传输速率&#x3D;每个扇区的字节数×每道扇区数×磁盘转速</li>
+</ol>
+<h5 id="2-2-4-磁盘阵列RAID技术"><a href="#2-2-4-磁盘阵列RAID技术" class="headerlink" title="2.2.4 磁盘阵列RAID技术"></a>2.2.4 磁盘阵列RAID技术</h5><p>一般在SCSI磁盘驱动器上实现。RAID提供了专用服务器中接入多个磁盘时，以磁盘阵列的方式组成一个超大容量、响应速度快、可靠性高的存储子系统。其有六种标准</p>
+<ol>
+<li>冗余无校验的磁盘阵列RAID0：至少需要两个硬盘，读写速度最快，但安全性不高</li>
+<li>镜像磁盘阵列RAID1：增加镜像磁盘机使得安全性高、可靠性强、快速恢复数据 ，但磁盘冗余，利用率50%</li>
+<li>并行海明纠错阵列RAID2：采用海明冗余纠错码，可靠性高、可确定出错硬盘，但磁盘冗余，开销大</li>
+<li>奇偶校验并行为交错阵列RAID3	</li>
+<li>…</li>
+</ol>
+<h3 id="3-输入输出技术"><a href="#3-输入输出技术" class="headerlink" title="3. 输入输出技术"></a>3. 输入输出技术</h3><p>输入输出技术实现了外设的输入输出，其要满足数据传输速率尽可能高且不丢失数据<br>开销尽可能小，充分利用硬件资源</p>
+<h5 id="输入输出地址编制方式："><a href="#输入输出地址编制方式：" class="headerlink" title="输入输出地址编制方式："></a>输入输出地址编制方式：</h5><ol>
+<li>统一编址：外设地址和内存地址统一安排在内存地址空间，即把内存地址分配给外设。用于内存和用于外设的指令一样。优点：可以用访问寄存器指令直接访问IO。缺点：IO占用寄存器空间、指令长度比单独IO指令长，执行时间长</li>
+<li>独立编址：外设和内存地址相互独立，各自有自己的寻址空间。用于内存和用于外设的指令不一样</li>
+</ol>
+<h4 id="3-1-程序控制方式"><a href="#3-1-程序控制方式" class="headerlink" title="3.1 程序控制方式"></a>3.1 程序控制方式</h4><p>多用于慢速的外设</p>
+<h5 id="3-1-1无条件传送方式"><a href="#3-1-1无条件传送方式" class="headerlink" title="3.1.1无条件传送方式"></a>3.1.1无条件传送方式</h5><p>在需要的时刻让CPU直接与外设进行输入输出操作。实现简单，只需要提供接口和相应的输入输出指令</p>
+<h5 id="3-1-2-查询传送方式"><a href="#3-1-2-查询传送方式" class="headerlink" title="3.1.2 查询传送方式"></a>3.1.2 查询传送方式</h5><p>利用程序不断询问外部设备的状态，根据它们所处的状态来实现数据的输入和输出。适用于不总是准备好的外设，但降低了CPU效率，无法对突发事件及时响应</p>
+<h4 id="3-2-中断方式"><a href="#3-2-中断方式" class="headerlink" title="3.2 中断方式"></a>3.2 中断方式</h4><p>提高了CPU效率，能对突发事件及时响应</p>
+<h5 id="3-2-1-中断概念"><a href="#3-2-1-中断概念" class="headerlink" title="3.2.1 中断概念"></a>3.2.1 中断概念</h5><p>中断源：引起中断的事件<br>内部中断源：处理机内部的中断事件。如浮点数运算上溢等<br>外部中断源：外设的中断事件。如外设请求输入输出<br>中断优先级控制解决的问题：不同优先级中断源同时提出请求，先响应高优先级、CPU正在进行中断服务时，更高优先级的中断提出请求</p>
+<h5 id="3-2-2-中断向量表"><a href="#3-2-2-中断向量表" class="headerlink" title="3.2.2 中断向量表"></a>3.2.2 中断向量表</h5><p>向量地址&#x3D;中断向量码（中断类型码）×4（每一个中断占四个字节）<br>偏移地址IP&#x3D;向量地址加一内容+向量地址的地址内容<br>段地址CS&#x3D;向量地址内容加三+向量地址加二的地址内容</p>
+<h5 id="3-2-3-中断过程（以外不可屏蔽中断INTR为例）"><a href="#3-2-3-中断过程（以外不可屏蔽中断INTR为例）" class="headerlink" title="3.2.3 中断过程（以外不可屏蔽中断INTR为例）"></a>3.2.3 中断过程（以外不可屏蔽中断INTR为例）</h5><ol>
+<li>中断请求：外部设备产生一个有效的中断请求信号，保持到CPU发现，响应后撤销请求</li>
+<li>中断承认：满足以下四个条件，中断请求才会被承认<ol>
+<li>一条指令执行结束</li>
+<li>CPU处于开启中断状态</li>
+<li>没有复位、保持、非屏蔽中断请求等优先级高于该请求的请求发生</li>
+<li>开中断指令、中断返回指令等特殊指令执行完还需要执行另外的一条指令后才能响应请求</li>
+</ol>
+</li>
+<li>断点保护：<br>中断事件处理结束后必须回到被中断的程序，因此必须进行断点保护。<strong>一部分为CPU硬件自动保存断点的部分信息，另一部分为程序设计者完成（保护中断要用到的所有寄存器）</strong>。通常用压入堆栈的方法实现</li>
+<li>中断源识别：两种方式：<ol>
+<li>软件查询：利用输入接口将多个中断源的状态读入，逐个查询</li>
+<li>中断向量法：给每个中断源分配一个特定的中断服务程序的入口地址（中断向量）</li>
+</ol>
+</li>
+<li>中断处理：一般根据预先确定的程序实现</li>
+<li>断点恢复：恢复程序设计者保护的中断要用到的所有寄存器，通常由弹出堆栈指令完成</li>
+<li>中断返回：中断返回是一条IRET指令，命令CPU恢复CPU硬件自动保存断点的部分信息</li>
+</ol>
+<h4 id="3-3-DMA方式"><a href="#3-3-DMA方式" class="headerlink" title="3.3 DMA方式"></a>3.3 DMA方式</h4><p>无论是查询方式还是中断方式，CPU都需要花费时间执行指令，为提高传输速率引入直接存储器存取DMA方法<br>DMA原理就是从CPU中获取总线控制权<br>有三种方式</p>
+<h5 id="3-3-1-CPU停止工作方式"><a href="#3-3-1-CPU停止工作方式" class="headerlink" title="3.3.1 CPU停止工作方式"></a>3.3.1 CPU停止工作方式</h5><p>DMA发送请求，使CPU放弃总线控制权</p>
+<h5 id="3-3-2-周期挪用方式"><a href="#3-3-2-周期挪用方式" class="headerlink" title="3.3.2 周期挪用方式"></a>3.3.2 周期挪用方式</h5><ol>
+<li>固定周期挪用：如CPU取指令后需要对指令进行分析，这段（固定）时间不占用系统总线，可分给DMA使用</li>
+<li>周期延长：延长CPU机器周期，供给DMA使用。如遇到慢设备时，读写周期就会增加，多余的等待设备时间可以用于DMA</li>
+</ol>
+<h5 id="3-3-3-CPU与DMA交替分时工作"><a href="#3-3-3-CPU与DMA交替分时工作" class="headerlink" title="3.3.3 CPU与DMA交替分时工作"></a>3.3.3 CPU与DMA交替分时工作</h5><p>将时间分片，一片给CPU使用，一片给DMA使用。由于DMA只是偶尔使用，不是每时每刻进行，所以此方式不如另外两种方式（DMA需要工作时才占用总线）</p>
+<h4 id="3-4-通道方式"><a href="#3-4-通道方式" class="headerlink" title="3.4 通道方式"></a>3.4 通道方式</h4><p>通道是一个特殊功能的处理器，它有自己的指令和程序专门负责输入输出的传输控制，这样CPU只负责数据处理，通道负责传输控制，二者分时使用内存，实现并行<br>有三种方式</p>
+<h5 id="3-4-1-选择通道"><a href="#3-4-1-选择通道" class="headerlink" title="3.4.1 选择通道"></a>3.4.1 选择通道</h5><p>通道可连接多台设备，但设备不能同时工作。数据传送以数据块为单位。会造成长时间等待的问题</p>
+<h5 id="3-4-2-数组多路通道"><a href="#3-4-2-数组多路通道" class="headerlink" title="3.4.2 数组多路通道"></a>3.4.2 数组多路通道</h5><p>通道可连接多个设备，允许同时工作，但只允许一台设备传输。当某设备进行数据传送时，通道只为该设备服务。当设备需要等待完成某些辅助操作时，通道暂时挂起该设备，去执行其他设备</p>
+<h5 id="3-4-3-字节多路通道"><a href="#3-4-3-字节多路通道" class="headerlink" title="3.4.3 字节多路通道"></a>3.4.3 字节多路通道</h5><p>连接大量低速外设。允许同时工作，且允许同时传输。以字节为单位，一个设备传送完一个字节，即可为另一个设备传送一个字节</p>
+<h2 id="四、多机系统"><a href="#四、多机系统" class="headerlink" title="四、多机系统"></a>四、多机系统</h2><h3 id="1-多机系统思想"><a href="#1-多机系统思想" class="headerlink" title="1. 多机系统思想"></a>1. 多机系统思想</h3><p>多机系统利用并行处理提高计算机性能，它包括两个含义：</p>
+<ol>
+<li>同时性（两个或以上事件同一时间发生）</li>
+<li>并发性（两个或以上事件在同一时间间隔内发生）</li>
+</ol>
+<h5 id="并行处理方法"><a href="#并行处理方法" class="headerlink" title="并行处理方法"></a>并行处理方法</h5><ol>
+<li>时间重叠：时间并行技术，使多个子任务同时使用系统中<strong>不同功能</strong>的部件。如流水线</li>
+<li>资源重复：空间并行技术，大量重复设置硬件资源，使多个子任务同时使用系统中<strong>相同功能</strong>的部件。如多核处理器</li>
+<li>时间重复加资源重复：结合时间并行和空间并行。</li>
+<li>资源共享：<strong>软件方式</strong>，通过操作系统调度，使多个任务轮流使用同一设备。如共享存储器</li>
+</ol>
+<h3 id="2-并行计算机分类"><a href="#2-并行计算机分类" class="headerlink" title="2. 并行计算机分类"></a>2. 并行计算机分类</h3><h4 id="2-1-单指令流单数据流SISD"><a href="#2-1-单指令流单数据流SISD" class="headerlink" title="2.1 单指令流单数据流SISD"></a>2.1 单指令流单数据流SISD</h4><p>一个时刻只能做一件事情<br>模式有：</p>
+<h5 id="2-1-1-指令级并行"><a href="#2-1-1-指令级并行" class="headerlink" title="2.1.1 指令级并行"></a>2.1.1 指令级并行</h5><p>指令按照流水线进行</p>
+<h5 id="2-1-2-芯片多线程"><a href="#2-1-2-芯片多线程" class="headerlink" title="2.1.2 芯片多线程"></a>2.1.2 芯片多线程</h5><p>CPU可以在多个线程之间切换，是虚拟的多处理器</p>
+<h5 id="2-1-3-单片多处理器"><a href="#2-1-3-单片多处理器" class="headerlink" title="2.1.3 单片多处理器"></a>2.1.3 单片多处理器</h5><p>同一个芯片设置两个及以上处理器内核，允许同时进行</p>
+<h4 id="2-2-单指令流多数据流SIMD"><a href="#2-2-单指令流多数据流SIMD" class="headerlink" title="2.2 单指令流多数据流SIMD"></a>2.2 单指令流多数据流SIMD</h4><p>相同的指令以并行的方式应用于不同的数据流，实现数据流的并行<br>模式有：</p>
+<h5 id="2-2-1-向量计算机"><a href="#2-2-1-向量计算机" class="headerlink" title="2.2.1 向量计算机"></a>2.2.1 向量计算机</h5><p>采用共享内存结构，所有加法运算由一个高度流水的加法器实现</p>
+<h5 id="2-2-2-阵列计算机"><a href="#2-2-2-阵列计算机" class="headerlink" title="2.2.2 阵列计算机"></a>2.2.2 阵列计算机</h5><p>由许多在不同数据集上执行同样指令、完成同样功能的完全相同的处理器组成</p>
+<h4 id="2-3-多指令流单数据流MISD"><a href="#2-3-多指令流单数据流MISD" class="headerlink" title="2.3 多指令流单数据流MISD"></a>2.3 多指令流单数据流MISD</h4><p>多条指令同时在一个数据上进行操作，目前还没有这类的机器</p>
+<h4 id="2-4-多指令流多数据流MIMD"><a href="#2-4-多指令流多数据流MIMD" class="headerlink" title="2.4 多指令流多数据流MIMD"></a>2.4 多指令流多数据流MIMD</h4><p>实现线程级并行，同时有多个CPU执行不同操作，每个处理器获取自己的指令并对自己的数据进行操作处理<br>模式有：</p>
+<h5 id="2-4-1-集中共享存储器结构（多处理器）"><a href="#2-4-1-集中共享存储器结构（多处理器）" class="headerlink" title="2.4.1 集中共享存储器结构（多处理器）"></a>2.4.1 集中共享存储器结构（多处理器）</h5><p>所有处理器共享公共内存，有三种模式： </p>
+<ol>
+<li>一致性存储器访问计算机UAM：通过共享总线通信，CPU访问共享内存时间一致</li>
+<li>非一致性存储器访问计算机NUAM：共享内存被分组并分布到每个处理器。这使得远程内存访问时间比本地内存长</li>
+<li>基于cache的存储器访问计算机：cache可以在不同处理器间移动而非固定</li>
+</ol>
+<h5 id="2-4-2-分布式存储器结构（多计算机）"><a href="#2-4-2-分布式存储器结构（多计算机）" class="headerlink" title="2.4.2 分布式存储器结构（多计算机）"></a>2.4.2 分布式存储器结构（多计算机）</h5><p>实际上由多个独立计算机组成，不共享内存，每个CPU有自己的私有内存，其它CPU不能访问</p>
+<h3 id="3-多机互联网络"><a href="#3-多机互联网络" class="headerlink" title="3. 多机互联网络"></a>3. 多机互联网络</h3><p>多机互联网络用于连接系统中的计算机，互联网络对多机系统性能而言至关重要</p>
+<h4 id="3-1-互联函数"><a href="#3-1-互联函数" class="headerlink" title="3.1 互联函数"></a>3.1 互联函数</h4><p>互联函数用于表示互连网络的输入端号和输出端号的关系</p>
+<h5 id="3-1-1-表示方式"><a href="#3-1-1-表示方式" class="headerlink" title="3.1.1 表示方式"></a>3.1.1 表示方式</h5><ol>
+<li>对应表示法：<br>[0 1 … N-1]<br>[f(0) f(1) … f(N-1)]<br>代表输入N对应输出f(N-1)</li>
+<li>函数表示法：<br>f(Xn-1Xn-2…X0)&#x3D;XaXb…Xi<br><strong>其中Xn-1Xn-2…X0是输入X序号的二进制表示</strong>，根据XaXb…Xi可得到输出Y序号的二进制表示<br>代表输入X和输入Y对应</li>
+<li>循环表示法：<br>(XaXbXc…Xi)<br>代表输入Xa对应输出Xb，输入Xb对应输出Xc，…，前一个X和后一个X对应</li>
+</ol>
+<h5 id="3-1-2-基本互联函数"><a href="#3-1-2-基本互联函数" class="headerlink" title="3.1.2 基本互联函数"></a>3.1.2 基本互联函数</h5><ol>
+<li>恒等置换:r(Xn-1Xn-2…Xi…X0)&#x3D;Xn-1Xn-2…Xi…X0</li>
+<li>交换置换：h(Xn-1Xn-2…Xi…X0)&#x3D;Xn-1Xn-2…Xi…¬X0</li>
+<li>方体置换：Ci(Xn-1Xn-2…Xi…X0)&#x3D;Xn-1Xn-2…¬Xi…X0</li>
+<li>均匀洗牌置换：σ(Xn-1Xn-2…Xi…X0)&#x3D;Xn-2Xn-3…Xi…X0Xn-1</li>
+<li>逆均匀洗牌置换：σ<sup>-1</sup>(Xn-1Xn-2…Xi…X0)&#x3D;X0Xn-1Xn-2…Xi…X1</li>
+<li>加减2<sup>i</sup>置换：<br>PM2<sub>+i</sub>(X)&#x3D;（X+2<sup>i</sup>）modM<br>PM2<sub>-i</sub>(X)&#x3D;（X-2<sup>i</sup>）modM<br>其中M时输入&#x2F;输出设备数</li>
+<li>蝶形置换：β(Xn-1Xn-2…Xi…X0)&#x3D;X0Xn-2…Xi…X1Xn-1</li>
+</ol>
+<h4 id="3-2-静态互联网络"><a href="#3-2-静态互联网络" class="headerlink" title="3.2 静态互联网络"></a>3.2 静态互联网络</h4><ol>
+<li>线性阵列：每个节点和它左右节点连接</li>
+<li>二维网络：每个节点和它上下左右节点连接</li>
+<li>树形：每个节点和它父亲以及两个孩子连接</li>
+<li>n-超立方：每个立方体顶点由n个节点组成</li>
+<li>全互联网络：每个节点和其他节点都连接</li>
+</ol>
+<h4 id="3-3-动态互联网络"><a href="#3-3-动态互联网络" class="headerlink" title="3.3 动态互联网络"></a>3.3 动态互联网络</h4><ol>
+<li><p>总线：结构简单，但存在总线仲裁、中断处理等问题</p>
+</li>
+<li><p>交叉开关网络：利用开关阵列，控制不同开关打开关闭，实现任意输入输出端的连接。<br>2×2开关模块的四种控制状态：</p>
+<ol>
+<li>直送：0入0出，1入1出</li>
+<li>上播：0入输出0和1，1入输出悬空</li>
+<li>下播：1入输出0和1，0入输出悬空</li>
+<li>交叉：0入1出，1入0出</li>
+</ol>
+<p> 具备四种功能的乘坐四功能模块，具备1和4功能的称为二功能模块</p>
+</li>
+<li><p>多级互联网络：对交叉开关网络的改进，用小规模的交叉开关模块互相串并联构成多级交叉开关网络，减少设备量</p>
+</li>
+<li><p>多级均匀洗牌网络：又叫omega网络，寻址过程为，0：消息从开关上输出线输出，1消息从开关下输出线输出</p>
+</li>
+</ol>
+<h3 id="4-多机系统实例"><a href="#4-多机系统实例" class="headerlink" title="4. 多机系统实例"></a>4. 多机系统实例</h3><h4 id="4-1-对称多处理机SMP"><a href="#4-1-对称多处理机SMP" class="headerlink" title="4.1 对称多处理机SMP"></a>4.1 对称多处理机SMP</h4><p>有一致性存储访问模型和非一致性存储访问模型两种</p>
+<h5 id="4-1-1-特点"><a href="#4-1-1-特点" class="headerlink" title="4.1.1 特点"></a>4.1.1 特点</h5><ol>
+<li>由两个及以上相同的处理机构成</li>
+<li>多个处理机通过总线或其它互联方式连接</li>
+<li>如果是一致性存储访问模型，那么多个处理器共享同一主存储器</li>
+<li>所有的处理机通过通道共享IO设备</li>
+<li>每个处理机完成相同的功能，在一个集中的操作系统统一管理下工作</li>
+</ol>
+<h5 id="4-1-2-优点"><a href="#4-1-2-优点" class="headerlink" title="4.1.2 优点"></a>4.1.2 优点</h5><ol>
+<li>对称性</li>
+<li>单地址空间，易编程</li>
+<li>高速缓存且一致，数据局部性</li>
+<li>低通信延迟</li>
+</ol>
+<h5 id="4-1-3-问题"><a href="#4-1-3-问题" class="headerlink" title="4.1.3 问题"></a>4.1.3 问题</h5><ol>
+<li>欠可靠，总线、存储器或OS失效会使整个系统崩溃</li>
+<li>竞争加剧</li>
+<li>不可扩放，限制了处理器数量</li>
+</ol>
+<h4 id="4-2-大规模并行机MPP"><a href="#4-2-大规模并行机MPP" class="headerlink" title="4.2 大规模并行机MPP"></a>4.2 大规模并行机MPP</h4><p>由成百上千个处理器组成的大规模计算机系统，每个节点是独立的计算单元，规模可变，高速互联网络，高带宽低延迟，只有微内核，成本高，用于科学计算</p>
+<h4 id="4-3-工作站集群COW"><a href="#4-3-工作站集群COW" class="headerlink" title="4.3 工作站集群COW"></a>4.3 工作站集群COW</h4><p>分布式存储，每个节点都是一个完整的计算机，有自己的磁盘和操作系统。普通总线通信<br>投资风险小、系统结构灵活，可扩展性强，成本低，用于中小型并行任务</p>
+<h4 id="4-4-网格GRID"><a href="#4-4-网格GRID" class="headerlink" title="4.4 网格GRID"></a>4.4 网格GRID</h4><p>利用互联网把广泛分布的资源连成一个逻辑整体，即一台虚拟超级计算机，实现资源共享</p>
+<h3 id="5-性能-1"><a href="#5-性能-1" class="headerlink" title="5. 性能"></a>5. 性能</h3><p>加速比S：<br>并行系统的加速比是指并行算法比串行算法的执行加快了多少倍</p>
+<p>Amdahl定律：<br><strong>S&#x3D;1&#x2F;(f+(1-f)&#x2F;p)</strong><br>其中：<br>f是串行分量的比例（应用中的不可并行化部分和问题规模之比）<br>p是处理机数</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 弦上的箭
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=230 height=75 src="//music.163.com/outchain/player?type=2&id=2059532170&auto=0&height=66"></iframe>
+</div>
+
+<script>
+    var $DOC = $(document)
+    $('#musicMouseDrag').on('mousedown', function (e) {
+      // 阻止文本选中
+      $DOC.bind("selectstart", function () {
+        return false;
+      });
+      $('#musicDragArea').css('height', '100%');
+      var $moveTarget = $('#musicMouseDrag');
+      $moveTarget.css('border', '1px dashed grey')
+      var div_x = e.pageX - $moveTarget.offset().left;
+      var div_y = e.pageY - $moveTarget.offset().top;
+      $DOC.on('mousemove', function (e) {
+        var targetX = e.pageX - div_x;
+        var targetY = e.pageY - div_y;
+        targetX = targetX < 0 ? 0 : (targetX + $moveTarget.outerWidth() >= window.innerWidth) ? window.innerWidth - $moveTarget.outerWidth() : targetX;
+        targetY = targetY < 0 ? 0 : (targetY + $moveTarget.outerHeight() >= window.innerHeight) ? window.innerHeight - $moveTarget.outerHeight() : targetY;
+        $moveTarget.css({'left': targetX + 'px', 'top': targetY + 'px', 'bottom': 'inherit', 'right': 'inherit'})
+      }).on('mouseup', function () {
+        $DOC.unbind("selectstart");
+        $DOC.off('mousemove')
+        $DOC.off('mouseup')
+        $moveTarget.css('border', 'none')
+        $('#musicDragArea').css('height', '10px');
+      })
+    })
+</script>
+</html>

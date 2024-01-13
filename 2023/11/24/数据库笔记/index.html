@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据库笔记 | 弦上的箭</title>
+  <meta name="keywords" content=" 数据库 ">
+  <meta name="description" content="数据库笔记 | 弦上的箭">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理实践—python构建编译器">
+<meta property="og:url" content="http://example.com/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/index.html">
+<meta property="og:site_name" content="弦上的箭">
+<meta property="og:description" content="简介：&amp;emsp;&amp;emsp;本项目用于为指定语句编写编译器和解释器，除了编译原理基础概念，本项目其它算法都为原创  一、项目要求为五种语句编写编译器和解释器 1. 循环绘图语句 2. 比例设置语句 3. 坐标平移语句 4. 角度旋转语句 5. 注释语句 6. 程序演示 二、词法分析1. DFA设计如图：其中0是初态，其余都是终态其中每个状态的含义为：ERROR&#x3D;0  ID&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407011813.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407079046.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407127151.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407220618.jpg">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703407388728.jpg">
+<meta property="og:image" content="http://example.com/imgs/123124.png">
+<meta property="og:image" content="http://example.com/imgs/compilerProject/1703432926195.jpg">
+<meta property="article:published_time" content="2024-01-03T15:54:24.000Z">
+<meta property="article:modified_time" content="2024-01-03T15:56:42.556Z">
+<meta property="article:author" content="弦上的箭">
+<meta property="article:tag" content="编译原理">
+<meta property="article:tag" content="编译器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/compilerProject/1703406969131.jpg">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>弦上的箭</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/arrowonstr"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:21009200039@stu.xidian.edu.cn"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(18)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="项目">
+            <i class="fold iconfont icon-right"></i>
+            项目
+            <small>(10)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计">
+            <i class="fold iconfont icon-right"></i>
+            程序设计
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;程序设计&lt;---&gt;会议室系统">
+            
+            会议室系统
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式">
+            <i class="fold iconfont icon-right"></i>
+            嵌入式
+            <small>(7)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="项目&lt;---&gt;嵌入式&lt;---&gt;K210">
+            
+            K210
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="笔记">
+            <i class="fold iconfont icon-right"></i>
+            笔记
+            <small>(6)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;课程">
+            
+            课程
+            <small>(4)</small>
+        </div>
+        
+    </li>
+
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能">
+            <i class="fold iconfont icon-right"></i>
+            人工智能
+            <small>(2)</small>
+        </div>
+        
+            <ul class="sub hide">
+                
+                    
+    <li>
+        <div data-rel="笔记&lt;---&gt;人工智能&lt;---&gt;yolo">
+            
+            yolo
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+                
+            </ul>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="日记">
+            
+            日记
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        <a 
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="18">
+<input type="hidden" id="yelog_site_word_count" value="47.4k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://gohoy.github.io/blog">GOHOY</a></li>
+            
+            <li><a target="_blank" href="https://blog.dx39061.top">DX3906</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译器</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>编译原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计算机组成原理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>计网</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>目标检测</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>日记</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>K210</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>qt</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>sql</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All 日记 "
+           href="/2023/09/15/%E5%B0%81%E9%9D%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="封面">封面</span>
+            <span class="post-date" title="2023-09-15 15:00:00">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 "
+           href="/2024/01/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E8%B7%B5%E2%80%94python%E6%9E%84%E5%BB%BA%E7%BC%96%E8%AF%91%E5%99%A8/"
+           data-tag="编译原理,编译器"
+           data-author="" >
+            <span class="post-title" title="编译原理实践—python构建编译器">编译原理实践—python构建编译器</span>
+            <span class="post-date" title="2024-01-03 23:54:24">2024/01/03</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%94%E8%AE%B0/"
+           data-tag="计网"
+           data-author="" >
+            <span class="post-title" title="计算机网络笔记">计算机网络笔记</span>
+            <span class="post-date" title="2023-12-14 21:58:14">2023/12/14</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/"
+           data-tag="数据库"
+           data-author="" >
+            <span class="post-title" title="数据库笔记">数据库笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86II%E7%AC%94%E8%AE%B0/"
+           data-tag="计算机组成原理"
+           data-author="" >
+            <span class="post-title" title="计算机组成原理II笔记">计算机组成原理II笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 课程 "
+           href="/2023/11/24/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"
+           data-tag="编译原理"
+           data-author="" >
+            <span class="post-title" title="编译原理笔记">编译原理笔记</span>
+            <span class="post-date" title="2023-11-24 15:26:00">2023/11/24</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%BA%8C-%E2%80%94YoloV1V2%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(二)—YoloV1V2原理及源码使用">目标检测算法Yolo(二)—YoloV1V2原理及源码使用</span>
+            <span class="post-date" title="2023-10-30 11:46:34">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 笔记 人工智能 yolo "
+           href="/2023/10/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95Yolo-%E4%B8%80-%E2%80%94%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEPytorch/"
+           data-tag="目标检测"
+           data-author="" >
+            <span class="post-title" title="目标检测算法Yolo(一)—环境配置Pytorch">目标检测算法Yolo(一)—环境配置Pytorch</span>
+            <span class="post-date" title="2023-10-30 11:25:33">2023/10/30</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%B8%80-%E2%80%94QT%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(一)—QT开发数据库学习">会议室预约系统(一)—QT开发数据库学习</span>
+            <span class="post-date" title="2023-10-29 23:16:04">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 程序设计 会议室系统 "
+           href="/2023/10/29/%E4%BC%9A%E8%AE%AE%E5%AE%A4%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F-%E4%BA%8C-%E2%80%94%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"
+           data-tag="qt,sql"
+           data-author="" >
+            <span class="post-title" title="会议室预约系统(二)—代码实现">会议室预约系统(二)—代码实现</span>
+            <span class="post-date" title="2023-10-29 22:53:54">2023/10/29</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/23/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%85%AD-yolo%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(六)-yolo目标检测">K210开发板(六)-yolo目标检测</span>
+            <span class="post-date" title="2023-09-23 16:28:11">2023/09/23</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/19/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%94-%E2%80%94%E6%8B%8D%E6%91%84%E5%92%8CKEYPAD%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(五)—拍摄和KEYPAD照片查看">K210开发板(五)—拍摄和KEYPAD照片查看</span>
+            <span class="post-date" title="2023-09-19 00:16:58">2023/09/19</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/17/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E5%9B%9B-%E2%80%94%E6%8C%89%E9%94%AE%E7%8B%AC%E7%AB%8B%E4%B8%AD%E6%96%AD/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(四)—按键独立中断">K210开发板(四)—按键独立中断</span>
+            <span class="post-date" title="2023-09-17 18:20:11">2023/09/17</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%89-%E2%80%94%E6%89%AC%E5%A3%B0%E5%99%A8%E6%92%AD%E6%94%BE/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(三)—扬声器播放">K210开发板(三)—扬声器播放</span>
+            <span class="post-date" title="2023-09-16 22:59:34">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/16/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%BA%8C-%E2%80%94%E7%82%B9%E4%BA%AELED%E7%81%AF/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(二)—点亮LED灯">K210开发板(二)—点亮LED灯</span>
+            <span class="post-date" title="2023-09-16 13:40:42">2023/09/16</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E4%B8%80-%E2%80%94%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(一)—搭建开发环境">K210开发板(一)—搭建开发环境</span>
+            <span class="post-date" title="2023-09-15 21:53:59">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 项目 嵌入式 K210 "
+           href="/2023/09/15/K210%E5%BC%80%E5%8F%91%E6%9D%BF-%E9%9B%B6/"
+           data-tag="K210"
+           data-author="" >
+            <span class="post-title" title="K210开发板(零)">K210开发板(零)</span>
+            <span class="post-date" title="2023-09-15 18:44:02">2023/09/15</span>
+        </a>
+        
+        
+        <a  class="All 日记 "
+           href="/2023/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"
+           data-tag="日记"
+           data-author="" >
+            <span class="post-title" title="我的第一篇博客">我的第一篇博客</span>
+            <span class="post-date" title="2023-09-15 15:44:02">2023/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-数据库笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">数据库笔记</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="笔记">笔记</a> > 
+            
+            <a  data-rel="笔记&lt;---&gt;课程">课程</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">数据库</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2024-01-13 14:28:01'>2023-11-24 15:26</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:5.2k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">一、概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="toc-text">二、关系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1. 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">2. 关系代数基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E9%80%89%E6%8B%A9"><span class="toc-text">2.1 选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%8A%95%E5%BD%B1"><span class="toc-text">2.2 投影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E5%B9%B6"><span class="toc-text">2.3 并</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E9%9B%86%E5%90%88%E5%B7%AE"><span class="toc-text">2.4 集合差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF"><span class="toc-text">2.5 笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">2.6 重命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-%E4%BA%A4"><span class="toc-text">2.7 交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="toc-text">2.8 自然连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-9-%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="toc-text">2.9 外连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-10-%E9%99%A4%E6%B3%95"><span class="toc-text">2.10 除法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SQL"><span class="toc-text">三、SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BA%8B%E7%89%A9%E5%92%8C%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">四、事物和并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%8B%E7%89%A9"><span class="toc-text">1. 事物</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">2. 并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E9%94%81"><span class="toc-text">2.1 锁</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-text">五、数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-E-R%E5%9B%BE%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">1. E-R图设计数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E6%A6%82%E5%BF%B5%E8%AE%BE%E8%AE%A1"><span class="toc-text">1.1 概念设计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-1-E-R%E5%9B%BE%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1.1 E-R图概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93"><span class="toc-text">实体</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-text">属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%81%94%E7%B3%BB"><span class="toc-text">联系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-2-E-R%E5%9B%BE%E7%BB%98%E5%88%B6"><span class="toc-text">1.1.2 E-R图绘制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-3-E-R%E5%9B%BE%E5%8E%9F%E5%88%99"><span class="toc-text">1.1.3 E-R图原则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1"><span class="toc-text">1.2 逻辑设计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-1-%E5%AE%9E%E4%BD%93"><span class="toc-text">1.2.1 实体</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-%E5%B1%9E%E6%80%A7"><span class="toc-text">1.2.2 属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-3-%E8%81%94%E7%B3%BB"><span class="toc-text">1.2.3 联系</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2. 规范化设计数据库</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-4 i,
+    .toc-level-4 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>数据库：相关数据的集合</p>
+<p>数据库管理系统：为用户提供访问数据库的方法<br>功能：</p>
+<ol>
+<li>数据定义：利用DDL方便的对数据对象定义</li>
+<li>数据操作：利用DML实现对数据库的基本操作，如增删改查</li>
+<li>数据库运行管理：利用DBMS统一管理，确保数据的安全性、完整性、并发问题以及故障修复</li>
+<li>数据库建立和维护：初始数据的录入、转换功能、恢复功能、分析功能等</li>
+</ol>
+<p>模式（逻辑模式）：数据库中全体数据的逻辑结构和特征的描述<br>外模式：数据库用户使用的局部数据的逻辑结构和特征描述<br>内模式：数据物理结构和存储方式的描述</p>
+<p>数据库系统：包括数据、硬件、软件和用户</p>
+<p>数据：完整性（不包含任何冗余信息）、可共享</p>
+<p>硬件：主存和辅存</p>
+<p>软件：操作系统、数据库管理系统（mysql等）、其他软件</p>
+<p>用户：终端用户（使用者）、应用程序员、数据库管理员</p>
+<h2 id="二、关系模型"><a href="#二、关系模型" class="headerlink" title="二、关系模型"></a>二、关系模型</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><p>关系：数据结构<br>关系表：存储关系的表，逻辑结构，是一个二维表<br>元组：关系表中的一行<br>属性：关系表中的列（标题）<br>属性值：属性对应列中的值<br>域：属性值的取值范围<br>超码：部分属性的集合，根据这些属性，可以区分任意两个元组<br>候选码：最小的超码（包含的属性个数最少）<br>主码：从候选码中选出的一个码<br>外码：当一个表的某一个属性，引用到另外一个表的主码<br>实体完整性：主码不能为空<br>参照完整性：当表中存在外码，其所有属性值，必须匹配到对应主码的值<br>关系模式（Relation Schema）是对关系的描述,它可以形式化地表示为：R（U，D，dom，F）。</p>
+<p>其中R为关系名，U为组成该关系的属性名集合，D为属性组U中属性所来自的域，dom为属性向域的映象集合，F为属性间数据的依赖关系集合。</p>
+<p>通常简记为：R(U)或R(A1，A2，…,An)其中R为关系名，U为属性名集合，A1，A2，…,An为各属性名。</p>
+<h3 id="2-关系代数基本操作"><a href="#2-关系代数基本操作" class="headerlink" title="2. 关系代数基本操作"></a>2. 关系代数基本操作</h3><h4 id="2-1-选择"><a href="#2-1-选择" class="headerlink" title="2.1 选择"></a>2.1 选择</h4><p>σ expression(table)<br>expression 是命题演算，可以包含与或非、大于小于等于…<br>作用是筛选出table中满足expression的元组</p>
+<h4 id="2-2-投影"><a href="#2-2-投影" class="headerlink" title="2.2 投影"></a>2.2 投影</h4><p>π attribute(table)<br>attribute是一些属性的集合<br>作用是筛选出table中属性属于attribute的列组成一个新的表（并删除重复元组）</p>
+<h4 id="2-3-并"><a href="#2-3-并" class="headerlink" title="2.3 并"></a>2.3 并</h4><p>r∪s<br>将r中元组和s中元组组成一个新的表（并删除重复元组），要求r和s列数相同，且域兼容</p>
+<h4 id="2-4-集合差"><a href="#2-4-集合差" class="headerlink" title="2.4 集合差"></a>2.4 集合差</h4><p>r-s<br>将r中元组中存在s中的部分删除，要求r和s列数相同，且域兼容</p>
+<h4 id="2-5-笛卡尔积"><a href="#2-5-笛卡尔积" class="headerlink" title="2.5 笛卡尔积"></a>2.5 笛卡尔积</h4><p>r×s<br>将r中的每一个元组和s中的每一个元组进行拼接，将所得的所有元组组成新的表</p>
+<h4 id="2-6-重命名"><a href="#2-6-重命名" class="headerlink" title="2.6 重命名"></a>2.6 重命名</h4><p>ρ name(n1,n2,…)(E)<br>将表E的名称重命名为name，并将其属性重命名为n1,n2…<br>(n1,n2,…)可以不写，即不重命名属性</p>
+<h4 id="2-7-交"><a href="#2-7-交" class="headerlink" title="2.7 交"></a>2.7 交</h4><p>r∩s<br>将r中元组和s中元组中共有的元组组成一个新的表，要求r和s列数相同，且域兼容</p>
+<h4 id="2-8-自然连接"><a href="#2-8-自然连接" class="headerlink" title="2.8 自然连接"></a>2.8 自然连接</h4><p>r⋈s<br>比较r和s中共有的属性，对于s中的每个元组，如果r中某一个元组和s中的这个元组在这些共有属性上的值相同，那么将s中的这个元组的其他值，拼接在r中这个元组后，得到一个新的元组。将所有这些新元组组合起来得到一个新表</p>
+<h4 id="2-9-外连接"><a href="#2-9-外连接" class="headerlink" title="2.9 外连接"></a>2.9 外连接</h4><p>r⋈s<br>将自然连接中没有成功匹配的元组加入到新表，并给新表中没有的值用NULL代替<br>左外连接：只保留r中没有匹配的元组<br>右外连接：只保留s中没有匹配的元组</p>
+<h4 id="2-10-除法"><a href="#2-10-除法" class="headerlink" title="2.10 除法"></a>2.10 除法</h4><p>r÷s<br>其中：<br>r&#x3D;(A1…Am,B1…Bn)<br>s&#x3D;(B1…Bn)<br>查找r中所有元组，对于s中每一个元组(bi1…bin)，r中都存在(ai1…aim,bi1…bin)这样一个元组，那么将(ai1…aim)加入到新表中</p>
+<h2 id="三、SQL"><a href="#三、SQL" class="headerlink" title="三、SQL"></a>三、SQL</h2><p>创建表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_name(</span><br><span class="line">	data_name1 data_type1 <span class="keyword">not</span> <span class="keyword">null</span>, <span class="operator">/</span><span class="operator">/</span>非空约束</span><br><span class="line">	...</span><br><span class="line">	data_namen data_typen <span class="keyword">default</span> <span class="keyword">value</span> <span class="operator">/</span><span class="operator">/</span>默认值</span><br><span class="line">	<span class="keyword">primary</span> key (data_name),	<span class="operator">/</span><span class="operator">/</span>主键约束</span><br><span class="line">	<span class="keyword">foreign</span> key (data_name), <span class="operator">/</span><span class="operator">/</span>外键约束</span><br><span class="line">				<span class="keyword">references</span> table_name(data_name),</span><br><span class="line">	<span class="keyword">constraint</span> con_name <span class="keyword">check</span>(data_name<span class="operator">&gt;</span><span class="number">0</span>)	<span class="operator">/</span><span class="operator">/</span>约束</span><br><span class="line">	</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>撤销表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
+<p>修改表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">add</span> data_name data_type; <span class="operator">/</span><span class="operator">/</span>添加字段</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">drop</span> data_name; <span class="operator">/</span><span class="operator">/</span>删除字段</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">alter</span> data_name data_type <span class="operator">/</span><span class="operator">/</span>修改字段（类型）</span><br></pre></td></tr></table></figure>
+
+<p>查询操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>基本语句</span><br><span class="line"><span class="keyword">select</span> A1,A2,...,An</span><br><span class="line"><span class="keyword">from</span> r1,r2,...,rm</span><br><span class="line"><span class="keyword">where</span> p;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>对应关系表达式:</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>π A1,A2...,An(σ p(r1×r2×...×rn))</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">distinct</span> 和 <span class="keyword">all</span> 关键字</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> A <span class="operator">/</span><span class="operator">/</span>没有重复项</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">all</span> A <span class="operator">/</span><span class="operator">/</span>所有都保留</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> <span class="operator">*</span> 关键字</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="operator">/</span><span class="operator">/</span>查询所有属性</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> <span class="keyword">as</span> 关键字</span><br><span class="line"><span class="keyword">select</span> A <span class="keyword">as</span> B <span class="operator">/</span><span class="operator">/</span>将A重命名B</span><br><span class="line"><span class="keyword">from</span> r <span class="keyword">as</span> s</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">like</span> 关键字</span><br><span class="line"><span class="keyword">select</span> A</span><br><span class="line"><span class="keyword">from</span> r</span><br><span class="line"><span class="keyword">where</span> m <span class="keyword">like</span> <span class="string">&#x27;%Main\%%&#x27;</span> <span class="keyword">escape</span> <span class="string">&#x27;\&#x27;</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> <span class="operator">%</span>：匹配任意字符串</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> _：匹配任意字符</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> \：转义</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>上述语句的含义为：查找所有m中包含main<span class="operator">%</span>的数据</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>表达式</span><br><span class="line"><span class="keyword">select</span> A<span class="operator">*</span><span class="number">100</span> <span class="operator">/</span><span class="operator">/</span>查询后所有值<span class="operator">*</span><span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">order</span> <span class="keyword">by</span> 排序</span><br><span class="line"><span class="keyword">select</span> A1,A2,...,An</span><br><span class="line"><span class="keyword">from</span> r1,r2,...,rm</span><br><span class="line"><span class="keyword">where</span> p;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> ri <span class="keyword">DESC</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>按照ri降序排列，<span class="keyword">ASC</span>为升序，默认降序 </span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>集函数</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(A) <span class="operator">/</span><span class="operator">/</span>求平均</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(A) <span class="operator">/</span><span class="operator">/</span>求最小</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">max</span>(A) <span class="operator">/</span><span class="operator">/</span>求最大</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(A) <span class="operator">/</span><span class="operator">/</span>求和</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(A) <span class="operator">/</span><span class="operator">/</span>计数，有多少值</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>集函数只能用于<span class="keyword">select</span> 不能嵌套</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">group</span> <span class="keyword">by</span> 分组</span><br><span class="line"><span class="keyword">select</span> A1,<span class="built_in">count</span>(<span class="keyword">distinct</span> A2)</span><br><span class="line"><span class="keyword">from</span> r</span><br><span class="line"><span class="keyword">where</span> p</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> A1;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>按照A1分组后再进行计数，可得到每个分组的A2值数量，count可改为其它集函数</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">having</span></span><br><span class="line"><span class="keyword">select</span> A1,<span class="built_in">count</span>(<span class="keyword">distinct</span> A2)</span><br><span class="line"><span class="keyword">from</span> r</span><br><span class="line"><span class="keyword">where</span> p</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> A1</span><br><span class="line">	<span class="keyword">having</span> <span class="built_in">count</span>(A2)<span class="operator">&gt;</span><span class="number">10</span></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>再筛选出技术大于<span class="number">10</span>的分组</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">select</span> 嵌套</span><br><span class="line"><span class="keyword">select</span> A</span><br><span class="line"><span class="keyword">from</span> r</span><br><span class="line"><span class="keyword">where</span> A <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> A <span class="keyword">from</span> s);</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>集合比较</span><br><span class="line"><span class="keyword">where</span> A<span class="operator">&gt;</span><span class="keyword">some</span>(<span class="keyword">select</span> A <span class="keyword">from</span> s) <span class="operator">/</span><span class="operator">/</span>大于某个</span><br><span class="line"><span class="keyword">where</span> A<span class="operator">&gt;</span><span class="keyword">any</span>(<span class="keyword">select</span> A <span class="keyword">from</span> s) <span class="operator">/</span><span class="operator">/</span>同<span class="keyword">some</span></span><br><span class="line"><span class="keyword">where</span> A<span class="operator">&gt;</span><span class="keyword">all</span>(<span class="keyword">select</span> A <span class="keyword">from</span> s) <span class="operator">/</span><span class="operator">/</span>大于所有</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="keyword">exists</span>和<span class="keyword">unique</span></span><br><span class="line"><span class="keyword">where</span> <span class="keyword">exists</span>(A) <span class="operator">/</span><span class="operator">/</span>如果A存在，返回<span class="literal">true</span></span><br><span class="line"><span class="keyword">where</span> <span class="keyword">unique</span>(A) <span class="operator">/</span><span class="operator">/</span>如果A没有重复元组，返回<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>select语句解析顺序：</p>
+<ol>
+<li>from</li>
+<li>where</li>
+<li>group by &#x2F;having</li>
+<li>select</li>
+<li>order by</li>
+</ol>
+<p>关系表操作：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">r <span class="keyword">union</span> s; <span class="operator">/</span><span class="operator">/</span>交</span><br><span class="line">r <span class="keyword">intersect</span> s; <span class="operator">/</span><span class="operator">/</span>并</span><br><span class="line">r <span class="keyword">except</span> s; <span class="operator">/</span><span class="operator">/</span>差</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>逻辑运算</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>逻辑值</span><br><span class="line"><span class="literal">true</span> <span class="literal">false</span> <span class="literal">unknown</span></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>除了 <span class="literal">unknown</span> <span class="keyword">or</span> <span class="literal">true</span><span class="operator">=</span><span class="literal">true</span>，</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span><span class="literal">unknown</span> <span class="keyword">and</span> <span class="literal">false</span><span class="operator">=</span><span class="literal">false</span>,</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>其余<span class="literal">unknown</span>参与的逻辑运算都是<span class="literal">unknown</span></span><br><span class="line">r <span class="keyword">and</span> s; <span class="operator">/</span><span class="operator">/</span>与</span><br><span class="line">r <span class="keyword">or</span> s; <span class="operator">/</span><span class="operator">/</span>或</span><br><span class="line"><span class="keyword">not</span> <span class="operator">/</span><span class="operator">/</span>非</span><br></pre></td></tr></table></figure>
+<p>插入语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name</span><br><span class="line"><span class="keyword">values</span>(v1,v2,...,vn);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>或者</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name(A1,A2,...,An)</span><br><span class="line"><span class="keyword">values</span>(v1,v2,...vn);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>或者</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name expression</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>expression是可以得到一个表的一些语句，如<span class="keyword">select</span></span><br></pre></td></tr></table></figure>
+
+<p>更新语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> table_name</span><br><span class="line"><span class="keyword">set</span> A1<span class="operator">=</span>A1<span class="operator">*</span><span class="number">100</span>,A2<span class="operator">=</span>A2<span class="operator">+</span><span class="number">1</span></span><br><span class="line"><span class="keyword">where</span> <span class="keyword">condition</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>或者</span><br><span class="line"><span class="keyword">update</span> table_name</span><br><span class="line"><span class="keyword">set</span> A1<span class="operator">=</span></span><br><span class="line">	<span class="keyword">case</span></span><br><span class="line">	<span class="keyword">when</span> A1<span class="operator">&lt;</span><span class="number">100</span> <span class="keyword">then</span> A1<span class="operator">+</span><span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span> A1<span class="number">-1</span></span><br><span class="line">	<span class="keyword">end</span>; </span><br></pre></td></tr></table></figure>
+<p>删除语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">condition</span></span><br></pre></td></tr></table></figure>
+
+<p>视图：<br>视图是一个虚拟表，其内容由查询定义。同真实的表一样，视图包含一系列带有名称的列和行数据。但是，<strong>数据库中只存放了视图的定义</strong>，而并没有存放视图中的数据，这些数据存放在原来的表中。使用视图查询数据时，数据库系统会从原来的表中取出对应的数据。因此，视图中的数据是依赖于原来的表中的数据的。一旦表中的数据发生改变，显示在视图中的数据也会发生改变。同样对视图的更新，会影响到原来表的数据。视图可以用于简化查询，不用每次输入复杂的查询语句。视图是从不同的角度看待数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_name(A1,...An) <span class="keyword">as</span>(expression)</span><br><span class="line"><span class="keyword">with</span> <span class="keyword">check</span> option;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>expression是可以得到一个表的一些语句，如<span class="keyword">select</span>，并交</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>带有<span class="keyword">with</span> <span class="keyword">check</span> option 在插入数据时会检查expression中的限制语句(<span class="keyword">where</span>)，如果不符合则拒绝插入</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>授权：<br>授权类型（基于数据库）：<br>查询<br>插入<br>修改<br>删除<br>授权类型（基于表）：<br>索引：允许添加删除索引<br>资源：允许创建新的表<br>更改：修改已存在的表结构<br>删除：删除表</p>
+<p>赋予权限<br><code>grant &lt;privilegde&gt; on &lt;tablel_name or view_mame&gt; to &lt;user_list&gt;</code><br>收回权限<br><code>revoke &lt;privilegde&gt; on &lt;tablel_name or view_mame&gt; from &lt;user_list or all&gt;</code></p>
+<p>创建角色<br><code>create role &lt;name&gt;</code><br>继承<br><code>grant &lt;role_name&gt; to &lt;role_name or user_name&gt;</code></p>
+<p>函数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> fun_name(parameter_list)</span><br><span class="line">	<span class="keyword">returns</span> <span class="type">integer</span> <span class="operator">/</span><span class="operator">/</span>返回数据类型</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">declare</span> var <span class="type">integer</span> <span class="operator">/</span><span class="operator">/</span>声明变量</span><br><span class="line">		<span class="operator">/</span><span class="operator">/</span>此处一般写一些<span class="keyword">sql</span>语句</span><br><span class="line">	<span class="keyword">return</span> var</span><br><span class="line">	<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span></span><br><span class="line">pro_name(parameter_list)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"> <span class="operator">/</span><span class="operator">/</span>执行代码</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>触发器：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> tri_name</span><br><span class="line">	<span class="operator">&lt;</span>before <span class="keyword">or</span> after<span class="operator">&gt;</span> </span><br><span class="line">	<span class="operator">&lt;</span><span class="keyword">insert</span> <span class="keyword">or</span> <span class="keyword">delete</span> <span class="keyword">or</span> <span class="keyword">update</span></span><br><span class="line">	<span class="keyword">on</span> table_name</span><br><span class="line">	<span class="keyword">for</span> <span class="keyword">each</span> <span class="type">row</span></span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		trigger_action</span><br><span class="line">		<span class="operator">/</span><span class="operator">/</span>新的数据为<span class="keyword">new</span>，旧的数据为<span class="keyword">old</span>，</span><br><span class="line">		<span class="operator">/</span><span class="operator">/</span>可以通过new.,old.来访问</span><br><span class="line">	<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>理解：过程和函数的区别，函数用于返回特定的数据，而过程用于执行特定的任务，如插入删除</p>
+<h2 id="四、事物和并发控制"><a href="#四、事物和并发控制" class="headerlink" title="四、事物和并发控制"></a>四、事物和并发控制</h2><h3 id="1-事物"><a href="#1-事物" class="headerlink" title="1. 事物"></a>1. 事物</h3><p>数据库事务（Database Transaction）是指对数据库的一系列操作组成的逻辑工作单元。</p>
+<p>并非任意的数据库操作序列都是数据库事务。数据库管理系统（DBMS）在写入或更新资料的过程中，为保证交易（Transaction）正确可靠，必须具备四个特性，这四个特性通常称为 ACID 特性。</p>
+<p>原子性（Atomicity）<br>事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行。</p>
+<p>一致性（Consistency）<br>一致性确保事务将数据库从一种一致的状态转换为另一种一致的状态。换句话说，事务在执行前后，数据库必须满足一些预定义的一致性规则，如约束、触发器、级联等。如果事务执行后数据库不满足这些规则，整个事务将被回滚。<br>（不一致性一定是存在的，但数据库需要保证不一致状态只能在事物执行当中存在）</p>
+<p>隔离性（Isolation）<br>多个事务并发执行时，一个事务的执行不应影响其他事务的执行。</p>
+<p>持久性（Durability）<br>已被提交的事务对数据库的修改应该永久保存在数据库中。</p>
+<p>状态：</p>
+<ol>
+<li>活动：开始执行就处于的状态</li>
+<li>部分提交：所有指令执行完的状态</li>
+<li>失败：指令不能正常执行时的状态</li>
+<li>终止：回滚恢复到事物的初始状态</li>
+<li>事务提交：事物执行完之后的状态</li>
+<li>终结：包含终止状态和事务提交状态</li>
+</ol>
+<p>状态跳转关系图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   部分提交 → 事务提交</span><br><span class="line">↑    |</span><br><span class="line">活动  |</span><br><span class="line">↓    ↓</span><br><span class="line">   失败    →  终止	</span><br></pre></td></tr></table></figure>
+<h3 id="2-并发控制"><a href="#2-并发控制" class="headerlink" title="2. 并发控制"></a>2. 并发控制</h3><p>目标是解决并发冲突，使并发执行过程等价于某个串行执行过程</p>
+<h4 id="2-1-锁"><a href="#2-1-锁" class="headerlink" title="2.1 锁"></a>2.1 锁</h4><p>排他锁（X锁）：拿到排他锁，能够对事物进行读写操作，其它事物不能进行任何操作。X锁和任何锁互斥<br>共享锁（S锁）：拿到共享锁，可以对事物进行读操作，其他事物只能读不能写。S锁和S锁可以共存</p>
+<p>申请锁，如果该锁和其它事物保持的锁相容，才能获得锁，否则就等待，直到互斥的锁被释放</p>
+<p>存在问题：<br>死锁：互相等待对方释放锁<br>饿死：一直等待</p>
+<p>解决方法：<br>锁协议：<br>两阶锁协议：</p>
+<ol>
+<li>增长阶段：允许事物申请锁，不允许释放。在对任何数据进行读写前，要申请锁</li>
+<li>消减阶段：允许事物释放锁，不允许申请。在事物执行完后才允许释放锁，且不允许再申请锁</li>
+</ol>
+<p>两阶段协议会出现死锁</p>
+<h2 id="五、数据库设计"><a href="#五、数据库设计" class="headerlink" title="五、数据库设计"></a>五、数据库设计</h2><h3 id="1-E-R图设计数据库"><a href="#1-E-R图设计数据库" class="headerlink" title="1. E-R图设计数据库"></a>1. E-R图设计数据库</h3><h4 id="1-1-概念设计"><a href="#1-1-概念设计" class="headerlink" title="1.1 概念设计"></a>1.1 概念设计</h4><p>将需求分析得到的用户需求抽象为信息结构（即概念模型）的过程就是概念结构设计。<br>以下介绍使用E-R图设计概念模型</p>
+<h5 id="1-1-1-E-R图概念"><a href="#1-1-1-E-R图概念" class="headerlink" title="1.1.1 E-R图概念"></a>1.1.1 E-R图概念</h5><p>E-R图包括：实体、属性、联系</p>
+<h5 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h5><p>实体是某个特定的对象，其属性区别于其它实体。如学生、教室，也可以是事件如教学</p>
+<p>弱实体：依赖于另一个实体的实体，没有另一个实体，就没有该实体</p>
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><p>属性是依附于实体的特征。如姓名、电话</p>
+<p>属性分类：</p>
+<ol>
+<li>单一属性和组合属性：组合属性，由其它属性组合而来，如姓+名组合出姓名</li>
+<li>单值属性和多值属性：多值属性，一个实体可以有多个该属性的值，如一个人可以有多个电话</li>
+<li>派生属性：可以由其它属性计算而来</li>
+</ol>
+<h5 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h5><p>联系可以用于表示以下内容：</p>
+<ol>
+<li>隶属：如员工隶属于部门</li>
+<li>事件：由多个实体参与的事件。如教师、学生、课程构成事件上课</li>
+</ol>
+<p>联系分类：<br>3. 一对一联系：A实体集中一个实体最多与B实体集中一个实体产生联系；B实体集中一个实体最多与A实体集中一个实体产生联系<br>4. 一对多联系：A实体集中一个实体可以与B实体集中多个实体产生联系；B实体集中一个实体最多与A实体集中一个实体产生联系<br>5. 多对多联系：A实体集中一个实体可以与B实体集中多个实体产生联系；B实体集中一个实体可以与A实体集中多个实体产生联系</p>
+<h5 id="1-1-2-E-R图绘制"><a href="#1-1-2-E-R图绘制" class="headerlink" title="1.1.2 E-R图绘制"></a>1.1.2 E-R图绘制</h5><p>实体：用矩形表示<br>弱实体：用同心矩形表示</p>
+<p>属性：用椭圆表示<br>多值属性：用同心椭圆表示<br>派生属性：用虚线椭圆表示</p>
+<p>联系：用菱形表示<br>单一联系：连线上标注1<br>多联系：连线上标注 * </p>
+<h5 id="1-1-3-E-R图原则"><a href="#1-1-3-E-R图原则" class="headerlink" title="1.1.3 E-R图原则"></a>1.1.3 E-R图原则</h5><ol>
+<li>属性没法产生联系，要想产生联系，需要将属性变为实体</li>
+<li>某实体的属性不能是别的实体的属性，解决方法：1. 引入弱实体 2.将实体改为联系</li>
+<li>联系也可以参与联系</li>
+</ol>
+<h4 id="1-2-逻辑设计"><a href="#1-2-逻辑设计" class="headerlink" title="1.2 逻辑设计"></a>1.2 逻辑设计</h4><p>逻辑设计将E-R图转换为多个关系模式，每一个实体、联系就是一个模式，它们的属性、联系构成了模式的内容</p>
+<h5 id="1-2-1-实体"><a href="#1-2-1-实体" class="headerlink" title="1.2.1 实体"></a>1.2.1 实体</h5><p>实体：代表一个关系模式<br>弱实体：其主码和其依赖的实体的主码构成它的主码，其另外的属性为其自身的属性</p>
+<h5 id="1-2-2-属性"><a href="#1-2-2-属性" class="headerlink" title="1.2.2 属性"></a>1.2.2 属性</h5><p>属性：构成模式的属性集合<br>组合属性：被其组合项替代作为模式的属性<br>多值属性：独立构成一个关系模式，其所属的实体的主码作为其外码，其另外的属性为其自身代表的属性<br>派生属性：不在关系中体现</p>
+<h5 id="1-2-3-联系"><a href="#1-2-3-联系" class="headerlink" title="1.2.3 联系"></a>1.2.3 联系</h5><p>多对多联系：该联系单独成关系表，把构成联系的实体的主码作为该联系的外码，其另外的属性为其自身的属性</p>
+<p>一对多联系和多对一联系：将一的那一方的主码作为多的那一方的外码</p>
+<p>一对一联系：可以采用一对多、多对一和多对多模式</p>
+<h3 id="2-规范化设计数据库"><a href="#2-规范化设计数据库" class="headerlink" title="2. 规范化设计数据库"></a>2. 规范化设计数据库</h3><p>数据冗余：一个实体或联系不能只用一行来表达<br>修改异常：实体发生一次改变，数据库要修改多行<br>删除异常：删除某些行时，被迫把其它信息删除了。如表（老师，课程），有数据（A，俄语），A辞职了，删除该数据，数据库中俄语这门课程的信息也没有了<br>插入异常：想要插入一个信息，但是被迫的插入了一些没有的信息。如表（老师，课程），想添加俄语课程，但是还没有老师教学，老师对应的值就是空值</p>
+<p>函数依赖：在关系模式r上，对于任意元组t1、t2，如果在a属性上有t1(a)&#x3D;t2(a)可得在b属性上t1(b)&#x3D;t2(b)，那么函数依赖a决定b在r上成立</p>
+<p>阿姆斯特朗公理：</p>
+<ol>
+<li>包含规则：若y属于x，那么函数依赖x决定y</li>
+<li>传递规则：若x决定y，y决定z，那么x决定z</li>
+<li>增广规则：若x决定y，那么xz决定yz</li>
+<li>合并规则（推论）：若x决定y，x决定z，那么x决定yz</li>
+<li>分解规则（推论）：若x决定yz，x决定y，那么x决定z</li>
+</ol>
+<p>函数依赖集的闭包：<br>由已知的函数依赖集可以推出的所有函数依赖<br>困难</p>
+<p>属性集的闭包：<br>由该属性集中的属性根据某个函数依赖集能决定的所有属性<br>初始令属性集&#x3D;原属性集，遍历属性集的每个属性，查询函数依赖集，利用阿姆斯特朗公理，若能决定某个属性，加入属性集。不断循环，直到属性集没有新属性加入</p>
+<p>判断函数依赖集是否可以推出x决定y成立，只需要判断，x在该函数依赖集上的属性集的闭包是否包含y，如果包含则成立，否则不成立</p>
+<p>函数依赖集的覆盖：<br>函数依赖集F可以推出G，那么F覆盖G（F的闭包包含G）</p>
+<p>函数依赖集等价：<br>F和G相互覆盖，则F和G等价</p>
+<p>函数依赖集冗余：<br>函数依赖集的某些依赖可以被其它依赖集覆盖，或依赖的左右部分有多余<br>例：<br>一般冗余：{A-&gt;B,B-&gt;C,A-&gt;C}，A-&gt;C多余<br>右手冗余：{A-&gt;B,B-&gt;C,A-&gt;CD}改为{A-&gt;B,B-&gt;C,A-&gt;D}<br>左手冗余：{A-&gt;B,B-&gt;C,AC-&gt;D}改为{A-&gt;B,B-&gt;C,A-&gt;D}</p>
+<p>最小覆盖：函数依赖集的最小等价覆盖，没有多余的依赖、多余的左右部分</p>
+<p>步骤：<br>除去右手冗余：将某个依赖分解为多个依赖，并除去重复依赖<br>除去左手冗余：对于α-&gt;B，若用α-A-&gt;B替换，新的函数依赖集和原来的函数依赖集等价，那么可以做该替换<br>除去一般冗余：对于A-&gt;B，若将其从函数依赖集删除，新的函数依赖集和原来的函数依赖集等价，那么可以做该删除</p>
+<p>函数依赖集的正则覆盖：<br>函数依赖集F的正则覆盖是这样一个函数依赖集G，F和G等价，且G中没有相同的左部</p>
+<p>构造方法：<br>计算函数依赖集的最小等价覆盖，然后将其中左部相同的依赖合并</p>
+<p><img src="/imgs/1704202108713.jpg" alt="图片"></p>
+<p>候选码：<br>候选码是这样一个属性集合，它是<strong>最小</strong>的能够决定r上的所有属性的集合</p>
+<p>主属性：<br>候选码中的属性</p>
+<p>构造方法：</p>
+<ol>
+<li>将只出现在函数依赖中左边的属性，和未出现在函数依赖中的属性合并到一起加入候选码集合G</li>
+<li>遍历剩余属性Y，取出单个属性Yi，计算GYi的闭包，如果等于全属性集合，则将记录Yi，并从Y中去除，如果不等于继续。</li>
+<li>遍历剩余属性Y，取出两个属性Yii，计算GYii的闭包，如果等于全属性集合，记录Yii，并从Y中去除，如果不等于继续。</li>
+<li>…</li>
+<li>取出Y中所有属性，计算(Y+G)的闭包，如果等于全属性集合，则记录GY，如果不等于结束。</li>
+<li>将所有记录的属性加入到G</li>
+</ol>
+<p>范式：<br>一范式：<br>属性都为原子性的关系集合都在一范式中</p>
+<p>原子性：</p>
+<ol>
+<li>没有组合属性</li>
+<li>每个属性作为整体处理，而不是从中提取子串</li>
+<li>一个元组中属性值只能取一个值</li>
+</ol>
+<p>二范式：<br>没有非主属性依赖于候选码（非主属性不依赖于候选码的部分，如AB-&gt;C，C不会单独依赖于A，不会单独依赖于B）</p>
+<p>三范式：<br>没有非主属性对码的传递依赖（如非主属性C，D，若存在C-&gt;D则就是存在传递依赖）</p>
+<p>BC范式：<br>函数依赖集中，所有左部都是超码（候选码连接其它属性）</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 21009200039@stu.xidian.edu.cn </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">💰</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2017 弦上的箭
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>Help us with donation</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=230 height=75 src="//music.163.com/outchain/player?type=2&id=2059532170&auto=0&height=66"></iframe>
+</div>
+
+<script>
+    var $DOC = $(document)
+    $('#musicMouseDrag').on('mousedown', function (e) {
+      // 阻止文本选中
+      $DOC.bind("selectstart", function () {
+        return false;
+      });
+      $('#musicDragArea').css('height', '100%');
+      var $moveTarget = $('#musicMouseDrag');
+      $moveTarget.css('border', '1px dashed grey')
+      var div_x = e.pageX - $moveTarget.offset().left;
+      var div_y = e.pageY - $moveTarget.offset().top;
+      $DOC.on('mousemove', function (e) {
+        var targetX = e.pageX - div_x;
+        var targetY = e.pageY - div_y;
+        targetX = targetX < 0 ? 0 : (targetX + $moveTarget.outerWidth() >= window.innerWidth) ? window.innerWidth - $moveTarget.outerWidth() : targetX;
+        targetY = targetY < 0 ? 0 : (targetY + $moveTarget.outerHeight() >= window.innerHeight) ? window.innerHeight - $moveTarget.outerHeight() : targetY;
+        $moveTarget.css({'left': targetX + 'px', 'top': targetY + 'px', 'bottom': 'inherit', 'right': 'inherit'})
+      }).on('mouseup', function () {
+        $DOC.unbind("selectstart");
+        $DOC.off('mousemove')
+        $DOC.off('mouseup')
+        $moveTarget.css('border', 'none')
+        $('#musicDragArea').css('height', '10px');
+      })
+    })
+</script>
+</html>
